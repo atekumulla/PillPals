@@ -14,6 +14,9 @@
 		8816C5132B0A7EC000DEFAEE /* PillPalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C5122B0A7EC000DEFAEE /* PillPalsTests.swift */; };
 		8816C51D2B0A7EC000DEFAEE /* PillPalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */; };
 		8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */; };
+		8816C52C2B0A849900DEFAEE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C52B2B0A849900DEFAEE /* HomeView.swift */; };
+		8816C52E2B0A917B00DEFAEE /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C52D2B0A917B00DEFAEE /* MedicationView.swift */; };
+		8816C5302B0A94E000DEFAEE /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C52F2B0A94E000DEFAEE /* Medication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PillPalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITests.swift; sourceTree = "<group>"; };
 		8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8816C52B2B0A849900DEFAEE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		8816C52D2B0A917B00DEFAEE /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
+		8816C52F2B0A94E000DEFAEE /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,9 @@
 			children = (
 				8816C5012B0A7EBD00DEFAEE /* PillPalsApp.swift */,
 				8816C5032B0A7EBD00DEFAEE /* ContentView.swift */,
+				8816C52B2B0A849900DEFAEE /* HomeView.swift */,
+				8816C52F2B0A94E000DEFAEE /* Medication.swift */,
+				8816C52D2B0A917B00DEFAEE /* MedicationView.swift */,
 				8816C5052B0A7EC000DEFAEE /* Assets.xcassets */,
 				8816C5072B0A7EC000DEFAEE /* Preview Content */,
 			);
@@ -257,8 +266,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8816C5302B0A94E000DEFAEE /* Medication.swift in Sources */,
+				8816C52C2B0A849900DEFAEE /* HomeView.swift in Sources */,
 				8816C5042B0A7EBD00DEFAEE /* ContentView.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
+				8816C52E2B0A917B00DEFAEE /* MedicationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +441,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,6 +470,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
