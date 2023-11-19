@@ -1,0 +1,587 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C5012B0A7EBD00DEFAEE /* PillPalsApp.swift */; };
+		8816C5042B0A7EBD00DEFAEE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C5032B0A7EBD00DEFAEE /* ContentView.swift */; };
+		8816C5062B0A7EC000DEFAEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8816C5052B0A7EC000DEFAEE /* Assets.xcassets */; };
+		8816C5092B0A7EC000DEFAEE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8816C5082B0A7EC000DEFAEE /* Preview Assets.xcassets */; };
+		8816C5132B0A7EC000DEFAEE /* PillPalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C5122B0A7EC000DEFAEE /* PillPalsTests.swift */; };
+		8816C51D2B0A7EC000DEFAEE /* PillPalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */; };
+		8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8816C50F2B0A7EC000DEFAEE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8816C4F62B0A7EBD00DEFAEE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8816C4FD2B0A7EBD00DEFAEE;
+			remoteInfo = PillPals;
+		};
+		8816C5192B0A7EC000DEFAEE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8816C4F62B0A7EBD00DEFAEE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8816C4FD2B0A7EBD00DEFAEE;
+			remoteInfo = PillPals;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8816C4FE2B0A7EBD00DEFAEE /* PillPals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PillPals.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8816C5012B0A7EBD00DEFAEE /* PillPalsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsApp.swift; sourceTree = "<group>"; };
+		8816C5032B0A7EBD00DEFAEE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8816C5052B0A7EC000DEFAEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8816C5082B0A7EC000DEFAEE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8816C50E2B0A7EC000DEFAEE /* PillPalsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PillPalsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8816C5122B0A7EC000DEFAEE /* PillPalsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsTests.swift; sourceTree = "<group>"; };
+		8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PillPalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITests.swift; sourceTree = "<group>"; };
+		8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8816C4FB2B0A7EBD00DEFAEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8816C50B2B0A7EC000DEFAEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8816C5152B0A7EC000DEFAEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8816C4F52B0A7EBD00DEFAEE = {
+			isa = PBXGroup;
+			children = (
+				8816C5002B0A7EBD00DEFAEE /* PillPals */,
+				8816C5112B0A7EC000DEFAEE /* PillPalsTests */,
+				8816C51B2B0A7EC000DEFAEE /* PillPalsUITests */,
+				8816C4FF2B0A7EBD00DEFAEE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8816C4FF2B0A7EBD00DEFAEE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8816C4FE2B0A7EBD00DEFAEE /* PillPals.app */,
+				8816C50E2B0A7EC000DEFAEE /* PillPalsTests.xctest */,
+				8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8816C5002B0A7EBD00DEFAEE /* PillPals */ = {
+			isa = PBXGroup;
+			children = (
+				8816C5012B0A7EBD00DEFAEE /* PillPalsApp.swift */,
+				8816C5032B0A7EBD00DEFAEE /* ContentView.swift */,
+				8816C5052B0A7EC000DEFAEE /* Assets.xcassets */,
+				8816C5072B0A7EC000DEFAEE /* Preview Content */,
+			);
+			path = PillPals;
+			sourceTree = "<group>";
+		};
+		8816C5072B0A7EC000DEFAEE /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8816C5082B0A7EC000DEFAEE /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8816C5112B0A7EC000DEFAEE /* PillPalsTests */ = {
+			isa = PBXGroup;
+			children = (
+				8816C5122B0A7EC000DEFAEE /* PillPalsTests.swift */,
+			);
+			path = PillPalsTests;
+			sourceTree = "<group>";
+		};
+		8816C51B2B0A7EC000DEFAEE /* PillPalsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */,
+				8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */,
+			);
+			path = PillPalsUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8816C4FD2B0A7EBD00DEFAEE /* PillPals */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8816C5222B0A7EC000DEFAEE /* Build configuration list for PBXNativeTarget "PillPals" */;
+			buildPhases = (
+				8816C4FA2B0A7EBD00DEFAEE /* Sources */,
+				8816C4FB2B0A7EBD00DEFAEE /* Frameworks */,
+				8816C4FC2B0A7EBD00DEFAEE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PillPals;
+			productName = PillPals;
+			productReference = 8816C4FE2B0A7EBD00DEFAEE /* PillPals.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8816C50D2B0A7EC000DEFAEE /* PillPalsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8816C5252B0A7EC000DEFAEE /* Build configuration list for PBXNativeTarget "PillPalsTests" */;
+			buildPhases = (
+				8816C50A2B0A7EC000DEFAEE /* Sources */,
+				8816C50B2B0A7EC000DEFAEE /* Frameworks */,
+				8816C50C2B0A7EC000DEFAEE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8816C5102B0A7EC000DEFAEE /* PBXTargetDependency */,
+			);
+			name = PillPalsTests;
+			productName = PillPalsTests;
+			productReference = 8816C50E2B0A7EC000DEFAEE /* PillPalsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8816C5172B0A7EC000DEFAEE /* PillPalsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8816C5282B0A7EC000DEFAEE /* Build configuration list for PBXNativeTarget "PillPalsUITests" */;
+			buildPhases = (
+				8816C5142B0A7EC000DEFAEE /* Sources */,
+				8816C5152B0A7EC000DEFAEE /* Frameworks */,
+				8816C5162B0A7EC000DEFAEE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8816C51A2B0A7EC000DEFAEE /* PBXTargetDependency */,
+			);
+			name = PillPalsUITests;
+			productName = PillPalsUITests;
+			productReference = 8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8816C4F62B0A7EBD00DEFAEE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					8816C4FD2B0A7EBD00DEFAEE = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					8816C50D2B0A7EC000DEFAEE = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 8816C4FD2B0A7EBD00DEFAEE;
+					};
+					8816C5172B0A7EC000DEFAEE = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 8816C4FD2B0A7EBD00DEFAEE;
+					};
+				};
+			};
+			buildConfigurationList = 8816C4F92B0A7EBD00DEFAEE /* Build configuration list for PBXProject "PillPals" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8816C4F52B0A7EBD00DEFAEE;
+			productRefGroup = 8816C4FF2B0A7EBD00DEFAEE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8816C4FD2B0A7EBD00DEFAEE /* PillPals */,
+				8816C50D2B0A7EC000DEFAEE /* PillPalsTests */,
+				8816C5172B0A7EC000DEFAEE /* PillPalsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8816C4FC2B0A7EBD00DEFAEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8816C5092B0A7EC000DEFAEE /* Preview Assets.xcassets in Resources */,
+				8816C5062B0A7EC000DEFAEE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8816C50C2B0A7EC000DEFAEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8816C5162B0A7EC000DEFAEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8816C4FA2B0A7EBD00DEFAEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8816C5042B0A7EBD00DEFAEE /* ContentView.swift in Sources */,
+				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8816C50A2B0A7EC000DEFAEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8816C5132B0A7EC000DEFAEE /* PillPalsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8816C5142B0A7EC000DEFAEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */,
+				8816C51D2B0A7EC000DEFAEE /* PillPalsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8816C5102B0A7EC000DEFAEE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8816C4FD2B0A7EBD00DEFAEE /* PillPals */;
+			targetProxy = 8816C50F2B0A7EC000DEFAEE /* PBXContainerItemProxy */;
+		};
+		8816C51A2B0A7EC000DEFAEE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8816C4FD2B0A7EBD00DEFAEE /* PillPals */;
+			targetProxy = 8816C5192B0A7EC000DEFAEE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8816C5202B0A7EC000DEFAEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8816C5212B0A7EC000DEFAEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8816C5232B0A7EC000DEFAEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PillPals/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.medlaunch.PillPals;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8816C5242B0A7EC000DEFAEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PillPals/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.medlaunch.PillPals;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8816C5262B0A7EC000DEFAEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.medlaunch.PillPalsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PillPals.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PillPals";
+			};
+			name = Debug;
+		};
+		8816C5272B0A7EC000DEFAEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.medlaunch.PillPalsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PillPals.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PillPals";
+			};
+			name = Release;
+		};
+		8816C5292B0A7EC000DEFAEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.medlaunch.PillPalsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PillPals;
+			};
+			name = Debug;
+		};
+		8816C52A2B0A7EC000DEFAEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.medlaunch.PillPalsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PillPals;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8816C4F92B0A7EBD00DEFAEE /* Build configuration list for PBXProject "PillPals" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8816C5202B0A7EC000DEFAEE /* Debug */,
+				8816C5212B0A7EC000DEFAEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8816C5222B0A7EC000DEFAEE /* Build configuration list for PBXNativeTarget "PillPals" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8816C5232B0A7EC000DEFAEE /* Debug */,
+				8816C5242B0A7EC000DEFAEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8816C5252B0A7EC000DEFAEE /* Build configuration list for PBXNativeTarget "PillPalsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8816C5262B0A7EC000DEFAEE /* Debug */,
+				8816C5272B0A7EC000DEFAEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8816C5282B0A7EC000DEFAEE /* Build configuration list for PBXNativeTarget "PillPalsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8816C5292B0A7EC000DEFAEE /* Debug */,
+				8816C52A2B0A7EC000DEFAEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8816C4F62B0A7EBD00DEFAEE /* Project object */;
+}
