@@ -11,7 +11,15 @@ import SwiftUI
 struct PillPalsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            
+            TabView() {
+                UserProfileForm().tabItem() {
+                    Label("Profile", systemImage: "person.circle")
+                }
+                CarouselView().tabItem() {
+                    Image(systemName: "folder")
+                }
+            }
         }
     }
 }
