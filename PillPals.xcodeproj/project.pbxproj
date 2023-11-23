@@ -21,6 +21,8 @@
 		ACAB78272B0B192100C5F191 /* SelectedDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */; };
 		ACAB78292B0B192C00C5F191 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB78282B0B192C00C5F191 /* Data.swift */; };
 		ACAB782B2B0B19CD00C5F191 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB782A2B0B19CD00C5F191 /* CarouselView.swift */; };
+		ACAB782E2B0B256300C5F191 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB782D2B0B256300C5F191 /* CalendarView.swift */; };
+		ACAB78302B0DA9F400C5F191 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB782F2B0DA9F400C5F191 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDaysView.swift; sourceTree = "<group>"; };
 		ACAB78282B0B192C00C5F191 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		ACAB782A2B0B19CD00C5F191 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
+		ACAB782D2B0B256300C5F191 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		ACAB782F2B0DA9F400C5F191 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,9 +153,11 @@
 				ACAB782A2B0B19CD00C5F191 /* CarouselView.swift */,
 				8816C5032B0A7EBD00DEFAEE /* ContentView.swift */,
 				ACAB78242B0B190F00C5F191 /* DateSelectionView.swift */,
+				ACAB782D2B0B256300C5F191 /* CalendarView.swift */,
 				ACAB78202B0B18D300C5F191 /* MedicationView.swift */,
 				ACAB78222B0B18F700C5F191 /* ProfileView.swift */,
 				ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */,
+				ACAB782F2B0DA9F400C5F191 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,10 +292,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACAB782E2B0B256300C5F191 /* CalendarView.swift in Sources */,
 				8816C5042B0A7EBD00DEFAEE /* ContentView.swift in Sources */,
 				ACAB78252B0B190F00C5F191 /* DateSelectionView.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
 				ACAB78232B0B18F700C5F191 /* ProfileView.swift in Sources */,
+				ACAB78302B0DA9F400C5F191 /* HomeView.swift in Sources */,
 				ACAB782B2B0B19CD00C5F191 /* CarouselView.swift in Sources */,
 				ACAB78272B0B192100C5F191 /* SelectedDaysView.swift in Sources */,
 				ACAB781F2B0B18AF00C5F191 /* AddMedicationView.swift in Sources */,
@@ -458,6 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PillPals/Preview Content\"";
+				DEVELOPMENT_TEAM = 8VNWQXUY4G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -486,6 +495,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PillPals/Preview Content\"";
+				DEVELOPMENT_TEAM = 8VNWQXUY4G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -16,20 +16,26 @@ struct AddMedicationView: View {
 
     @State private var name: String = ""
     @State private var selectedType = MedicationType.pill
+    @State private var selectedMedicationPeriod = MedicationPeriod.morning
     @State private var color: Color = Color.red // Default to red or any color
     @State private var priority: Priority = .normal
     @State private var dateToTake = Date()
+    
+    @State private var dosageAmount: Double = 0
+    @State private var selectedDosageUnit: Dosage.Unit = .count
     
     @State private var selectedDatesComponents: Set<DateComponents> = []
     @State private var startDate = Date()
     @State private var endDate = Date()
     
-    @State private var selectedDates: [Date] = []
+    @State private var selectedDates: [MedicationDateStatus] = []
     
     @State private var showingDaySelection = false
     @State private var selectedWeekDays: [DayOfWeek] = []
     
     @State private var timeToTake = Date() // Default to current time
+
+    @State private var currentDate = Date()
 
 
         
@@ -38,8 +44,6 @@ struct AddMedicationView: View {
     }
     
     var range: Int {
-        let startDay = Calendar.current.component(.day, from: startDate)
-        let endDay = Calendar.current.component(.day, from: endDate)
         
         let components = Calendar.current.dateComponents([.day], from: startDate, to: endDate)
         let numberOfDays = components.day ?? 0
@@ -60,6 +64,15 @@ struct AddMedicationView: View {
                         }
                     }
                     
+                    TextField("Dosage Amount", value: $dosageAmount, format: .number)
+                        .keyboardType(.decimalPad)
+
+                    Picker("Dosage Unit", selection: $selectedDosageUnit) {
+                        ForEach(Dosage.Unit.allCases, id: \.self) { unit in
+                            Text(unit.rawValue).tag(unit)
+                        }
+                    }
+                    
                     ColorPicker("Choose Color", selection: $color)
 
                     Picker("Priority", selection: $priority) {
@@ -74,8 +87,17 @@ struct AddMedicationView: View {
                 
                // DatePicker("Date to Take", selection: $dateToTake, displayedComponents: .date)
                 Section(header: Text("Date")) {
-                    Text("Selected Dates: \(range)")
-                        .font(.title)
+                    Picker("Type", selection: $selectedMedicationPeriod) {
+                        ForEach(MedicationPeriod.allCases, id: \.self) { type in
+                            Text(type.rawValue.capitalized).tag(type)
+                        }
+                    }
+                    
+                    DatePicker("Select Time", selection: $timeToTake, displayedComponents: .hourAndMinute)
+                        .onChange(of: timeToTake) { _ in
+                            updateSelectedDates()
+                        }
+
                     
                     
                     /*DatePicker("Start Date", selection: $startDate, displayedComponents: [.date])
@@ -134,7 +156,7 @@ struct AddMedicationView: View {
                 
                 
 
-                Button("Create") {
+                /*Button("Create") {
                     updateDatesFromDateComponents()
                     updateSelectedDates()
                     updateDatesFromDateComponents()
@@ -152,25 +174,50 @@ struct AddMedicationView: View {
                     )
                     medications.append(newMedication)
                     presentationMode.wrappedValue.dismiss()
-                }
+                }*/
             }
             .navigationBarTitle("Add Medication", displayMode: .inline)
-            .navigationBarItems(trailing: Button("Cancel") {
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarItems(leading: Button("Create") {
+                            createMedication()
+                            presentationMode.wrappedValue.dismiss()
+                        }, trailing: Button("Cancel") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    )
         }
+    }
+    
+    private func createMedication() {
+        let newMedication = Medication(
+            name: name,
+            type: selectedType,
+            dosage: createDosage(amount: dosageAmount, unit: selectedDosageUnit),
+            datesToTake: selectedDates,
+            daysOfWeekToTake: selectedWeekDays,
+            startDate: startDate,
+            endDate: endDate,
+            timeToTake: timeToTake,
+            color: color,
+            priority: priority,
+            imageName: "pills", // Default image name
+            period: selectedMedicationPeriod
+        )
+        medications.append(newMedication)
     }
     private func selectedDaysString(_ days: [DayOfWeek]) -> String {
             days.map { $0.title }.joined(separator: ", ")
-        }
+    }
+    private func createDosage(amount: Double, unit: Dosage.Unit) -> Dosage {
+        return Dosage(amount: amount, unit: unit)
+    }
     
-    private func updateDateComponentsFromDates() {
+    /*private func updateDateComponentsFromDates() {
         selectedDatesComponents = Set(selectedDates.map { Calendar.current.dateComponents([.year, .month, .day], from: $0) })
     }
 
     private func updateDatesFromDateComponents() {
         selectedDates = selectedDatesComponents.compactMap { Calendar.current.date(from: $0) }
-    }
+    }*/
     
     private func calculateDatesBetween(startDate: Date, endDate: Date, selectedWeekDays: [DayOfWeek]) -> Set<DateComponents> {
         var dates: Set<DateComponents> = []
@@ -204,18 +251,35 @@ struct AddMedicationView: View {
 
             // Check if the current day's weekday matches any of the selected weekdays
             if selectedWeekDays.contains(where: { $0.calendarValue == weekDay }) {
-                selectedDates.append(currentDate)
+                let combinedDateTime = combineDateWithTime(date: currentDate, time: timeToTake)
+                
+                //             let combinedDateTime = combineDateWithTime(date: currentDate, time: timeToTake)
+
+                let dateStatus = MedicationDateStatus(date: combinedDateTime, taken: false)
+
+                selectedDates.append(dateStatus)
             }
 
             // Move to the next day
             guard let nextDay = calendar.date(byAdding: .day, value: 1, to: currentDate) else { break }
             currentDate = nextDay
         }
-        selectedDatesComponents = Set(selectedDates.map { calendar.dateComponents([.year, .month, .day], from: $0) })
-
+        selectedDatesComponents = Set(selectedDates.map { dateStatus in
+                calendar.dateComponents([.year, .month, .day], from: dateStatus.date)
+            })
     }
 
 
+    private func combineDateWithTime(date: Date, time: Date) -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: time)
+
+        return calendar.date(bySettingHour: timeComponents.hour ?? 0,
+                             minute: timeComponents.minute ?? 0,
+                             second: 0,
+                             of: date) ?? date
+    }
 
     // Call this function whenever the start date, end date, or selected days change
     /*private func updateSelectedDates() {

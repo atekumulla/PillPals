@@ -22,6 +22,115 @@ struct CornerRadiusShape: Shape {
 
 struct MedicationDetailView: View {
     var medication: Medication
+    @State private var isDatesListExpanded: Bool = false // To control the expandable list
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            ZStack {
+                HStack {
+                    Image(systemName: "pills.circle") // Placeholder image for medication
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(medication.color)
+                    
+                    VStack(alignment: .leading) {
+                        Text(medication.name)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(medication.color)
+                        
+                        Text("\(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+            
+            Divider()
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) { // Leading alignment and spacing between elements
+                    HStack {
+                        Text("Type:")
+                            .bold()
+                        Text(medication.type.rawValue.capitalized)
+                    }
+                    
+                    HStack {
+                        Text("Priority:")
+                            .bold()
+                        Text(medication.priority.rawValue.capitalized)
+                            .foregroundColor(medication.priority == .high ? .red : .primary)
+                    }
+                    
+                    HStack {
+                        Text("Time Period:")
+                            .bold()
+                        Image(systemName: medication.period.rawValue)
+                            .foregroundColor(.primary)
+                    }
+                    
+                    HStack {
+                        Text("Time to take:")
+                            .bold()
+                        Text(medication.timeToTake, style: .time)
+                    }
+                    
+                    HStack {
+                        Text("Start Date:")
+                            .fontWeight(.semibold)
+                        Text(formatDate(medication.startDate))
+                    }
+                    
+                    HStack {
+                        Text("End Date:")
+                            .fontWeight(.semibold)
+                        Text(formatDate(medication.endDate))
+                    }
+                    
+                    CalendarView(medication: medication)
+                        .padding()
+                    
+                    DisclosureGroup("Dosing Schedule", isExpanded: $isDatesListExpanded) {
+                        VStack(alignment: .leading) {
+                            ForEach(medication.datesToTake, id: \.date) { dateStatus in
+                                HStack {
+                                    Text(formatDate(dateStatus.date))
+                                    Image(systemName: dateStatus.taken ? "checkmark.circle.fill" : "circle")
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                    .accentColor(.primary)
+                }
+                .padding() // Padding for the VStack
+            }
+
+            
+            Spacer()
+        }
+        .padding()
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+}
+
+struct MedicationDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        MedicationDetailView(medication: dummyMedications[1])
+    }
+}
+
+/*struct MedicationDetailView: View {
+    var medication: Medication
+    
+    
+    @State private var currentDate = Date()
 
     @State private var isDatesListExpanded: Bool = false // To control the expandable list
 
@@ -64,6 +173,12 @@ struct MedicationDetailView: View {
                                .fontWeight(.semibold)
                            Text(medication.type.rawValue.capitalized)
                        }
+                       
+                       HStack {
+                           Text("Time to take: ")
+                               .fontWeight(.semibold)
+                           Text(formatTime(medication.timeToTake))
+                       }
 
                        HStack {
                            Text("Start Date:")
@@ -82,11 +197,17 @@ struct MedicationDetailView: View {
                                .fontWeight(.semibold)
                            Text(medication.priority.rawValue.capitalized)
                        }
+                       
+                       CalendarView(medication: medication)
+                                           .padding()
 
                        DisclosureGroup("Dosing Schedule", isExpanded: $isDatesListExpanded) {
                            VStack(alignment: .leading) {
-                               ForEach(medication.datesToTake, id: \.self) { date in
-                                   Text(formatDate(date))
+                               ForEach(medication.datesToTake, id: \.date) { dateStatus in
+                                   HStack {
+                                       Text(formatDate(dateStatus.date))
+                                        Image(systemName: dateStatus.taken ? "checkmark.circle.fill" : "circle")
+                                   }
                                }
                            }
                            .padding()
@@ -102,7 +223,7 @@ struct MedicationDetailView: View {
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        formatter.timeStyle = .none
+        formatter.timeStyle = .short
         return formatter.string(from: date)
     }
 
@@ -120,7 +241,7 @@ struct MedicationDetailView: View {
             Text(value)
         }
     }
-}
+}*/
 
 
 /*enum DayOfWeek: String, CaseIterable {

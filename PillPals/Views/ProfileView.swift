@@ -11,7 +11,8 @@ import SwiftUI
 let startDate = DateComponents(calendar: .current, year: 2023, month: 11, day: 9).date!
 let endDate = DateComponents(calendar: .current, year: 2023, month: 12, day: 23).date!
 let dummyDaysOfWeek: [DayOfWeek] = [.monday, .wednesday, .friday] // Example dummy data
-let dummyTimeToTake = Calendar.current.date(from: DateComponents(hour: 8, minute: 0))!
+let dummyTimeToTake1 = Calendar.current.date(from: DateComponents(hour: 9, minute: 41))!
+let dummyTimeToTake2 = Calendar.current.date(from: DateComponents(hour: 13, minute: 21))!
 
 
 let datesList = [startDate, endDate]
@@ -21,26 +22,31 @@ let dummyMedications: [Medication] = [
     Medication(
         name: "Aspirin",
         type: .tablet,
-        datesToTake: datesList,
+        dosage: Dosage(amount: 5, unit: .milligrams),
+        datesToTake: createDummyMedicationDates(startDate: startDate, endDate: endDate, daysOfWeek: dummyDaysOfWeek),
+
         daysOfWeekToTake: dummyDaysOfWeek,
         startDate: startDate,
         endDate: endDate,
-        timeToTake: dummyTimeToTake,
+        timeToTake: dummyTimeToTake1,
         color: .red,
         priority: .normal,
-        imageName: "pills"
+        imageName: "pills", 
+        period: MedicationPeriod.morning
     ),
     Medication(
         name: "Ibuprofen",
         type: .capsule,
-        datesToTake: datesList,
+        dosage: Dosage(amount: 1, unit: .milligrams),
+        datesToTake: createDummyMedicationDates(startDate: startDate, endDate: endDate, daysOfWeek: dummyDaysOfWeek),
         daysOfWeekToTake: dummyDaysOfWeek,
         startDate: startDate,
         endDate: endDate,
-        timeToTake: dummyTimeToTake,
-        color: .red,
+        timeToTake: dummyTimeToTake2,
+        color: .blue,
         priority: .high,
-        imageName: "pills"
+        imageName: "pills",
+        period: MedicationPeriod.night
     ),
     // ... more dummy medications
 ]
@@ -125,4 +131,25 @@ struct UserProfileForm_Previews: PreviewProvider {
     static var previews: some View {
         UserProfileForm()
     }
+}
+
+
+func createDummyMedicationDates(startDate: Date, endDate: Date, daysOfWeek: [DayOfWeek]) -> [MedicationDateStatus] {
+    var dates = [MedicationDateStatus]()
+    var currentDate = startDate
+
+    let calendar = Calendar.current
+    while currentDate <= endDate {
+        let weekDay = calendar.component(.weekday, from: currentDate)
+
+        if daysOfWeek.contains(where: { $0.calendarValue == weekDay }) {
+            let dateStatus = MedicationDateStatus(date: currentDate, taken: false)
+            dates.append(dateStatus)
+        }
+
+        guard let nextDay = calendar.date(byAdding: .day, value: 1, to: currentDate) else { break }
+        currentDate = nextDay
+    }
+
+    return dates
 }

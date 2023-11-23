@@ -13,12 +13,15 @@ struct PillPalsApp: App {
         WindowGroup {
             
             TabView() {
+                HomeView().tabItem() {
+                    Label("Home", systemImage: "house.fill")
+                }
                 UserProfileForm().tabItem() {
                     Label("Profile", systemImage: "person.circle")
                 }
-                CarouselView().tabItem() {
+                /*CarouselView().tabItem() {
                     Image(systemName: "folder")
-                }
+                }*/
             }
         }
     }
