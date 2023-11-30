@@ -21,7 +21,7 @@ struct CornerRadiusShape: Shape {
 }
 
 struct MedicationDetailView: View {
-    var medication: Medication
+    @State var medication: Medication
     @State private var isDatesListExpanded: Bool = false // To control the expandable list
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -31,13 +31,13 @@ struct MedicationDetailView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 60, height: 60)
-                        .foregroundColor(medication.color)
+                        .foregroundColor(medication.uiColor)
                     
                     VStack(alignment: .leading) {
                         Text(medication.name)
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(medication.color)
+                            .foregroundColor(medication.uiColor)
                         
                         Text("\(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
                             .font(.subheadline)
@@ -48,12 +48,14 @@ struct MedicationDetailView: View {
             
             Divider()
             ScrollView {
+                
                 VStack(alignment: .leading, spacing: 10) { // Leading alignment and spacing between elements
                     HStack {
                         Text("Type:")
                             .bold()
                         Text(medication.type.rawValue.capitalized)
                     }
+                    
                     
                     HStack {
                         Text("Priority:")

@@ -36,6 +36,7 @@ struct AddMedicationView: View {
     @State private var timeToTake = Date() // Default to current time
 
     @State private var currentDate = Date()
+    var onAddMedication: (Medication) -> Void
 
 
         
@@ -133,12 +134,6 @@ struct AddMedicationView: View {
                     
                     MultiDatePicker("Select Dates", selection: $selectedDatesComponents, in: bounds)
                     
-                    // View to display selected days
-                    /*if !selectedWeekDays.isEmpty {
-                        Text("Selected Days: \(selectedDaysString(selectedWeekDays))")
-                            .padding()
-                    }*/
-                    
                 }
                 
                 
@@ -146,35 +141,7 @@ struct AddMedicationView: View {
                 
                 
                 
-                /*Section {
-                    
-                }*/
-                /*ForEach(selectedDates.indices, id: \.self) { index in
-                    DatePicker("Select Date and Time", selection: $selectedDates[index], displayedComponents: [.date, .hourAndMinute])
-                }*/
-                
-                
-                
-
-                /*Button("Create") {
-                    updateDatesFromDateComponents()
-                    updateSelectedDates()
-                    updateDatesFromDateComponents()
-                    let newMedication = Medication(
-                        name: name,
-                        type: selectedType,
-                        datesToTake: selectedDates,
-                        daysOfWeekToTake: selectedWeekDays,
-                        startDate: startDate,
-                        endDate: endDate,
-                        timeToTake: timeToTake,
-                        color: color,
-                        priority: priority,
-                        imageName: "pills" // Default image name
-                    )
-                    medications.append(newMedication)
-                    presentationMode.wrappedValue.dismiss()
-                }*/
+        
             }
             .navigationBarTitle("Add Medication", displayMode: .inline)
             .navigationBarItems(leading: Button("Create") {
@@ -197,12 +164,14 @@ struct AddMedicationView: View {
             startDate: startDate,
             endDate: endDate,
             timeToTake: timeToTake,
-            color: color,
+            color: RGBColor(color: color),
             priority: priority,
             imageName: "pills", // Default image name
             period: selectedMedicationPeriod
         )
+        //medications.append(newMedication)
         medications.append(newMedication)
+        onAddMedication(newMedication)
     }
     private func selectedDaysString(_ days: [DayOfWeek]) -> String {
             days.map { $0.title }.joined(separator: ", ")

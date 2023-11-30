@@ -7,18 +7,21 @@
 
 import Foundation
 import SwiftUI
+import UserNotifications
+import UserNotificationsUI
 
 let startDate = DateComponents(calendar: .current, year: 2023, month: 11, day: 9).date!
 let endDate = DateComponents(calendar: .current, year: 2023, month: 12, day: 23).date!
 let dummyDaysOfWeek: [DayOfWeek] = [.monday, .wednesday, .friday] // Example dummy data
 let dummyTimeToTake1 = Calendar.current.date(from: DateComponents(hour: 9, minute: 41))!
-let dummyTimeToTake2 = Calendar.current.date(from: DateComponents(hour: 13, minute: 21))!
+let dummyTimeToTake2 = Calendar.current.date(from: DateComponents(hour: 21, minute: 27))!
 
 
 let datesList = [startDate, endDate]
+let redColor = RGBColor(color: .red)
+let blueColor = RGBColor(color: .blue)
 
-
-let dummyMedications: [Medication] = [
+var dummyMedications: [Medication] = [
     Medication(
         name: "Aspirin",
         type: .tablet,
@@ -29,9 +32,9 @@ let dummyMedications: [Medication] = [
         startDate: startDate,
         endDate: endDate,
         timeToTake: dummyTimeToTake1,
-        color: .red,
+        color: redColor,
         priority: .normal,
-        imageName: "pills", 
+        imageName: "pills",
         period: MedicationPeriod.morning
     ),
     Medication(
@@ -43,7 +46,7 @@ let dummyMedications: [Medication] = [
         startDate: startDate,
         endDate: endDate,
         timeToTake: dummyTimeToTake2,
-        color: .blue,
+        color: blueColor,
         priority: .high,
         imageName: "pills",
         period: MedicationPeriod.night
@@ -62,7 +65,9 @@ struct UserProfileForm: View {
     @State private var showingAddMedication = false
 
     var body: some View {
+        
         NavigationView {
+            
             Form {
                 Section(header: Text("Personal Information")) {
                     TextField("Name", text: $name)
@@ -92,6 +97,8 @@ struct UserProfileForm: View {
                         showingAddMedication = true
                     }
                 }
+                
+                
             }
             .navigationBarTitle("User Profile")
             .navigationBarItems(trailing: EditButton())
@@ -107,10 +114,18 @@ struct UserProfileForm: View {
                     secondaryButton: .cancel()
                 )
             }
+            
         } // End of NavigationView
         .sheet(isPresented: $showingAddMedication) {
             //AddMedicationView(medications: $medications)
-            AddMedicationView(medications: $medications)
+            AddMedicationView(medications: $medications) { newMedication in
+                // Logic to handle the new medication
+                // For example, scheduling a notification for the new medication
+                scheduleNotificationsForMedication(newMedication)
+
+                // You may also want to save or update the medication list here
+                // saveAction()
+            }
         }
     }
 
