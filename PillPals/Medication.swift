@@ -14,3 +14,14 @@ struct Medication: Identifiable {
     var instructions: String
     var dueStatus: String
 }
+
+struct MedicationData {
+    static let medications: [Medication] = [
+        Medication(name: "Adderal", dosage: "15 mg", instructions: "Take with water", dueStatus: "Due Now"),
+        Medication(name: "Cocaine", dosage: "25 mg", instructions: "Take after meals", dueStatus: "Due Next"),
+        Medication(name: "Birth Control", dosage: "500 mg", instructions: "Take ON TIME", dueStatus: "Due Later"),
+        Medication(name: "Other Med", dosage: "25 mg", instructions: "Take after meals", dueStatus: "Due Later")
+        // Add more medications as needed
+    ]
+}
+

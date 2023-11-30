@@ -39,11 +39,11 @@ struct MedicationBoxView: View {
 
             Divider()
 
-            HStack {
-                Text("Dosage:")
-                Spacer()
-                Text(dosage)
-            }
+//            HStack {
+//                Text("Dosage:")
+//                Spacer()
+//                Text(dosage)
+//            }
 
             HStack {
                 Text("Instructions:")
@@ -51,15 +51,18 @@ struct MedicationBoxView: View {
                 Text(instructions)
             }
 
-            HStack {
-                Text("Next Due:")
-                Spacer()
-                Text(nextDue)
-                    .foregroundColor(nextDue == "Due Now" ? .red : .green)
-            }
+//            HStack {
+//                Text("Next Due:")
+//                Spacer()
+//                Text(nextDue)
+//                    .foregroundColor(nextDue == "Due Now" ? .red : .green)
+//            }
         }
         .padding()
         .background(Color.gray.opacity(0.2))
         .cornerRadius(10)
     }
 }
+
+
+
