@@ -25,7 +25,7 @@ struct MedicationDetailView: View {
     @State private var isDatesListExpanded: Bool = false // To control the expandable list
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            ZStack {
+            /*ZStack {
                 HStack {
                     Image(systemName: "pills.circle") // Placeholder image for medication
                         .resizable()
@@ -44,8 +44,9 @@ struct MedicationDetailView: View {
                             .foregroundColor(.secondary)
                     }
                 }
-            }
+            }*/
             
+            DisplayMedicationView(medication: medication)
             Divider()
             ScrollView {
                 
@@ -125,6 +126,51 @@ struct MedicationDetailView: View {
 struct MedicationDetailView_Previews: PreviewProvider {
     static var previews: some View {
         MedicationDetailView(medication: dummyMedications[1])
+    }
+}
+
+struct DisplayMedicationView: View {
+    var medication: Medication
+
+    var body: some View {
+        VStack(alignment: .leading) {
+ 
+            
+            HStack {
+                Image(systemName: medication.period.rawValue)
+                    //.resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(medication.color.color)
+                    .imageScale(.large)
+                
+                VStack(alignment: .leading) {
+                    Text(medication.name)
+                        .font(.largeTitle
+                        )
+                        .foregroundColor(.primary)
+                    Text("\(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
+                        .font(.title3)
+                        .foregroundColor(.primary)
+                }
+                Spacer()
+                Image(systemName: "hand.tap.fill")
+                    //.foregroundStyle(.secondary)
+                    .foregroundColor(.primary)
+            
+                    
+                
+                
+            }
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 12)
+                                        .fill(medication.uiColor.opacity(0.5)))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(medication.uiColor, lineWidth: 2)
+                        )
+        }
+        //.padding(.vertical, 4)
+
     }
 }
 

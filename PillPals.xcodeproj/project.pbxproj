@@ -27,6 +27,7 @@
 		ACAB78302B0DA9F400C5F191 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB782F2B0DA9F400C5F191 /* HomeView.swift */; };
 		ACD0CB402B18169F00864625 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0CB3F2B18169F00864625 /* DataController.swift */; };
 		ACD0CB422B1819F300864625 /* MedCodableDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0CB412B1819F300864625 /* MedCodableDataStore.swift */; };
+		ACD0CB442B19133A00864625 /* LogMedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0CB432B19133A00864625 /* LogMedicationView.swift */; };
 		ACF588332B0EF89300C5ACCC /* MedicationsDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACF588312B0EF89300C5ACCC /* MedicationsDataModel.xcdatamodeld */; };
 		ACF588352B0EFDB400C5ACCC /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF588342B0EFDB400C5ACCC /* PersistenceController.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		ACAB782F2B0DA9F400C5F191 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		ACD0CB3F2B18169F00864625 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		ACD0CB412B1819F300864625 /* MedCodableDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedCodableDataStore.swift; sourceTree = "<group>"; };
+		ACD0CB432B19133A00864625 /* LogMedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMedicationView.swift; sourceTree = "<group>"; };
 		ACF588322B0EF89300C5ACCC /* MedicationsDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MedicationsDataModel.xcdatamodel; sourceTree = "<group>"; };
 		ACF588342B0EFDB400C5ACCC /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +177,7 @@
 				AC5304882B1583EF00E3BD75 /* NotifcationView.swift */,
 				ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */,
 				ACAB782F2B0DA9F400C5F191 /* HomeView.swift */,
+				ACD0CB432B19133A00864625 /* LogMedicationView.swift */,
 				AC53048A2B15A06300E3BD75 /* MapView.swift */,
 			);
 			path = Views;
@@ -324,6 +327,7 @@
 				ACAB78272B0B192100C5F191 /* SelectedDaysView.swift in Sources */,
 				ACAB781F2B0B18AF00C5F191 /* AddMedicationView.swift in Sources */,
 				ACF588352B0EFDB400C5ACCC /* PersistenceController.swift in Sources */,
+				ACD0CB442B19133A00864625 /* LogMedicationView.swift in Sources */,
 				ACD0CB402B18169F00864625 /* DataController.swift in Sources */,
 				ACAB78212B0B18D300C5F191 /* MedicationView.swift in Sources */,
 				ACAB78292B0B192C00C5F191 /* Data.swift in Sources */,

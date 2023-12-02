@@ -10,6 +10,7 @@ import SwiftUI
 import AppIntents
 import UserNotifications
 import UserNotificationsUI
+import Combine
 
 /*struct Medication: Identifiable {
     var id = UUID()
@@ -39,7 +40,8 @@ struct HomeView: View {
     @State private var showDeleteConfirmation = false
     @State private var indexSetToDelete: IndexSet?
     @State private var medicationToDelete: Medication?
-
+    @State private var showingLogSheet = false
+    @State private var medicationToLog: Medication?
     
     let saveAction: ()->Void
 
@@ -62,15 +64,22 @@ struct HomeView: View {
                 .padding()
                 
                 VStack {
-                    Button("Request Permission") {
-                                requestNotificationPermission()
-                    }
-
                     Button("Schedule Notifications for Medications") {
                         scheduleMedicationNotifications()
                     }
                 }
             }
+            /*.onReceive(NotificationManager.shared.medicationNotification) { medicationId in
+                            if let medication = meds.first(where: { $0.id.uuidString == medicationId }) {
+                                medicationToLog = medication
+                                showingLogSheet = true
+                            }
+                        }
+                        .sheet(isPresented: $showingLogSheet) {
+                            if let medication = medicationToLog {
+                                LogMedicationSheet(medication: medication, isPresented: $showingLogSheet)
+                            }
+                        }*/
             .navigationTitle("Hello " + homeViewDemoUser.name + "!")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -85,10 +94,20 @@ struct HomeView: View {
                 }
             }
         }
-        .sheet(isPresented: $showingAddMedicationView) {
+        /*.sheet(isPresented: $showingAddMedicationView) {
             AddMedicationView(medications: $meds) { newMedication in
                 // Logic to schedule notification for newMedication
                 scheduleNotificationsForMedication(newMedication)
+            }
+        }*/
+        .sheet(isPresented: $showingAddMedicationView) {
+            AddMedicationView(medications: $meds) { newMedication in
+                NotificationManager.shared.scheduleNotificationsForMedication(newMedication)
+            }
+        }
+        .sheet(isPresented: $showingLogSheet) {
+            if let medication = medicationToLog {
+                LogMedicationSheet(medication: medication, isPresented: $showingLogSheet)
             }
         }
         .alert(isPresented: $showDeleteConfirmation) {
@@ -113,8 +132,12 @@ struct HomeView: View {
         .onChange(of: scenePhase) { phase in
             if phase == .inactive { saveAction() }
         }
+        
     }
-    
+    func presentLogSheet(for medication: Medication) {
+            medicationToLog = medication
+            showingLogSheet = true
+        }
     private func deleteMedication(at offsets: IndexSet) {
         indexSetToDelete = offsets
         showDeleteConfirmation = true
@@ -128,14 +151,26 @@ struct MedicationView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            
-
-            Text(timeString(from: medication.timeToTake))
+            HStack {
+                Text(medication.timeToTake, style: .time)
+                    .foregroundColor(.black)
+                    .padding(8)
+                    .background(Color.gray)
+                    .cornerRadius(8)
+                Spacer()
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(medication.color.color)
+                    .imageScale(.large)
+            }
+            /*Text(timeString(from: medication.timeToTake))
                 .font(.headline)
-                .foregroundColor(.secondary)
+                .foregroundColor(.secondary)*/
+            
             
             HStack {
                 Image(systemName: medication.period.rawValue)
+                    //.resizable()
+                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(medication.color.color)
                     .imageScale(.large)
                 
@@ -161,9 +196,15 @@ struct MedicationView: View {
                 
             }
             .padding()
-            .background(medication.uiColor.opacity(0.3))
-            .cornerRadius(12)
+            .background(RoundedRectangle(cornerRadius: 12)
+                                        .fill(medication.uiColor.opacity(0.5)))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(medication.uiColor, lineWidth: 2)
+                        )
         }
+        .padding(.vertical, 4)
+
     }
 }
 
@@ -197,23 +238,26 @@ func scheduleNotificationsForMedication(_ medication: Medication) {
     while date <= medication.endDate {
         if medication.daysOfWeekToTake.contains(date.dayOfWeek) {
             let notificationDate = Calendar.current.date(bySettingHour: medication.timeToTake.hour, minute: medication.timeToTake.minute, second: 0, of: date)!
-            scheduleNotification(at: notificationDate, title: "Time to take your \(medication.name)", body: "Dosage: \(medication.dosage.amount) \(medication.dosage.unit)")
+            scheduleNotification(medication: medication, at: notificationDate, title: "Time to take your \(medication.name)", body: "Dosage: \(medication.dosage.amount) \(medication.dosage.unit)")
         }
         date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
     }
 }
 
-func scheduleNotification(at date: Date, title: String, body: String) {
+func scheduleNotification(medication: Medication, at date: Date, title: String, body: String) {
     let content = UNMutableNotificationContent()
     content.title = title
     content.body = body
     content.sound = UNNotificationSound.default
+    content.userInfo = ["medicationId": medication.id.uuidString] // Example key-value pair
+
 
     let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
     let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
 
     let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
     UNUserNotificationCenter.current().add(request)
+    
 }
 
 
@@ -232,6 +276,35 @@ extension Date {
         return Calendar.current.component(.minute, from: self)
     }
 }
+
+struct LogMedicationSheet: View {
+    var medication: Medication
+    @Binding var isPresented: Bool
+
+    var body: some View {
+        // Your UI components go here
+        // Include the medication information
+        // Buttons for "Taken", "Remind Me Later", and "Not Taken"
+        VStack {
+            MedicationDetailView(medication: medication)
+        }
+    }
+
+    private func handleTaken() {
+        // Handle medication taken action
+        isPresented = false
+    }
+
+    private func handleRemindMeLater() {
+        // Schedule a new notification
+    }
+
+    private func handleNotTaken() {
+        // Handle medication not taken action
+        isPresented = false
+    }
+}
+
 
 /*struct ShowUpcomingMedication: AppIntent {
     
@@ -259,3 +332,162 @@ extension Date {
     }
 }*/
 
+
+
+/*class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
+    static let shared = NotificationManager()
+    @Published var selectedMedicationId: String?
+
+    override init() {
+        super.init()
+        UNUserNotificationCenter.current().delegate = self
+    }
+
+    func requestAuthorization() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if granted {
+                print("Notification permissions granted.")
+            } else if let error = error {
+                print("Notification permissions error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func scheduleNotification(medication: Medication, at date: Date, title: String, body: String) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default
+        content.userInfo = ["medicationId": medication.id.uuidString]
+
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        processNotification(notification)
+        completionHandler([.banner, .sound])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        processNotification(response.notification)
+        completionHandler()
+    }
+
+    private func processNotification(_ notification: UNNotification) {
+        if let medicationId = notification.request.content.userInfo["medicationId"] as? String {
+            DispatchQueue.main.async {
+                self.selectedMedicationId = medicationId
+            }
+        }
+    }
+}*/
+
+
+/*class NotificationManager: ObservableObject, UNUserNotificationCenterDelegate {
+    static let shared = NotificationManager()
+    let medicationNotification = PassthroughSubject<String, Never>()
+
+    init() {
+        UNUserNotificationCenter.current().delegate = self
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        processNotification(notification)
+        completionHandler([.banner, .sound])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        processNotification(response.notification)
+        completionHandler()
+    }
+
+    private func processNotification(_ notification: UNNotification) {
+        if let medicationId = notification.request.content.userInfo["medicationId"] as? String {
+            medicationNotification.send(medicationId)
+        }
+    }
+}*/
+
+
+
+class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
+    static let shared = NotificationManager()
+    @Published var selectedMediationId: String?
+    
+    override init() {
+        super.init()
+        UNUserNotificationCenter.current().delegate = self
+    }
+    
+    func requestAuthorization() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if granted {
+                print("Notification permissions granted.")
+            } else if let error = error {
+                print("Notification permissions error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func scheduleNotification(medication: Medication, at date: Date, title: String, body: String) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default
+        content.userInfo = ["medicationID": medication.id.uuidString]
+        
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notifcation: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        processNotification(notification)
+        completionHandler([.banner, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        processNotification(response.notification)
+        completionHandler()
+    }
+    
+    
+    private func processNotification(_ notification: UNNotification) {
+        if let medicationID = notification.request.content.userInfo["medicationId"] as? String {
+            DispatchQueue.main.async {
+                self.selectedMediationId = medicationID
+            }
+        }
+    }
+}
+
+extension NotificationManager {
+    func scheduleNotificationsForMedication(_ medication: Medication) {
+        var date = medication.startDate
+        while date <= medication.endDate {
+            if medication.daysOfWeekToTake.contains(date.dayOfWeek) {
+                let notificationDate = Calendar.current.date(bySettingHour: medication.timeToTake.hour, minute: medication.timeToTake.minute, second: 0, of: date)!
+                scheduleNotification(medication: medication, at: notificationDate, title: "Time to take your \(medication.name)", body: "Dosage: \(medication.dosage.amount) \(medication.dosage.unit)")
+            }
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        }
+    }
+}

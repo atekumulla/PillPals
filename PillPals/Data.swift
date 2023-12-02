@@ -91,6 +91,10 @@ struct Medication: Identifiable, Codable {
     var priority: Priority = .normal // Default is normal
     var imageName: String = "pills" // Default SF Symbol for a pill
     var period: MedicationPeriod
+    
+    func markMedicationAsTaken() {
+        print("testintaken")
+    }
 }
 
 struct UserInfo: Identifiable, Codable {
