@@ -13,16 +13,21 @@ struct MedList: View {
             VStack {
                 Text("View All Medications")
                     .font(.title)
+                    .bold()
 
                 VStack(spacing: 10) {
-                    ForEach(0..<20) { _ in
+                    ForEach(0..<10) { _ in
                         Rectangle()
                             .frame(width: 350, height: 100)
                             .cornerRadius(10)
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color(red: 204/255, green: 229/255, blue: 255/255))
                             .overlay(
-                                Text("Hi")
-                                    .foregroundColor(.white)
+                                Text("Razadyne")
+                                    .foregroundColor(.black)
+                                    .font(.title2)
+                                    .bold()
+                                    .frame(maxWidth: .infinity, alignment: .leading) // Set left alignment
+                                    .padding() //make it not too left aligned
                             )
                     }
                 }
