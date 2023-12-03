@@ -16,7 +16,8 @@ struct MedicationView: View {
                     medicationName: medication.name,
                     dosage: medication.dosage,
                     instructions: medication.instructions,
-                    nextDue: medication.dueStatus
+                    nextDue: medication.dueStatus,
+                    imageFileName: medication.imageFileName
                 )
             }
         }
@@ -30,33 +31,34 @@ struct MedicationBoxView: View {
     var dosage: String
     var instructions: String
     var nextDue: String
+    var imageFileName: String
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(medicationName)
-                .font(.title)
-                .foregroundColor(.blue)
+            HStack {
+                Text(medicationName)
+                    .font(.title)
+                    .foregroundColor(.blue)
+                
+                Spacer()
+                
+                // Display the image of the medication
+                Image(imageFileName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50) // Adjust the size as needed
+                    .cornerRadius(10)
+                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            }
 
             Divider()
-
-//            HStack {
-//                Text("Dosage:")
-//                Spacer()
-//                Text(dosage)
-//            }
 
             HStack {
                 Text("Instructions:")
                 Spacer()
                 Text(instructions)
             }
-
-//            HStack {
-//                Text("Next Due:")
-//                Spacer()
-//                Text(nextDue)
-//                    .foregroundColor(nextDue == "Due Now" ? .red : .green)
-//            }
+            
         }
         .padding()
         .background(Color.gray.opacity(0.2))
@@ -64,5 +66,8 @@ struct MedicationBoxView: View {
     }
 }
 
+#Preview {
+    MedicationView(medications: MedicationData.medications)
+}
 
 
