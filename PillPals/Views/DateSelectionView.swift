@@ -2,13 +2,12 @@ import SwiftUI
 import Foundation
 
 
-
+/// This code handles the view where the user can select Days Of The Week
 struct DaySelectionView: View {
     @Binding var selectedDays: [DayOfWeek] // Binding to the selection in the parent view
     @Environment(\.presentationMode) var presentationMode
-
-    // ... other states and methods ...
-
+    
+    
     var body: some View {
         VStack {
             HStack {
@@ -30,11 +29,12 @@ struct DaySelectionView: View {
     }
 }
 
+///  Button which represents the actual Day as a circle. handles the color by changing depending on tap
 struct CircleButton: View {
     var day: DayOfWeek
     var isSelected: Bool = false
     var action: () -> Void
-
+    
     var body: some View {
         Button(action: action) {
             Text(day.shortTitle)

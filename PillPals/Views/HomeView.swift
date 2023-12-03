@@ -12,14 +12,15 @@ import UserNotifications
 import UserNotificationsUI
 import Combine
 
+
 /*struct Medication: Identifiable {
-    var id = UUID()
-    var color: Color
-    var name: String
-    var dosage: String
-    var time: String
-    var period: MedicationPeriod
-}*/
+ var id = UUID()
+ var color: Color
+ var name: String
+ var dosage: String
+ var time: String
+ var period: MedicationPeriod
+ }*/
 
 let demoUser = UserInfo(name: "John", age: 55)
 
@@ -44,10 +45,10 @@ struct HomeView: View {
     @State private var medicationToLog: Medication?
     @State private var selectedMedicationId: String?
     @State private var showingLogMedicationView = false
-
+    
     let saveAction: ()->Void
-
-
+    
+    
     @State private var homeViewDemoUser: UserInfo = demoUser
     var body: some View {
         NavigationView {
@@ -66,16 +67,16 @@ struct HomeView: View {
                 .padding()
             }
             /*.onReceive(NotificationManager.shared.medicationNotification) { medicationId in
-                            if let medication = meds.first(where: { $0.id.uuidString == medicationId }) {
-                                medicationToLog = medication
-                                showingLogSheet = true
-                            }
-                        }
-                        .sheet(isPresented: $showingLogSheet) {
-                            if let medication = medicationToLog {
-                                LogMedicationSheet(medication: medication, isPresented: $showingLogSheet)
-                            }
-                        }*/
+             if let medication = meds.first(where: { $0.id.uuidString == medicationId }) {
+             medicationToLog = medication
+             showingLogSheet = true
+             }
+             }
+             .sheet(isPresented: $showingLogSheet) {
+             if let medication = medicationToLog {
+             LogMedicationSheet(medication: medication, isPresented: $showingLogSheet)
+             }
+             }*/
             .navigationTitle("Hello " + homeViewDemoUser.name + "!")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -83,7 +84,7 @@ struct HomeView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                       showingAddMedicationView = true
+                        showingAddMedicationView = true
                     }) {
                         Image(systemName: "plus")
                     }
@@ -92,7 +93,7 @@ struct HomeView: View {
         }
         .onAppear {
             notificationManager.checkPendingNotification()
-
+            
         }
         .onChange(of: notificationManager.selectedMedicationId) { newId in
             if let newId = newId, newId != selectedMedicationId {
@@ -100,7 +101,7 @@ struct HomeView: View {
                 showingLogMedicationView = true
             }
         }
-
+        
         .sheet(isPresented: $showingLogMedicationView) {
             if let medication = getMedicationById(selectedMedicationId) {
                 LogMedicationSheet(medication: medication, isPresented: $showingLogMedicationView)
@@ -118,35 +119,35 @@ struct HomeView: View {
             }
         }
         .alert(isPresented: $showDeleteConfirmation) {
-                    Alert(
-                        title: Text("Delete Medication"),
-                        message: Text("Are you sure you want to delete this medication?"),
-                        primaryButton: .destructive(Text("Delete")) {
-                            if let indexSet = indexSetToDelete {
-                                withAnimation(.easeOut) {
-                                    meds.remove(atOffsets: indexSet)
-                                }
-                            
-                            }
-                        },
-                        secondaryButton: .cancel()
-                    )
-                }
+            Alert(
+                title: Text("Delete Medication"),
+                message: Text("Are you sure you want to delete this medication?"),
+                primaryButton: .destructive(Text("Delete")) {
+                    if let indexSet = indexSetToDelete {
+                        withAnimation(.easeOut) {
+                            meds.remove(atOffsets: indexSet)
+                        }
+                        
+                    }
+                },
+                secondaryButton: .cancel()
+            )
+        }
         .onChange(of: scenePhase) { phase in
             if phase == .inactive { saveAction() }
         }
         
     }
     func presentLogSheet(for medication: Medication) {
-            medicationToLog = medication
-            showingLogSheet = true
-        }
+        medicationToLog = medication
+        showingLogSheet = true
+    }
     private func deleteMedication(at offsets: IndexSet) {
         indexSetToDelete = offsets
         showDeleteConfirmation = true
     }
     func getMedicationById(_ id: String?) -> Medication? {
-           // Implement logic to find and return the Medication object
+        // Implement logic to find and return the Medication object
         guard let idString = id, let uuid = UUID(uuidString: idString) else {
             return nil
         }
@@ -157,13 +158,13 @@ struct HomeView: View {
 
 /**guard let idString = id, let uuid = UUID(uuidString: idString) else {
  return nil
-}
-return store.meds.first { $0.id == uuid }*/
+ }
+ return store.meds.first { $0.id == uuid }*/
 
 struct MedicationView: View {
     var medication: Medication
     var onDelete: () -> Void  // Closure for handling delete action
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -178,13 +179,13 @@ struct MedicationView: View {
                     .imageScale(.large)
             }
             /*Text(timeString(from: medication.timeToTake))
-                .font(.headline)
-                .foregroundColor(.secondary)*/
+             .font(.headline)
+             .foregroundColor(.secondary)*/
             
             
             HStack {
                 Image(systemName: medication.period.rawValue)
-                    //.resizable()
+                //.resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(medication.color.color)
                     .imageScale(.large)
@@ -200,26 +201,26 @@ struct MedicationView: View {
                 }
                 Spacer()
                 Image(systemName: "hand.tap.fill")
-                    //.foregroundStyle(.secondary)
+                //.foregroundStyle(.secondary)
                     .foregroundColor(.primary)
                 Button(action: onDelete) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
-                    
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
+                }
+                
                 
                 
             }
             .padding()
             .background(RoundedRectangle(cornerRadius: 12)
-                                        .fill(medication.uiColor.opacity(0.5)))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(medication.uiColor, lineWidth: 2)
-                        )
+                .fill(medication.uiColor.opacity(0.5)))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(medication.uiColor, lineWidth: 2)
+            )
         }
         .padding(.vertical, 4)
-
+        
     }
 }
 
@@ -235,14 +236,14 @@ struct HomeView_Previews: PreviewProvider {
 // Extension to get day of week from Date
 extension Date {
     var dayOfWeek: DayOfWeek {
-            let weekday = Calendar.current.component(.weekday, from: self)
-            return DayOfWeek.allCases.first { $0.calendarValue == weekday }!
-        }
-
+        let weekday = Calendar.current.component(.weekday, from: self)
+        return DayOfWeek.allCases.first { $0.calendarValue == weekday }!
+    }
+    
     var hour: Int {
         return Calendar.current.component(.hour, from: self)
     }
-
+    
     var minute: Int {
         return Calendar.current.component(.minute, from: self)
     }
@@ -252,7 +253,7 @@ struct LogMedicationSheet: View {
     var medication: Medication
     @Binding var isPresented: Bool
     @State private var showReminderOptions = false
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -264,16 +265,16 @@ struct LogMedicationSheet: View {
                     markMedicationAsTaken()
                     isPresented = false
                 }
-
+                
                 Button("Mark as Not Taken") {
                     // Handle not taken action
                     isPresented = false
                 }
-
+                
                 Button("Remind Me") {
                     showReminderOptions = true
                 }
-
+                
                 Spacer()
             }
             .navigationTitle("Medication Details")
@@ -285,11 +286,11 @@ struct LogMedicationSheet: View {
             ReminderOptionsView(medication: medication, isPresented: $showReminderOptions)
         }
     }
-
+    
     private func markMedicationAsTaken() {
         // Logic to mark medication as taken
     }
-
+    
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -301,7 +302,7 @@ struct LogMedicationSheet: View {
 struct ReminderOptionsView: View {
     var medication: Medication
     @Binding var isPresented: Bool
-
+    
     var body: some View {
         List {
             Button("In 30 Minutes") { scheduleReminder(minutes: 30) }
@@ -311,7 +312,7 @@ struct ReminderOptionsView: View {
         }
         .navigationTitle("Set Reminder")
     }
-
+    
     private func scheduleReminder(minutes: Int) {
         let reminderDate = Calendar.current.date(byAdding: .minute, value: minutes, to: Date())!
         NotificationManager.shared.scheduleNotification(medication: medication, at: reminderDate, title: "Reminder: \(medication.name)", body: "It's time to take your medication.")
@@ -322,39 +323,39 @@ struct ReminderOptionsView: View {
 
 
 /*struct LogMedicationSheet: View {
-    var medication: Medication
-    @Binding var isPresented: Bool
+ var medication: Medication
+ @Binding var isPresented: Bool
+ 
+ var body: some View {
+ // Your UI components go here
+ // Include the medication information
+ // Buttons for "Taken", "Remind Me Later", and "Not Taken"
+ VStack {
+ MedicationDetailView(medication: medication)
+ }
+ }
+ 
+ private func handleTaken() {
+ // Handle medication taken action
+ isPresented = false
+ }
+ 
+ private func handleRemindMeLater() {
+ // Schedule a new notification
+ }
+ 
+ private func handleNotTaken() {
+ // Handle medication not taken action
+ isPresented = false
+ }
+ }*/
 
-    var body: some View {
-        // Your UI components go here
-        // Include the medication information
-        // Buttons for "Taken", "Remind Me Later", and "Not Taken"
-        VStack {
-            MedicationDetailView(medication: medication)
-        }
-    }
 
-    private func handleTaken() {
-        // Handle medication taken action
-        isPresented = false
-    }
-
-    private func handleRemindMeLater() {
-        // Schedule a new notification
-    }
-
-    private func handleNotTaken() {
-        // Handle medication not taken action
-        isPresented = false
-    }
-}*/
-
-
-
+// ignore this, do not read
 class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
     @Published var selectedMedicationId: String? // This should be String?
-
+    
     
     override init() {
         super.init()
@@ -370,7 +371,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
             }
         }
     }
-
+    
     func scheduleNotification(medication: Medication, at date: Date, title: String, body: String) {
         let content = UNMutableNotificationContent()
         content.title = title
@@ -401,15 +402,15 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
     
     // Call this method when the app becomes active
     func checkPendingNotification() {
-       UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
-           if let firstNotification = notifications.first(where: { $0.request.content.userInfo["medicationId"] != nil }),
-              let medicationId = firstNotification.request.content.userInfo["medicationId"] as? String {
-               DispatchQueue.main.async {
-                   self.selectedMedicationId = medicationId
-                   UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [firstNotification.request.identifier])
-               }
-           }
-       }
+        UNUserNotificationCenter.current().getDeliveredNotifications { notifications in
+            if let firstNotification = notifications.first(where: { $0.request.content.userInfo["medicationId"] != nil }),
+               let medicationId = firstNotification.request.content.userInfo["medicationId"] as? String {
+                DispatchQueue.main.async {
+                    self.selectedMedicationId = medicationId
+                    UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [firstNotification.request.identifier])
+                }
+            }
+        }
     }
     private func processNotification(_ notification: UNNotification) {
         if let medicationID = notification.request.content.userInfo["medicationId"] as? String {

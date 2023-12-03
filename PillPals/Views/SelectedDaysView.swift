@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SelectedDaysView: View {
     var selectedDays: [DayOfWeek]
-
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             

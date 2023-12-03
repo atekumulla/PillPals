@@ -27,7 +27,7 @@ var dummyMedications: [Medication] = [
         type: .tablet,
         dosage: Dosage(amount: 5, unit: .milligrams),
         datesToTake: createDummyMedicationDates(startDate: startDate, endDate: endDate, daysOfWeek: dummyDaysOfWeek),
-
+        
         daysOfWeekToTake: dummyDaysOfWeek,
         startDate: startDate,
         endDate: endDate,
@@ -58,14 +58,14 @@ var dummyMedications: [Medication] = [
 struct UserProfileForm: View {
     // ... existing properties
     @Binding var meds: [Medication]
-
+    
     @State private var name: String = ""
     @State private var age: String = ""
     @State private var medications: [Medication] = dummyMedications // Array to hold medications
     @State private var showingDeleteAlert = false
     @State private var medicationToDelete: Medication?
     @State private var showingAddMedication = false
-
+    
     var body: some View {
         
         NavigationView {
@@ -76,7 +76,7 @@ struct UserProfileForm: View {
                     TextField("Age", text: $age)
                     // Include other personal fields as necessary
                 }
-
+                
                 Section(header: Text("Medications")) {
                     ForEach(meds) { medication in
                         NavigationLink(destination: MedicationDetailView(medication: medication)) {
@@ -119,23 +119,23 @@ struct UserProfileForm: View {
             
         } // End of NavigationView
         /*.sheet(isPresented: $showingAddMedication) {
-            //AddMedicationView(medications: $medications)
-            AddMedicationView(medications: $medications) { newMedication in
-                // Logic to handle the new medication
-                // For example, scheduling a notification for the new medication
-                scheduleNotificationsForMedication(newMedication)
-
-                // You may also want to save or update the medication list here
-                // saveAction()
-            }
-        }*/
+         //AddMedicationView(medications: $medications)
+         AddMedicationView(medications: $medications) { newMedication in
+         // Logic to handle the new medication
+         // For example, scheduling a notification for the new medication
+         scheduleNotificationsForMedication(newMedication)
+         
+         // You may also want to save or update the medication list here
+         // saveAction()
+         }
+         }*/
     }
-
+    
     // ... existing methods
     private func deleteMedication(at offsets: IndexSet) {
         medications.remove(atOffsets: offsets)
     }
-
+    
     private func addMedication() {
         // Implement this function to add a new medication
         // For example, you could present a modal form to input medication details
@@ -145,28 +145,28 @@ struct UserProfileForm: View {
 
 
 /*struct UserProfileForm_Previews: PreviewProvider {
-    static var previews: some View {
-        UserProfileForm(meds: )
-    }
-}*/
+ static var previews: some View {
+ UserProfileForm(meds: )
+ }
+ }*/
 
 
 func createDummyMedicationDates(startDate: Date, endDate: Date, daysOfWeek: [DayOfWeek]) -> [MedicationDateStatus] {
     var dates = [MedicationDateStatus]()
     var currentDate = startDate
-
+    
     let calendar = Calendar.current
     while currentDate <= endDate {
         let weekDay = calendar.component(.weekday, from: currentDate)
-
+        
         if daysOfWeek.contains(where: { $0.calendarValue == weekDay }) {
             let dateStatus = MedicationDateStatus(date: currentDate, taken: false)
             dates.append(dateStatus)
         }
-
+        
         guard let nextDay = calendar.date(byAdding: .day, value: 1, to: currentDate) else { break }
         currentDate = nextDay
     }
-
+    
     return dates
 }

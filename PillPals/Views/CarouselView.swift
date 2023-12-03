@@ -54,9 +54,9 @@ struct CarouselView: View {
                     MenuItem(icon: "moon.fill", foreground: Color.purple, order: 5, isActive: isActive)
                     MenuItem(icon: "plus", background: Color.red, foreground: Color.white, size: 24, weight: .bold)
                         .overlay(
-                                RoundedRectangle(cornerRadius: 44)
-                                    .stroke(Color.white, lineWidth: 2)
-                            )
+                            RoundedRectangle(cornerRadius: 44)
+                                .stroke(Color.white, lineWidth: 2)
+                        )
                         .rotationEffect(isActive ? .degrees(-225) : .zero)
                         .animation(.spring())
                         .onTapGesture(count: 1) {

@@ -12,22 +12,22 @@ class MedStore: ObservableObject {
     @Published var meds: [Medication] = []
     
     init() {
-    Task {
-                do {
-                    try await load()
-                } catch {
-                    self.meds = dummyMedications // Use dummy data if no saved data exists
-                }
+        Task {
+            do {
+                try await load()
+            } catch {
+                self.meds = dummyMedications // Use dummy data if no saved data exists
             }
+        }
     }
     
     private static func fileURL() throws -> URL {
-            try FileManager.default.url(for: .documentDirectory,
-                                        in: .userDomainMask,
-                                        appropriateFor: nil,
-                                        create: false)
-            .appendingPathComponent("meds.data")
-
+        try FileManager.default.url(for: .documentDirectory,
+                                    in: .userDomainMask,
+                                    appropriateFor: nil,
+                                    create: false)
+        .appendingPathComponent("meds.data")
+        
     }
     
     
@@ -45,11 +45,11 @@ class MedStore: ObservableObject {
     }
     
     func save(medications: [Medication]) async throws {
-            let task = Task {
-                let data = try JSONEncoder().encode(meds)
-                let outfile = try Self.fileURL()
-                try data.write(to: outfile)
-            }
-            _ = try await task.value
+        let task = Task {
+            let data = try JSONEncoder().encode(meds)
+            let outfile = try Self.fileURL()
+            try data.write(to: outfile)
+        }
+        _ = try await task.value
     }
 }

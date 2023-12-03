@@ -21,7 +21,7 @@ struct MapView: View {
             ZStack(alignment: .bottom) {
                 Map(coordinateRegion: $region)
                     .ignoresSafeArea()
-
+                
                 DetailCardView()
                     .background(Color.white)
                     .cornerRadius(10)
