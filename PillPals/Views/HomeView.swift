@@ -12,16 +12,6 @@ import UserNotifications
 import UserNotificationsUI
 import Combine
 
-
-/*struct Medication: Identifiable {
- var id = UUID()
- var color: Color
- var name: String
- var dosage: String
- var time: String
- var period: MedicationPeriod
- }*/
-
 let demoUser = UserInfo(name: "John", age: 55)
 
 func timeString(from date: Date) -> String {
@@ -29,6 +19,12 @@ func timeString(from date: Date) -> String {
     formatter.dateFormat = "h:mm a" // This format sets the time in the 12-hour format with AM/PM
     return formatter.string(from: date)
 }
+
+// MARK: - HomeView
+/// The main view of the app - retrieves all medications from local storage if present.
+/// Provides navigation capability to the detail view
+/// Allows addition of new meds (AddMedicationView) and deletion
+/// Automatically creates and handles notifcation creation
 
 struct HomeView: View {
     // Example medications
@@ -101,7 +97,7 @@ struct HomeView: View {
                 showingLogMedicationView = true
             }
         }
-        
+        /// Presents a sheet to log medication. - doesnt work tho
         .sheet(isPresented: $showingLogMedicationView) {
             if let medication = getMedicationById(selectedMedicationId) {
                 LogMedicationSheet(medication: medication, isPresented: $showingLogMedicationView)
@@ -118,6 +114,7 @@ struct HomeView: View {
                 LogMedicationSheet(medication: medication, isPresented: $showingLogSheet)
             }
         }
+        /// Deletes a medication from the view, data
         .alert(isPresented: $showDeleteConfirmation) {
             Alert(
                 title: Text("Delete Medication"),
@@ -156,10 +153,11 @@ struct HomeView: View {
     
 }
 
-/**guard let idString = id, let uuid = UUID(uuidString: idString) else {
- return nil
- }
- return store.meds.first { $0.id == uuid }*/
+
+
+// MARK: - MedicationView
+
+/// A view representing a single medication in the list.
 
 struct MedicationView: View {
     var medication: Medication
@@ -249,6 +247,9 @@ extension Date {
     }
 }
 
+// MARK: - LogMedicationSheet
+
+/// A sheet view for logging medication intake.
 struct LogMedicationSheet: View {
     var medication: Medication
     @Binding var isPresented: Bool
@@ -290,7 +291,7 @@ struct LogMedicationSheet: View {
     private func markMedicationAsTaken() {
         // Logic to mark medication as taken
     }
-    
+    /// DateFormatter for displaying the date in the sheet.
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -321,37 +322,9 @@ struct ReminderOptionsView: View {
 }
 
 
+// MARK: - NotificationManager
 
-/*struct LogMedicationSheet: View {
- var medication: Medication
- @Binding var isPresented: Bool
- 
- var body: some View {
- // Your UI components go here
- // Include the medication information
- // Buttons for "Taken", "Remind Me Later", and "Not Taken"
- VStack {
- MedicationDetailView(medication: medication)
- }
- }
- 
- private func handleTaken() {
- // Handle medication taken action
- isPresented = false
- }
- 
- private func handleRemindMeLater() {
- // Schedule a new notification
- }
- 
- private func handleNotTaken() {
- // Handle medication not taken action
- isPresented = false
- }
- }*/
-
-
-// ignore this, do not read
+/// A singleton class to manage notifications for the app.
 class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
     @Published var selectedMedicationId: String? // This should be String?
