@@ -14,6 +14,8 @@
 		8816C5132B0A7EC000DEFAEE /* PillPalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C5122B0A7EC000DEFAEE /* PillPalsTests.swift */; };
 		8816C51D2B0A7EC000DEFAEE /* PillPalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */; };
 		8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */; };
+		EEAD401F2B1D05D20000D7A5 /* MedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAD401E2B1D05D20000D7A5 /* MedList.swift */; };
+		EEAD40212B1D063F0000D7A5 /* MedList_var.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAD40202B1D063F0000D7A5 /* MedList_var.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PillPalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITests.swift; sourceTree = "<group>"; };
 		8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EEAD401E2B1D05D20000D7A5 /* MedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedList.swift; sourceTree = "<group>"; };
+		EEAD40202B1D063F0000D7A5 /* MedList_var.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedList_var.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 		8816C4F52B0A7EBD00DEFAEE = {
 			isa = PBXGroup;
 			children = (
+				EEAD401E2B1D05D20000D7A5 /* MedList.swift */,
+				EEAD40202B1D063F0000D7A5 /* MedList_var.swift */,
 				8816C5002B0A7EBD00DEFAEE /* PillPals */,
 				8816C5112B0A7EC000DEFAEE /* PillPalsTests */,
 				8816C51B2B0A7EC000DEFAEE /* PillPalsUITests */,
@@ -258,6 +264,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8816C5042B0A7EBD00DEFAEE /* ContentView.swift in Sources */,
+				EEAD401F2B1D05D20000D7A5 /* MedList.swift in Sources */,
+				EEAD40212B1D063F0000D7A5 /* MedList_var.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
