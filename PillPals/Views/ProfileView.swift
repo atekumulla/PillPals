@@ -57,6 +57,8 @@ var dummyMedications: [Medication] = [
 
 struct UserProfileForm: View {
     // ... existing properties
+    @Binding var meds: [Medication]
+
     @State private var name: String = ""
     @State private var age: String = ""
     @State private var medications: [Medication] = dummyMedications // Array to hold medications
@@ -76,7 +78,7 @@ struct UserProfileForm: View {
                 }
 
                 Section(header: Text("Medications")) {
-                    ForEach(medications) { medication in
+                    ForEach(meds) { medication in
                         NavigationLink(destination: MedicationDetailView(medication: medication)) {
                             HStack {
                                 Image(systemName: medication.imageName)
@@ -116,7 +118,7 @@ struct UserProfileForm: View {
             }
             
         } // End of NavigationView
-        .sheet(isPresented: $showingAddMedication) {
+        /*.sheet(isPresented: $showingAddMedication) {
             //AddMedicationView(medications: $medications)
             AddMedicationView(medications: $medications) { newMedication in
                 // Logic to handle the new medication
@@ -126,7 +128,7 @@ struct UserProfileForm: View {
                 // You may also want to save or update the medication list here
                 // saveAction()
             }
-        }
+        }*/
     }
 
     // ... existing methods
@@ -142,11 +144,11 @@ struct UserProfileForm: View {
 
 
 
-struct UserProfileForm_Previews: PreviewProvider {
+/*struct UserProfileForm_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileForm()
+        UserProfileForm(meds: )
     }
-}
+}*/
 
 
 func createDummyMedicationDates(startDate: Date, endDate: Date, daysOfWeek: [DayOfWeek]) -> [MedicationDateStatus] {

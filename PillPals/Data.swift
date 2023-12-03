@@ -91,7 +91,8 @@ struct Medication: Identifiable, Codable {
     var priority: Priority = .normal // Default is normal
     var imageName: String = "pills" // Default SF Symbol for a pill
     var period: MedicationPeriod
-    
+    //var notificationIdentifiers: [String] = [] // Store notification identifiers
+
     func markMedicationAsTaken() {
         print("testintaken")
     }
