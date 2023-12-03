@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import Combine
 
 struct AddMedicationView: View {
     @Binding var medications: [Medication] // = dummyMedications
@@ -24,7 +24,11 @@ struct AddMedicationView: View {
     @State private var color: Color = Color.red // Default to red or any color
     @State private var priority: Priority = .normal
     @State private var dateToTake = Date()
-    @State private var dosageAmount: Double = 0
+    @State private var dosageAmountString: String = ""
+        private var dosageAmount: Double {
+            return Double(dosageAmountString) ?? 0
+    }
+
     @State private var selectedDosageUnit: Dosage.Unit = .count
     @State private var selectedDatesComponents: Set<DateComponents> = []
     @State private var startDate = Date()
@@ -39,6 +43,7 @@ struct AddMedicationView: View {
     @State private var currentDate = Date()
     var onAddMedication: (Medication) -> Void
     
+
     
     /// The MultiDatePicker allows a Calendar view where one can see/select multiple dates
     ///  The current logic works as follows:
@@ -56,8 +61,14 @@ struct AddMedicationView: View {
         
         return numberOfDays+1
     }
-    
-    //
+    let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+
+
+
     var body: some View {
         
         /// NavigationView: A view for presenting a stack of views that represents a visible path in a navigation hierarchy.
@@ -76,8 +87,24 @@ struct AddMedicationView: View {
                         }
                     }
                     
-                    TextField("Dosage Amount", value: $dosageAmount, format: .number)
+                    TextField("Dosage Amount", text: $dosageAmountString)
                         .keyboardType(.decimalPad)
+                        .toolbar {
+                            ToolbarItem(placement: .keyboard) {
+                                Button("Done") {
+                                    hideKeyboard()
+                                }
+                            }
+                        }
+                        .onReceive(Just(dosageAmountString)) { newValue in
+                            let filtered = newValue.filter { "0123456789.".contains($0) }
+                            if filtered != newValue {
+                                self.dosageAmountString = filtered
+                            }
+                        }
+
+                    
+                    
                     
                     /// Iterates through dosage counts
                     Picker("Dosage Unit", selection: $selectedDosageUnit) {
@@ -155,7 +182,9 @@ struct AddMedicationView: View {
             )
         }
     }
-    
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
     /// Once create Button is trigger, intializes a Medication Object with chosen values, appens to medications array (which async updates storage) and calls an empty func (for syntax reasons)
     private func createMedication() {
         let newMedication = Medication(
