@@ -8,25 +8,6 @@
 import SwiftUI
 
 struct MedList: View {
-    var dummyMedications: [Medication] = [
-        Medication(
-            Brand_name: "Aspirin",
-            Status_color: .red,
-            priority_color: .red,
-            dosage: 12.1,
-           // image: UIImage(named: "Aspirin_image")!,
-            Active: true
-        ),
-        Medication(
-            Brand_name: "Ibuprofen",
-            Status_color: .blue,
-            priority_color: .red,
-            dosage: 12.1,
-           // image: UIImage(named: "Ibuprofen_image")!,
-            Active: false
-        ),
-        // ... more dummy medications
-    ]
 
     var body: some View {
         ScrollViewReader { scrollView in
