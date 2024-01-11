@@ -5,29 +5,36 @@
 //  Created by anush on 11/29/23.
 //
 
+// USELESS CODE RN
+
 import SwiftUI
 
 struct BottomTabView: View {
     var body: some View {
         TabView {
-            NavigationLink(destination: CaregiverView()) {
-                Image(systemName: "person")
-                Text("Caregiver")
-            }
-            .tabItem {
-                Image(systemName: "person")
-                Text("Caregiver")
-            }
-
-            NavigationLink(destination: ContentView()) {
-                Image(systemName: "house")
-                Text("Home")
-            }
-            .tabItem {
-                Image(systemName: "house")
-                Text("Home")
-            }
+            CaregiverView()
+               .tabItem {
+                   Image(systemName: "person")
+                   Text("Caregiver")
+               }
+            
+            
         }
         .padding()
     }
 }
+
+
+//NavigationLink(destination: CaregiverView()) {
+//    
+//}
+//.tabItem {
+//    Image(systemName: "person")
+//    Text("Caregiver")
+//}
+//
+//NavigationLink(destination: ContentView()) {]}
+//.tabItem {
+//    Image(systemName: "house")
+//    Text("Home")
+//}
