@@ -8,27 +8,44 @@
 import SwiftUI
 
 struct MedList: View {
+    var dummyMedications: [Medication] = [
+        Medication(
+            Brand_name: "Aspirin",
+            Status_color: .red,
+            priority_color: .red,
+            dosage: 12.1,
+           // image: UIImage(named: "Aspirin_image")!,
+            Active: true
+        ),
+        Medication(
+            Brand_name: "Ibuprofen",
+            Status_color: .blue,
+            priority_color: .red,
+            dosage: 12.1,
+           // image: UIImage(named: "Ibuprofen_image")!,
+            Active: false
+        ),
+        // ... more dummy medications
+    ]
+
     var body: some View {
         ScrollViewReader { scrollView in
             ZStack(alignment: .top) {
                 ScrollView {
                     VStack {
-                        // Your content here
-                        VStack(spacing: 10) {
-                            ForEach(0..<10) { index in
-                                Rectangle()
-                                    .frame(width: 350, height: 100)
-                                    .cornerRadius(10)
-                                    .foregroundColor(Color(red: 204/255, green: 229/255, blue: 255/255))
-                                    .overlay(
-                                        Text("Razadyne \(index)")
-                                            .foregroundColor(.black)
-                                            .font(.title2)
-                                            .bold()
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding()
-                                    )
-                            }
+                        ForEach(dummyMedications) { medication in
+                            Rectangle()
+                                .frame(width: 350, height: 100)
+                                .cornerRadius(10)
+                                .foregroundColor(Color(red: 204/255, green: 229/255, blue: 255/255))
+                                .overlay(
+                                    Text(medication.Brand_name)
+                                        .foregroundColor(.black)
+                                        .font(.title2)
+                                        .bold()
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding()
+                                )
                         }
                         .padding(.top, 90)
                     }
@@ -56,8 +73,10 @@ struct MedList: View {
         }
     }
 }
+
 struct MedList_Previews: PreviewProvider {
     static var previews: some View {
         MedList()
     }
 }
+

@@ -13,7 +13,7 @@ struct Medication: Identifiable {
     var Status_color: Color // Could be a string like "Red", "Blue", etc.
     var priority_color: Color
     var dosage: Double
-    var image: UIImage
+  //  var image: UIImage
     var Active: Bool // wether medication is currently being taken/not
     
 }
@@ -24,7 +24,7 @@ var dummyMedications: [Medication] = [
         Status_color: .red,
         priority_color: .red,
         dosage: 12.1,
-        image: UIImage(named: "Aspirin_image")!,
+      //  image: UIImage(named: "Aspirin_image")!,
         Active: true
     ),
     Medication(
@@ -32,7 +32,7 @@ var dummyMedications: [Medication] = [
         Status_color: .blue,
         priority_color: .red,
         dosage: 12.1,
-        image: UIImage(named: "Ibuprofen_image")!,
+       // image: UIImage(named: "Ibuprofen_image")!,
         Active: false
     ),
     // ... more dummy medications
