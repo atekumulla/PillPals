@@ -35,5 +35,21 @@ var dummyMedications: [Medication] = [
        // image: UIImage(named: "Ibuprofen_image")!,
         Active: false
     ),
+    Medication(
+        Brand_name: "Tylenol",
+        Status_color: .red,
+        priority_color: .red,
+        dosage: 12.1,
+      //  image: UIImage(named: "Aspirin_image")!,
+        Active: true
+    ),
+    Medication(
+        Brand_name: "Benadryl",
+        Status_color: .red,
+        priority_color: .red,
+        dosage: 12.1,
+      //  image: UIImage(named: "Aspirin_image")!,
+        Active: false
+    ),
     // ... more dummy medications
 ]
