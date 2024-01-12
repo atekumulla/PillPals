@@ -15,10 +15,9 @@ struct HomeView: View {
                         .padding()
 
                     ScrollView{
-                        MedicationView(medications: MedicationData.medications)
+                        MedicationView(medications: dummyMedications)
                     }
-                
-                    Spacer()
+                    .padding(.bottom)
 
                 }
                 .navigationBarTitle("Hello, John!", displayMode: .large)
@@ -49,10 +48,6 @@ struct CaregiverView: View {
     var body: some View {
         Text("Caregiver Page")
             .navigationBarTitle("PillPals", displayMode: .inline)
-        
-//        VStack{
-//            BottomTabView()
-//        }
     }
 }
 
