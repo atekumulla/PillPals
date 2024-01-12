@@ -14,12 +14,10 @@
 		8816C51D2B0A7EC000DEFAEE /* PillPalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */; };
 		8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */; };
 		8816C52E2B0A917B00DEFAEE /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C52D2B0A917B00DEFAEE /* MedicationView.swift */; };
-		8816C5302B0A94E000DEFAEE /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C52F2B0A94E000DEFAEE /* Medication.swift */; };
 		884E1A492B4F7B84002D5AB1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E1A482B4F7B84002D5AB1 /* HomeView.swift */; };
 		884E1A4B2B4F7BAD002D5AB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E1A4A2B4F7BAD002D5AB1 /* ContentView.swift */; };
 		88AA16682B507FF000AD427D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA16672B507FF000AD427D /* Data.swift */; };
 		88AA166A2B50819200AD427D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA16692B50819200AD427D /* DummyData.swift */; };
-		88E97B3C2B18180D00F0FBAC /* BottomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E97B3B2B18180D00F0FBAC /* BottomTabView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,12 +48,10 @@
 		8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITests.swift; sourceTree = "<group>"; };
 		8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8816C52D2B0A917B00DEFAEE /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
-		8816C52F2B0A94E000DEFAEE /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
 		884E1A482B4F7B84002D5AB1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		884E1A4A2B4F7BAD002D5AB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		88AA16672B507FF000AD427D /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		88AA16692B50819200AD427D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
-		88E97B3B2B18180D00F0FBAC /* BottomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,9 +105,7 @@
 				8816C5012B0A7EBD00DEFAEE /* PillPalsApp.swift */,
 				884E1A482B4F7B84002D5AB1 /* HomeView.swift */,
 				884E1A4A2B4F7BAD002D5AB1 /* ContentView.swift */,
-				8816C52F2B0A94E000DEFAEE /* Medication.swift */,
 				8816C52D2B0A917B00DEFAEE /* MedicationView.swift */,
-				88E97B3B2B18180D00F0FBAC /* BottomTabView.swift */,
 				8816C5052B0A7EC000DEFAEE /* Assets.xcassets */,
 				8816C5072B0A7EC000DEFAEE /* Preview Content */,
 				88AA16672B507FF000AD427D /* Data.swift */,
@@ -279,9 +273,7 @@
 				88AA16682B507FF000AD427D /* Data.swift in Sources */,
 				884E1A492B4F7B84002D5AB1 /* HomeView.swift in Sources */,
 				884E1A4B2B4F7BAD002D5AB1 /* ContentView.swift in Sources */,
-				8816C5302B0A94E000DEFAEE /* Medication.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
-				88E97B3C2B18180D00F0FBAC /* BottomTabView.swift in Sources */,
 				8816C52E2B0A917B00DEFAEE /* MedicationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
