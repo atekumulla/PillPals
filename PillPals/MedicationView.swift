@@ -49,6 +49,7 @@ struct MedicationView: View {
             }
         }
         .padding()
+        
     }
 }
 

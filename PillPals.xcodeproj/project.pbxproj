@@ -18,6 +18,7 @@
 		884E1A4B2B4F7BAD002D5AB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E1A4A2B4F7BAD002D5AB1 /* ContentView.swift */; };
 		88AA16682B507FF000AD427D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA16672B507FF000AD427D /* Data.swift */; };
 		88AA166A2B50819200AD427D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA16692B50819200AD427D /* DummyData.swift */; };
+		88AA16702B5218E200AD427D /* MedPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA166F2B5218E200AD427D /* MedPageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		884E1A4A2B4F7BAD002D5AB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		88AA16672B507FF000AD427D /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		88AA16692B50819200AD427D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
+		88AA166F2B5218E200AD427D /* MedPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				8816C5052B0A7EC000DEFAEE /* Assets.xcassets */,
 				8816C5072B0A7EC000DEFAEE /* Preview Content */,
 				88AA16672B507FF000AD427D /* Data.swift */,
+				88AA166F2B5218E200AD427D /* MedPageView.swift */,
 				88AA16692B50819200AD427D /* DummyData.swift */,
 			);
 			path = PillPals;
@@ -271,6 +274,7 @@
 			files = (
 				88AA166A2B50819200AD427D /* DummyData.swift in Sources */,
 				88AA16682B507FF000AD427D /* Data.swift in Sources */,
+				88AA16702B5218E200AD427D /* MedPageView.swift in Sources */,
 				884E1A492B4F7B84002D5AB1 /* HomeView.swift in Sources */,
 				884E1A4B2B4F7BAD002D5AB1 /* ContentView.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,

@@ -93,6 +93,7 @@ struct Medication: Identifiable, Codable {
     var imageName: String = "pills" // Default SF Symbol for a pill
     var period: MedicationPeriod
     //var notificationIdentifiers: [String] = [] // Store notification identifiers
+    var active: Bool
 
     func markMedicationAsTaken() {
         print("testintaken")

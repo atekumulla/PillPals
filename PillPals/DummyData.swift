@@ -20,20 +20,22 @@ let dummyMedications: [Medication] = [
         timeToTake: Date(),
         color: RGBColor(color: Color(red: 0.5, green: 0.7, blue: 1.0)),
         priority: .normal,
-        period: .morning
+        period: .morning,
+        active: true
     ),
     Medication(
         name: "Ibuprofen",
         type: .tablet,
         dosage: Dosage(amount: 200, unit: .milligrams),
         datesToTake: [],
-        daysOfWeekToTake: [DayOfWeek.tuesday, DayOfWeek.thursday, DayOfWeek.saturday],
+        daysOfWeekToTake: [DayOfWeek.tuesday, DayOfWeek.thursday, DayOfWeek.friday, DayOfWeek.saturday],
         startDate: Date(),
         endDate: Date().addingTimeInterval(60 * 60 * 24 * 15), // 15 days from now
         timeToTake: Date(),
         color: RGBColor(color: Color(red: 1.0, green: 0.5, blue: 0.5)),
         priority: .high,
-        period: .evening
+        period: .evening,
+        active: true
     ),
     Medication(
         name: "Paracetamol",
@@ -46,7 +48,8 @@ let dummyMedications: [Medication] = [
         timeToTake: Date(),
         color: RGBColor(color: Color(red: 0.8, green: 0.2, blue: 0.2)),
         priority: .normal,
-        period: .morning
+        period: .morning,
+        active: false
     ),
     Medication(
         name: "Vitamin C",
@@ -59,7 +62,8 @@ let dummyMedications: [Medication] = [
         timeToTake: Date(),
         color: RGBColor(color: Color(red: 0.2, green: 0.6, blue: 0.2)),
         priority: .high,
-        period: .evening
+        period: .evening,
+        active: true
     ),
     Medication(
         name: "Omega-3",
@@ -72,7 +76,8 @@ let dummyMedications: [Medication] = [
         timeToTake: Date(),
         color: RGBColor(color: Color(red: 0.2, green: 0.2, blue: 0.8)),
         priority: .normal,
-        period: .daytime
+        period: .daytime,
+        active: false
     ),
     // Add more medications as needed
 ]
