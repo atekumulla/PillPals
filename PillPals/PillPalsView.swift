@@ -8,12 +8,48 @@
 import SwiftUI
 
 struct PillPalsView: View {
+    var emergencyContacts: [EmergencyContact]
+
     var body: some View {
-        // Customize the PillPals view with emergency contacts
-        Text("PillPals Page - Emergency Contacts")
-            .navigationBarTitle("PillPals", displayMode: .inline)
+        VStack {
+            ForEach(emergencyContacts) { contact in
+                EmergencyContactBoxView(contact: contact)
+            }
+        }
+        .padding()
+        .navigationBarTitle("PillPals", displayMode: .inline)
     }
 }
+
+struct EmergencyContactBoxView: View {
+    var contact: EmergencyContact
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(contact.name)
+                .font(.title)
+                .foregroundColor(.blue)
+
+            Divider()
+
+            HStack {
+                Text("Phone Number:")
+                Spacer()
+                Text(contact.phoneNumber)
+            }
+
+            HStack {
+                Text("Relationship:")
+                Spacer()
+                Text(contact.relationship)
+            }
+        }
+        .padding()
+        .background(Color.gray.opacity(0.2))
+        .cornerRadius(10)
+    }
+}
+
 #Preview {
-    PillPalsView()
+    PillPalsView(emergencyContacts: dummyEmergencyContacts)
 }

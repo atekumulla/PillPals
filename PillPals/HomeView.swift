@@ -23,7 +23,7 @@ struct HomeView: View {
                 .navigationBarTitle("Hello, John!", displayMode: .large)
                 .navigationBarItems(
                     trailing:
-                        NavigationLink(destination: PillPalsView()) {
+                        NavigationLink(destination: PillPalsView(emergencyContacts: dummyEmergencyContacts)) {
                             Image(systemName: "person.fill")
                                 .imageScale(.large)
                                 .padding()

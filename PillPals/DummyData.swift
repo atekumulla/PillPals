@@ -81,3 +81,10 @@ let dummyMedications: [Medication] = [
     ),
     // Add more medications as needed
 ]
+
+let dummyEmergencyContacts: [EmergencyContact] = [
+    EmergencyContact(name: "John Doe", phoneNumber: "123-456-7890", relationship: "Friend"),
+    EmergencyContact(name: "Jane Smith", phoneNumber: "987-654-3210", relationship: "Family Member"),
+    EmergencyContact(name: "Bob Johnson", phoneNumber: "555-123-4567", relationship: "Neighbor"),
+    // Add more dummy emergency contacts as needed
+]

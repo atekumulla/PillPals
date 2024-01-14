@@ -133,5 +133,12 @@ struct RGBColor: Codable {
     }
 }
 
+// ADDED BY ANUSHA
+struct EmergencyContact: Identifiable {
+    var id = UUID()
+    var name: String
+    var phoneNumber: String
+    var relationship: String
+}
 
 
