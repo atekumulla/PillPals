@@ -34,7 +34,6 @@ struct RoundedRectangleButton: View {
     var label: String
 
     var body: some View {
-        NavigationLink(destination: Text(label)) {
             RoundedRectangle(cornerRadius: 10)
                 .frame(height: 80)
                 .foregroundColor(Color.gray.opacity(0.2)) // Adjust color as needed
@@ -50,13 +49,6 @@ struct RoundedRectangleButton: View {
                 )
                 .padding()
         }
-    }
-}
-
-struct CalendarView: View {
-    var body: some View {
-        Text("Calendar View")
-    }
 }
 
 struct AddMedicationView: View {
