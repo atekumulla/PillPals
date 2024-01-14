@@ -35,22 +35,6 @@ struct HomeView: View {
     }
 }
 
-
-struct PillPalsView: View {
-    var body: some View {
-        // Customize the PillPals view with emergency contacts
-        Text("PillPals Page - Emergency Contacts")
-            .navigationBarTitle("PillPals", displayMode: .inline)
-    }
-}
-
-struct CaregiverView: View {
-    var body: some View {
-        Text("Caregiver Page")
-            .navigationBarTitle("PillPals", displayMode: .inline)
-    }
-}
-
 #Preview {
     HomeView()
 }
