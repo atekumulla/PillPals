@@ -10,10 +10,10 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            CaregiverView()
+            PillPalsView(emergencyContacts: dummyEmergencyContacts)
                 .tabItem {
                     Image(systemName: "person")
-                    Text("Caregiver")
+                    Text("PillPals")
                 }
             
             HomeView()

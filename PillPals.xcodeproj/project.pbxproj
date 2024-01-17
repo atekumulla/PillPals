@@ -19,6 +19,7 @@
 		888B037C2B5385C9009A1376 /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888B037B2B5385C9009A1376 /* CaregiverView.swift */; };
 		888B037E2B538619009A1376 /* PillPalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888B037D2B538619009A1376 /* PillPalsView.swift */; };
 		888B03802B546B48009A1376 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888B037F2B546B48009A1376 /* CalendarView.swift */; };
+		888B03822B586C91009A1376 /* MedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888B03812B586C91009A1376 /* MedInfoView.swift */; };
 		88AA16682B507FF000AD427D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA16672B507FF000AD427D /* Data.swift */; };
 		88AA166A2B50819200AD427D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA16692B50819200AD427D /* DummyData.swift */; };
 		88AA16702B5218E200AD427D /* MedPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA166F2B5218E200AD427D /* MedPageView.swift */; };
@@ -57,6 +58,7 @@
 		888B037B2B5385C9009A1376 /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
 		888B037D2B538619009A1376 /* PillPalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsView.swift; sourceTree = "<group>"; };
 		888B037F2B546B48009A1376 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		888B03812B586C91009A1376 /* MedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedInfoView.swift; sourceTree = "<group>"; };
 		88AA16672B507FF000AD427D /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		88AA16692B50819200AD427D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		88AA166F2B5218E200AD427D /* MedPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedPageView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				88AA16672B507FF000AD427D /* Data.swift */,
 				88AA166F2B5218E200AD427D /* MedPageView.swift */,
 				88AA16692B50819200AD427D /* DummyData.swift */,
+				888B03812B586C91009A1376 /* MedInfoView.swift */,
 			);
 			path = PillPals;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				88AA16682B507FF000AD427D /* Data.swift in Sources */,
 				88AA16702B5218E200AD427D /* MedPageView.swift in Sources */,
 				884E1A492B4F7B84002D5AB1 /* HomeView.swift in Sources */,
+				888B03822B586C91009A1376 /* MedInfoView.swift in Sources */,
 				884E1A4B2B4F7BAD002D5AB1 /* ContentView.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
 				8816C52E2B0A917B00DEFAEE /* MedicationView.swift in Sources */,
@@ -454,6 +458,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PillPals/Preview Content\"";
+				DEVELOPMENT_TEAM = L2B365UZAF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -483,6 +488,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PillPals/Preview Content\"";
+				DEVELOPMENT_TEAM = L2B365UZAF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

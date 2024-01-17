@@ -28,7 +28,7 @@ let dummyMedications: [Medication] = [
         type: .tablet,
         dosage: Dosage(amount: 200, unit: .milligrams),
         datesToTake: [],
-        daysOfWeekToTake: [DayOfWeek.tuesday, DayOfWeek.thursday, DayOfWeek.friday, DayOfWeek.sunday],
+        daysOfWeekToTake: [DayOfWeek.tuesday, DayOfWeek.wednesday, DayOfWeek.friday, DayOfWeek.sunday],
         startDate: Date(),
         endDate: Date().addingTimeInterval(60 * 60 * 24 * 15), // 15 days from now
         timeToTake: Date(),
@@ -56,7 +56,7 @@ let dummyMedications: [Medication] = [
         type: .tablet,
         dosage: Dosage(amount: 1000, unit: .milligrams),
         datesToTake: [],
-        daysOfWeekToTake: [DayOfWeek.tuesday, DayOfWeek.thursday, DayOfWeek.sunday],
+        daysOfWeekToTake: [DayOfWeek.wednesday, DayOfWeek.thursday, DayOfWeek.sunday],
         startDate: Date(),
         endDate: Date().addingTimeInterval(60 * 60 * 24 * 15), // 15 days from now
         timeToTake: Date(),

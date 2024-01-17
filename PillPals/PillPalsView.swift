@@ -17,7 +17,7 @@ struct PillPalsView: View {
             }
         }
         .padding()
-        .navigationBarTitle("PillPals", displayMode: .inline)
+        .navigationBarTitle("PillPals", displayMode: .large)
     }
 }
 
