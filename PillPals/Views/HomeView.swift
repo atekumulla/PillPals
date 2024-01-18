@@ -29,7 +29,7 @@ func timeString(from date: Date) -> String {
 struct HomeView: View {
     // Example medications
     //@State private var medications: [Medication] = dummyMedications
-    //@StateObject var medications = MedStore()
+    @StateObject var medications = MedStore()
     @StateObject var notificationManager = NotificationManager.shared
     @State private var showingAddMedicationView = false
     @Binding var meds: [Medication]
@@ -44,19 +44,25 @@ struct HomeView: View {
     
     let saveAction: ()->Void
     
+    var sortedMeds: [Medication] {
+        meds.sorted { $0.timeToTake < $1.timeToTake}
+    }
     
     @State private var homeViewDemoUser: UserInfo = demoUser
     var body: some View {
-        NavigationView {
+        // used to be NavigationStack
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    ForEach(meds) { medication in
+                    ForEach(sortedMeds) { medication in
                         NavigationLink(destination: MedicationDetailView(medication: medication)) {
                             MedicationView(medication: medication) {
                                 indexSetToDelete = meds.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
                                 showDeleteConfirmation = true
                             }
                         }
+                        .transition(.fadeOut) // Apply custom transition here
+                        
                     }
                     .onDelete(perform: deleteMedication)
                 }
@@ -76,7 +82,9 @@ struct HomeView: View {
             .navigationTitle("Hello " + homeViewDemoUser.name + "!")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    EditButton() // Add this line for the Edit button
+                    // Add this line for the Edit button
+                    //EditButton()
+                    
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -121,7 +129,7 @@ struct HomeView: View {
                 message: Text("Are you sure you want to delete this medication?"),
                 primaryButton: .destructive(Text("Delete")) {
                     if let indexSet = indexSetToDelete {
-                        withAnimation(.easeOut) {
+                        withAnimation {
                             meds.remove(atOffsets: indexSet)
                         }
                         
@@ -140,8 +148,11 @@ struct HomeView: View {
         showingLogSheet = true
     }
     private func deleteMedication(at offsets: IndexSet) {
-        indexSetToDelete = offsets
-        showDeleteConfirmation = true
+        offsets.forEach { index in
+            let medication = meds[index]
+            NotificationManager.shared.cancelNotifications(for: medication.id)
+        }
+        meds.remove(atOffsets: offsets)
     }
     func getMedicationById(_ id: String?) -> Medication? {
         // Implement logic to find and return the Medication object
@@ -171,6 +182,7 @@ struct MedicationView: View {
                     .padding(8)
                     .background(Color.gray)
                     .cornerRadius(8)
+                
                 Spacer()
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundColor(medication.color.color)
@@ -212,6 +224,7 @@ struct MedicationView: View {
             .padding()
             .background(RoundedRectangle(cornerRadius: 12)
                 .fill(medication.uiColor.opacity(0.5)))
+            //.fill(reminder.isTaken ? .secondary : reminder.uiColor.opacity(0.3)))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(medication.uiColor, lineWidth: 2)
@@ -385,6 +398,16 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
             }
         }
     }
+    func cancelNotifications(for medicationId: UUID) {
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests { requests in
+            let idsToCancel = requests.filter {
+                $0.content.userInfo["medicationId"] as? String == medicationId.uuidString
+            }.map { $0.identifier }
+            
+            center.removePendingNotificationRequests(withIdentifiers: idsToCancel)
+        }
+    }
     private func processNotification(_ notification: UNNotification) {
         if let medicationID = notification.request.content.userInfo["medicationId"] as? String {
             DispatchQueue.main.async {
@@ -406,3 +429,11 @@ extension NotificationManager {
         }
     }
 }
+
+extension AnyTransition {
+    static var fadeOut: AnyTransition {
+        .asymmetric(insertion: .identity, removal: .opacity)
+    }
+}
+
+

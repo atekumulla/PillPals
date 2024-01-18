@@ -16,6 +16,11 @@
 		8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */; };
 		AC5304892B1583EF00E3BD75 /* NotifcationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5304882B1583EF00E3BD75 /* NotifcationView.swift */; };
 		AC53048B2B15A06300E3BD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC53048A2B15A06300E3BD75 /* MapView.swift */; };
+		ACA747622B2697D0000E1A98 /* PillPalsWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA747612B2697D0000E1A98 /* PillPalsWatchApp.swift */; };
+		ACA747642B2697D0000E1A98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA747632B2697D0000E1A98 /* ContentView.swift */; };
+		ACA747662B2697D2000E1A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACA747652B2697D2000E1A98 /* Assets.xcassets */; };
+		ACA747692B2697D2000E1A98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACA747682B2697D2000E1A98 /* Preview Assets.xcassets */; };
+		ACA7476C2B2697D2000E1A98 /* PillPalsWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = ACA7475F2B2697D0000E1A98 /* PillPalsWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ACAB781F2B0B18AF00C5F191 /* AddMedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB781E2B0B18AF00C5F191 /* AddMedicationView.swift */; };
 		ACAB78212B0B18D300C5F191 /* MedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB78202B0B18D300C5F191 /* MedicationView.swift */; };
 		ACAB78232B0B18F700C5F191 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB78222B0B18F700C5F191 /* ProfileView.swift */; };
@@ -47,7 +52,28 @@
 			remoteGlobalIDString = 8816C4FD2B0A7EBD00DEFAEE;
 			remoteInfo = PillPals;
 		};
+		ACA7476A2B2697D2000E1A98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8816C4F62B0A7EBD00DEFAEE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACA7475E2B2697D0000E1A98;
+			remoteInfo = "PillPalsWatch Watch App";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ACA7476D2B2697D2000E1A98 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				ACA7476C2B2697D2000E1A98 /* PillPalsWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8816C4FE2B0A7EBD00DEFAEE /* PillPals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PillPals.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +88,11 @@
 		8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AC5304882B1583EF00E3BD75 /* NotifcationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifcationView.swift; sourceTree = "<group>"; };
 		AC53048A2B15A06300E3BD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		ACA7475F2B2697D0000E1A98 /* PillPalsWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PillPalsWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACA747612B2697D0000E1A98 /* PillPalsWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsWatchApp.swift; sourceTree = "<group>"; };
+		ACA747632B2697D0000E1A98 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ACA747652B2697D2000E1A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ACA747682B2697D2000E1A98 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ACAB781E2B0B18AF00C5F191 /* AddMedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMedicationView.swift; sourceTree = "<group>"; };
 		ACAB78202B0B18D300C5F191 /* MedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationView.swift; sourceTree = "<group>"; };
 		ACAB78222B0B18F700C5F191 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -100,6 +131,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACA7475C2B2697D0000E1A98 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -109,6 +147,7 @@
 				8816C5002B0A7EBD00DEFAEE /* PillPals */,
 				8816C5112B0A7EC000DEFAEE /* PillPalsTests */,
 				8816C51B2B0A7EC000DEFAEE /* PillPalsUITests */,
+				ACA747602B2697D0000E1A98 /* PillPalsWatch Watch App */,
 				8816C4FF2B0A7EBD00DEFAEE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,6 +158,7 @@
 				8816C4FE2B0A7EBD00DEFAEE /* PillPals.app */,
 				8816C50E2B0A7EC000DEFAEE /* PillPalsTests.xctest */,
 				8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */,
+				ACA7475F2B2697D0000E1A98 /* PillPalsWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +166,7 @@
 		8816C5002B0A7EBD00DEFAEE /* PillPals */ = {
 			isa = PBXGroup;
 			children = (
+				AC92511C2B545CD000C96097 /* SubViews */,
 				8816C5052B0A7EC000DEFAEE /* Assets.xcassets */,
 				ACAB782C2B0B19DF00C5F191 /* Views */,
 				ACAB78282B0B192C00C5F191 /* Data.swift */,
@@ -164,6 +205,35 @@
 			path = PillPalsUITests;
 			sourceTree = "<group>";
 		};
+		AC92511C2B545CD000C96097 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				ACAB78202B0B18D300C5F191 /* MedicationView.swift */,
+				ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */,
+				ACD0CB432B19133A00864625 /* LogMedicationView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		ACA747602B2697D0000E1A98 /* PillPalsWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				ACA747612B2697D0000E1A98 /* PillPalsWatchApp.swift */,
+				ACA747632B2697D0000E1A98 /* ContentView.swift */,
+				ACA747652B2697D2000E1A98 /* Assets.xcassets */,
+				ACA747672B2697D2000E1A98 /* Preview Content */,
+			);
+			path = "PillPalsWatch Watch App";
+			sourceTree = "<group>";
+		};
+		ACA747672B2697D2000E1A98 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				ACA747682B2697D2000E1A98 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		ACAB782C2B0B19DF00C5F191 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,12 +242,9 @@
 				8816C5032B0A7EBD00DEFAEE /* ContentView.swift */,
 				ACAB78242B0B190F00C5F191 /* DateSelectionView.swift */,
 				ACAB782D2B0B256300C5F191 /* CalendarView.swift */,
-				ACAB78202B0B18D300C5F191 /* MedicationView.swift */,
 				ACAB78222B0B18F700C5F191 /* ProfileView.swift */,
 				AC5304882B1583EF00E3BD75 /* NotifcationView.swift */,
-				ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */,
 				ACAB782F2B0DA9F400C5F191 /* HomeView.swift */,
-				ACD0CB432B19133A00864625 /* LogMedicationView.swift */,
 				AC53048A2B15A06300E3BD75 /* MapView.swift */,
 			);
 			path = Views;
@@ -193,10 +260,12 @@
 				8816C4FA2B0A7EBD00DEFAEE /* Sources */,
 				8816C4FB2B0A7EBD00DEFAEE /* Frameworks */,
 				8816C4FC2B0A7EBD00DEFAEE /* Resources */,
+				ACA7476D2B2697D2000E1A98 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				ACA7476B2B2697D2000E1A98 /* PBXTargetDependency */,
 			);
 			name = PillPals;
 			productName = PillPals;
@@ -239,6 +308,23 @@
 			productReference = 8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		ACA7475E2B2697D0000E1A98 /* PillPalsWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACA747702B2697D2000E1A98 /* Build configuration list for PBXNativeTarget "PillPalsWatch Watch App" */;
+			buildPhases = (
+				ACA7475B2B2697D0000E1A98 /* Sources */,
+				ACA7475C2B2697D0000E1A98 /* Frameworks */,
+				ACA7475D2B2697D0000E1A98 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PillPalsWatch Watch App";
+			productName = "PillPalsWatch Watch App";
+			productReference = ACA7475F2B2697D0000E1A98 /* PillPalsWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -260,6 +346,9 @@
 						CreatedOnToolsVersion = 15.0.1;
 						TestTargetID = 8816C4FD2B0A7EBD00DEFAEE;
 					};
+					ACA7475E2B2697D0000E1A98 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
 				};
 			};
 			buildConfigurationList = 8816C4F92B0A7EBD00DEFAEE /* Build configuration list for PBXProject "PillPals" */;
@@ -278,6 +367,7 @@
 				8816C4FD2B0A7EBD00DEFAEE /* PillPals */,
 				8816C50D2B0A7EC000DEFAEE /* PillPalsTests */,
 				8816C5172B0A7EC000DEFAEE /* PillPalsUITests */,
+				ACA7475E2B2697D0000E1A98 /* PillPalsWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -303,6 +393,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACA7475D2B2697D0000E1A98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACA747692B2697D2000E1A98 /* Preview Assets.xcassets in Resources */,
+				ACA747662B2697D2000E1A98 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +450,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACA7475B2B2697D0000E1A98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACA747642B2697D0000E1A98 /* ContentView.swift in Sources */,
+				ACA747622B2697D0000E1A98 /* PillPalsWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -363,6 +471,11 @@
 			isa = PBXTargetDependency;
 			target = 8816C4FD2B0A7EBD00DEFAEE /* PillPals */;
 			targetProxy = 8816C5192B0A7EC000DEFAEE /* PBXContainerItemProxy */;
+		};
+		ACA7476B2B2697D2000E1A98 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACA7475E2B2697D0000E1A98 /* PillPalsWatch Watch App */;
+			targetProxy = ACA7476A2B2697D2000E1A98 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -489,6 +602,7 @@
 		8816C5232B0A7EC000DEFAEE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -518,6 +632,7 @@
 		8816C5242B0A7EC000DEFAEE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -616,6 +731,66 @@
 			};
 			name = Release;
 		};
+		ACA7476E2B2697D2000E1A98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PillPalsWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 8VNWQXUY4G;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PillPalsWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.medlaunch.PillPals;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.medlaunch.PillPals.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		ACA7476F2B2697D2000E1A98 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PillPalsWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 8VNWQXUY4G;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PillPalsWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.medlaunch.PillPals;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.medlaunch.PillPals.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -651,6 +826,15 @@
 			buildConfigurations = (
 				8816C5292B0A7EC000DEFAEE /* Debug */,
 				8816C52A2B0A7EC000DEFAEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACA747702B2697D2000E1A98 /* Build configuration list for PBXNativeTarget "PillPalsWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACA7476E2B2697D2000E1A98 /* Debug */,
+				ACA7476F2B2697D2000E1A98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

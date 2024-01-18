@@ -79,6 +79,7 @@ struct AddMedicationView: View {
                 /// FIrst section handles basic info
                 Section(header: Text("Info")) {
                     TextField("Medication Name", text: $name)
+                        .submitLabel(.return)
                     
                     /// Iterates through all types of medication
                     Picker("Type", selection: $selectedType) {

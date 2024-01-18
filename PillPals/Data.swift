@@ -98,6 +98,7 @@ struct Medication: Identifiable, Codable {
     }
 }
 
+
 struct UserInfo: Identifiable, Codable {
     var id = UUID()
     var name: String = "User"
