@@ -16,7 +16,7 @@ class MedStore: ObservableObject {
             do {
                 try await load()
             } catch {
-                self.meds = dummyMedications // Use dummy data if no saved data exists
+                self.meds = [] // Use dummy data if no saved data exists
             }
         }
     }
@@ -41,7 +41,8 @@ class MedStore: ObservableObject {
             return dailyMeds
         }
         let meds = try await task.value
-        self.meds = meds
+        self.meds = meds.sorted { $0.timeToTake < $1.timeToTake }
+        //self.meds = meds
     }
     
     func save(medications: [Medication]) async throws {

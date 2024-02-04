@@ -44,9 +44,10 @@ struct HomeView: View {
     
     let saveAction: ()->Void
     
-    var sortedMeds: [Medication] {
+    /*var sortedMeds: [Medication] {
         meds.sorted { $0.timeToTake < $1.timeToTake}
-    }
+    }*/
+
     
     @State private var homeViewDemoUser: UserInfo = demoUser
     var body: some View {
@@ -54,7 +55,7 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    ForEach(sortedMeds) { medication in
+                    ForEach(meds.sorted { $0.timeToTake < $1.timeToTake}) { medication in
                         NavigationLink(destination: MedicationDetailView(medication: medication)) {
                             MedicationView(medication: medication) {
                                 indexSetToDelete = meds.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
@@ -114,6 +115,8 @@ struct HomeView: View {
         .sheet(isPresented: $showingAddMedicationView) {
             AddMedicationView(medications: $meds) { newMedication in
                 NotificationManager.shared.scheduleNotificationsForMedication(newMedication)
+                meds.sort { $0.timeToTake < $1.timeToTake }
+                print("Medications sorted: \(meds.map { $0.name })")
             }
         }
         .sheet(isPresented: $showingLogSheet) {
@@ -180,7 +183,7 @@ struct MedicationView: View {
                 Text(medication.timeToTake, style: .time)
                     .foregroundColor(.black)
                     .padding(8)
-                    .background(Color.gray)
+                    .background(Color.gray).opacity(0.5)
                     .cornerRadius(8)
                 
                 Spacer()

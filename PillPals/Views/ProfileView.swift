@@ -61,7 +61,7 @@ struct UserProfileForm: View {
     
     @State private var name: String = ""
     @State private var age: String = ""
-    @State private var medications: [Medication] = dummyMedications // Array to hold medications
+    @State private var medications: [Medication] = [] // Array to hold medications
     @State private var showingDeleteAlert = false
     @State private var medicationToDelete: Medication?
     @State private var showingAddMedication = false

@@ -21,7 +21,7 @@ struct AddMedicationView: View {
     @State private var name: String = ""
     @State private var selectedType = MedicationType.pill
     @State private var selectedMedicationPeriod = MedicationPeriod.morning
-    @State private var color: Color = Color.red // Default to red or any color
+    //@State private var color: Color = Color.red // Default to red or any color
     @State private var priority: Priority = .normal
     @State private var dateToTake = Date()
     @State private var dosageAmountString: String = ""
@@ -43,6 +43,11 @@ struct AddMedicationView: View {
     @State private var currentDate = Date()
     var onAddMedication: (Medication) -> Void
     
+    @State private var color: Color = Color(
+        red: Double.random(in: 0...1),
+        green: Double.random(in: 0...1),
+        blue: Double.random(in: 0...1)
+    )
 
     
     /// The MultiDatePicker allows a Calendar view where one can see/select multiple dates
@@ -114,7 +119,7 @@ struct AddMedicationView: View {
                         }
                     }
                     
-                    ColorPicker("Choose Color", selection: $color)
+                    // ColorPicker("Choose Color", selection: $color)
                     
                     Picker("Priority", selection: $priority) {
                         ForEach(Priority.allCases, id: \.self) { priority in
@@ -128,17 +133,18 @@ struct AddMedicationView: View {
                 
                 // DatePicker("Date to Take", selection: $dateToTake, displayedComponents: .date)
                 Section(header: Text("Date")) {
-                    Picker("Type", selection: $selectedMedicationPeriod) {
+                    /*Picker("Type", selection: $selectedMedicationPeriod) {
                         ForEach(MedicationPeriod.allCases, id: \.self) { type in
                             Text(type.rawValue.capitalized).tag(type)
                         }
-                    }
+                    }*/
                     
                     /// Select start and end time. At the same time updates w.r.t MultiDatePicker
                     DatePicker("Select Time", selection: $timeToTake, displayedComponents: .hourAndMinute)
                         .onChange(of: timeToTake) { _ in
-                            updateSelectedDates()
-                        }
+                                assignMedicationPeriodBasedOnTime()
+                               updateSelectedDates()
+                           }
                     
                     
                     
@@ -203,7 +209,13 @@ struct AddMedicationView: View {
             period: selectedMedicationPeriod
         )
         //medications.append(newMedication)
-        medications.append(newMedication)
+        DispatchQueue.main.async {
+                self.medications.append(newMedication)
+                self.medications.sort { $0.timeToTake < $1.timeToTake }
+                self.onAddMedication(newMedication)
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        // medications.append(newMedication)
         onAddMedication(newMedication)
     }
     private func selectedDaysString(_ days: [DayOfWeek]) -> String {
@@ -258,6 +270,22 @@ struct AddMedicationView: View {
      selectedDatesComponents = calculateDatesBetween(startDate: startDate, endDate: endDate, selectedWeekDays: selectedWeekDays)
      }*/
     
+    
+    private func assignMedicationPeriodBasedOnTime() {
+        let hour = Calendar.current.component(.hour, from: timeToTake)
+        
+        switch hour {
+        case 5..<10:
+            selectedMedicationPeriod = .morning
+        case 10..<16:
+            selectedMedicationPeriod = .daytime
+        case 16..<19:
+            selectedMedicationPeriod = .evening
+        default:
+            selectedMedicationPeriod = .night
+        }
+    }
+
 }
 
 
