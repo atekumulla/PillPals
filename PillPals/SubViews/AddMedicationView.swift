@@ -239,8 +239,10 @@ struct AddMedicationView: View {
             }
             
             // Move to the next day
-            guard let nextDay = calendar.date(byAdding: .day, value: 1, to: currentDate) else { break }
-            currentDate = nextDay
+            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
+            if currentDate > endDate {
+                        break
+            }
         }
         selectedDatesComponents = Set(selectedDates.map { dateStatus in
             calendar.dateComponents([.year, .month, .day], from: dateStatus.date)

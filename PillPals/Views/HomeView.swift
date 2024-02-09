@@ -155,71 +155,82 @@ struct HomeView: View {
 // MARK: - MedicationView
 
 /// A view representing a single medication in the list.
-
 struct MedicationView: View {
     var medication: Medication
     var onDelete: () -> Void  // Closure for handling delete action
     
+    // Example function to determine if the medication was taken on a specific day
+    // This function would need to be implemented based on your app's data structure
+    func isMedicationTakenToday() -> Bool {
+        // Lookup logic to determine if medication was taken today
+        // This is just a placeholder and needs to be replaced with actual logic
+        // For example, you might check today's date against the medication.datesToTake array
+        return medication.datesToTake.contains { $0.date == Date() && $0.taken }
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text(medication.timeToTake, style: .time)
-                    .foregroundColor(.black)
-                    .padding(8)
-                    .background(Color.gray).opacity(0.5)
-                    .cornerRadius(8)
-                
-                Spacer()
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundColor(medication.color.color)
-                    .imageScale(.large)
-            }
-            /*Text(timeString(from: medication.timeToTake))
-             .font(.headline)
-             .foregroundColor(.secondary)*/
-            
-            
-            HStack {
-                Image(systemName: medication.period.rawValue)
-                //.resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(medication.color.color)
-                    .imageScale(.large)
-                
-                VStack(alignment: .leading) {
-                    Text(medication.name)
-                        .font(.largeTitle
-                        )
+            VStack {
+                HStack {
+                    Text(medication.timeToTake, style: .time)
                         .foregroundColor(.primary)
-                    Text("\(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
-                        .font(.title3)
-                        .foregroundColor(.primary)
+                        .padding(8)
+                        .background(.regularMaterial).opacity(0.8)
+                        .cornerRadius(8)
+                    
+                    Spacer()
+                    
+                    if isMedicationTakenToday() {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(medication.color.color)
+                            .imageScale(.large)
+                    } else {
+                        Image(systemName: "circle")
+                            .foregroundColor(medication.color.color)
+                            .imageScale(.large)
+                    }
                 }
-                Spacer()
-                Image(systemName: "hand.tap.fill")
-                //.foregroundStyle(.secondary)
-                    .foregroundColor(.primary)
-                Button(action: onDelete) {
-                    Image(systemName: "trash")
-                        .foregroundColor(.red)
+                .padding([.top, .horizontal])
+                
+                //Divider()  // Adds a divider between the time/checkmark and the medication details
+                Rectangle()
+                    .frame(height: 2)
+                    .foregroundStyle(medication.color.color)
+                    .padding(.horizontal)
+                
+                HStack {
+                    Image(systemName: medication.period.rawValue)
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(medication.color.color)
+                        .imageScale(.large)
+                    
+                    VStack(alignment: .leading) {
+                        Text(medication.name)
+                            .font(.largeTitle)
+                            .foregroundColor(.primary)
+                        Text("\(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
+                            .font(.title3)
+                            .foregroundColor(.primary)
+                    }
+                    Spacer()
+                    Button(action: onDelete) {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                    }
                 }
-                
-                
-                
+                .padding([.bottom, .horizontal])
             }
-            .padding()
             .background(RoundedRectangle(cornerRadius: 12)
                 .fill(medication.uiColor.opacity(0.5)))
-            //.fill(reminder.isTaken ? .secondary : reminder.uiColor.opacity(0.3)))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(medication.uiColor, lineWidth: 2)
             )
         }
         .padding(.vertical, 4)
-        
     }
 }
+
 
 /*struct HomeView_Previews: PreviewProvider {
  static var previews: some View {
