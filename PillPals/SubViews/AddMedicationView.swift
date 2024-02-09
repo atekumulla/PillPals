@@ -25,10 +25,10 @@ struct AddMedicationView: View {
     @State private var priority: Priority = .normal
     @State private var dateToTake = Date()
     @State private var dosageAmountString: String = ""
-        private var dosageAmount: Double {
-            return Double(dosageAmountString) ?? 0
+    private var dosageAmount: Double {
+        return Double(dosageAmountString) ?? 0
     }
-
+    
     @State private var selectedDosageUnit: Dosage.Unit = .count
     @State private var selectedDatesComponents: Set<DateComponents> = []
     @State private var startDate = Date()
@@ -48,7 +48,7 @@ struct AddMedicationView: View {
         green: Double.random(in: 0...1),
         blue: Double.random(in: 0...1)
     )
-
+    
     
     /// The MultiDatePicker allows a Calendar view where one can see/select multiple dates
     ///  The current logic works as follows:
@@ -71,9 +71,9 @@ struct AddMedicationView: View {
         formatter.numberStyle = .decimal
         return formatter
     }()
-
-
-
+    
+    
+    
     var body: some View {
         
         /// NavigationView: A view for presenting a stack of views that represents a visible path in a navigation hierarchy.
@@ -108,7 +108,7 @@ struct AddMedicationView: View {
                                 self.dosageAmountString = filtered
                             }
                         }
-
+                    
                     
                     
                     
@@ -134,17 +134,17 @@ struct AddMedicationView: View {
                 // DatePicker("Date to Take", selection: $dateToTake, displayedComponents: .date)
                 Section(header: Text("Date")) {
                     /*Picker("Type", selection: $selectedMedicationPeriod) {
-                        ForEach(MedicationPeriod.allCases, id: \.self) { type in
-                            Text(type.rawValue.capitalized).tag(type)
-                        }
-                    }*/
+                     ForEach(MedicationPeriod.allCases, id: \.self) { type in
+                     Text(type.rawValue.capitalized).tag(type)
+                     }
+                     }*/
                     
                     /// Select start and end time. At the same time updates w.r.t MultiDatePicker
                     DatePicker("Select Time", selection: $timeToTake, displayedComponents: .hourAndMinute)
                         .onChange(of: timeToTake) { _ in
-                                assignMedicationPeriodBasedOnTime()
-                               updateSelectedDates()
-                           }
+                            assignMedicationPeriodBasedOnTime()
+                            updateSelectedDates()
+                        }
                     
                     
                     
@@ -210,11 +210,12 @@ struct AddMedicationView: View {
         )
         //medications.append(newMedication)
         DispatchQueue.main.async {
-                self.medications.append(newMedication)
-                self.medications.sort { $0.timeToTake < $1.timeToTake }
-                self.onAddMedication(newMedication)
-                self.presentationMode.wrappedValue.dismiss()
-            }
+            self.medications.append(newMedication)
+            assignMedicationPeriodBasedOnTime()
+            self.medications.sort { $0.timeToTake < $1.timeToTake }
+            self.onAddMedication(newMedication)
+            self.presentationMode.wrappedValue.dismiss()
+        }
         // medications.append(newMedication)
         onAddMedication(newMedication)
     }
@@ -281,11 +282,13 @@ struct AddMedicationView: View {
             selectedMedicationPeriod = .daytime
         case 16..<19:
             selectedMedicationPeriod = .evening
-        default:
+        case 19...23, 0..<5:
             selectedMedicationPeriod = .night
+        default:
+            selectedMedicationPeriod = .daytime // Fallback in case none of the above conditions are met
         }
     }
-
+    
 }
 
 
