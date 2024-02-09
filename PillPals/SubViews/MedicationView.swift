@@ -1,6 +1,6 @@
 //
 //  MedicationView.swift
-//  PillAppTesting
+//  PillAppTestTesting
 //
 //  Created by Aadi Shiv Malhotra on 11/12/23.
 //

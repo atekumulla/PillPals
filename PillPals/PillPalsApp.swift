@@ -28,7 +28,7 @@ struct PillPalsApp: App {
         WindowGroup {
             TabView {
                 // Assuming HomeView expects a Binding<[Medication]>
-                HomeView(meds: $store.meds) {
+                HomeView(medStore: store) {
                     Task {
                             do {
                                 try await store.save(medications: store.meds)

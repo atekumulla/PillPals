@@ -30,6 +30,16 @@ class MedStore: ObservableObject {
         
     }
     
+    private func sortMedicationsByTime() {
+        meds.sort { $0.timeToTake < $1.timeToTake}
+    }
+    
+    func addMedication(_ medication: Medication) {
+        meds.append(medication)
+        sortMedicationsByTime()
+    }
+    
+    
     
     func load() async throws {
         let task = Task<[Medication], Error> {

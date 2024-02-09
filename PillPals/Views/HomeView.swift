@@ -28,11 +28,9 @@ func timeString(from date: Date) -> String {
 
 struct HomeView: View {
     // Example medications
-    //@State private var medications: [Medication] = dummyMedications
-    @StateObject var medications = MedStore()
+    @ObservedObject var medStore: MedStore
     @StateObject var notificationManager = NotificationManager.shared
     @State private var showingAddMedicationView = false
-    @Binding var meds: [Medication]
     @Environment(\.scenePhase) private var scenePhase
     @State private var showDeleteConfirmation = false
     @State private var indexSetToDelete: IndexSet?
@@ -41,24 +39,50 @@ struct HomeView: View {
     @State private var medicationToLog: Medication?
     @State private var selectedMedicationId: String?
     @State private var showingLogMedicationView = false
-    
+    @State private var homeViewDemoUser: UserInfo = demoUser
     let saveAction: ()->Void
     
-    /*var sortedMeds: [Medication] {
-        meds.sorted { $0.timeToTake < $1.timeToTake}
-    }*/
-
     
-    @State private var homeViewDemoUser: UserInfo = demoUser
+    func presentLogSheet(for medication: Medication) {
+        medicationToLog = medication
+        showingLogSheet = true
+    }
+    private func deleteMedication(at offsets: IndexSet) {
+        offsets.forEach { index in
+            let medication = medStore.meds[index]
+            NotificationManager.shared.cancelNotifications(for: medication.id)
+        }
+        medStore.meds.remove(atOffsets: offsets)
+    }
+    func getMedicationById(_ id: String?) -> Medication? {
+        // Implement logic to find and return the Medication object
+        guard let idString = id, let uuid = UUID(uuidString: idString) else {
+            return nil
+        }
+        return medStore.meds.first {$0.id == uuid}
+    }
+    
+    private func handleAppear() {
+        notificationManager.checkPendingNotification()
+    }
+    
+    private func handleSelectedMedicationIdChange(newId: String?) {
+        if let newId = newId, newId != selectedMedicationId {
+            selectedMedicationId = newId
+            showingLogMedicationView = true
+        }
+    }
+    
+    
     var body: some View {
         // used to be NavigationStack
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    ForEach(meds.sorted { $0.timeToTake < $1.timeToTake}) { medication in
+                    ForEach(medStore.meds) { medication in
                         NavigationLink(destination: MedicationDetailView(medication: medication)) {
                             MedicationView(medication: medication) {
-                                indexSetToDelete = meds.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
+                                indexSetToDelete = medStore.meds.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
                                 showDeleteConfirmation = true
                             }
                         }
@@ -69,17 +93,6 @@ struct HomeView: View {
                 }
                 .padding()
             }
-            /*.onReceive(NotificationManager.shared.medicationNotification) { medicationId in
-             if let medication = meds.first(where: { $0.id.uuidString == medicationId }) {
-             medicationToLog = medication
-             showingLogSheet = true
-             }
-             }
-             .sheet(isPresented: $showingLogSheet) {
-             if let medication = medicationToLog {
-             LogMedicationSheet(medication: medication, isPresented: $showingLogSheet)
-             }
-             }*/
             .navigationTitle("Hello " + homeViewDemoUser.name + "!")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -96,16 +109,9 @@ struct HomeView: View {
                 }
             }
         }
-        .onAppear {
-            notificationManager.checkPendingNotification()
-            
-        }
-        .onChange(of: notificationManager.selectedMedicationId) { newId in
-            if let newId = newId, newId != selectedMedicationId {
-                selectedMedicationId = newId
-                showingLogMedicationView = true
-            }
-        }
+        .onAppear(perform: handleAppear)
+        .onChange(of: notificationManager.selectedMedicationId, perform: handleSelectedMedicationIdChange)
+        
         /// Presents a sheet to log medication. - doesnt work tho
         .sheet(isPresented: $showingLogMedicationView) {
             if let medication = getMedicationById(selectedMedicationId) {
@@ -113,11 +119,7 @@ struct HomeView: View {
             }
         }
         .sheet(isPresented: $showingAddMedicationView) {
-            AddMedicationView(medications: $meds) { newMedication in
-                NotificationManager.shared.scheduleNotificationsForMedication(newMedication)
-                meds.sort { $0.timeToTake < $1.timeToTake }
-                print("Medications sorted: \(meds.map { $0.name })")
-            }
+            AddMedicationView(medStore: medStore)
         }
         .sheet(isPresented: $showingLogSheet) {
             if let medication = medicationToLog {
@@ -133,7 +135,7 @@ struct HomeView: View {
                 primaryButton: .destructive(Text("Delete")) {
                     if let indexSet = indexSetToDelete {
                         withAnimation {
-                            meds.remove(atOffsets: indexSet)
+                            medStore.meds.remove(atOffsets: indexSet)
                         }
                         
                     }
@@ -146,25 +148,6 @@ struct HomeView: View {
         }
         
     }
-    func presentLogSheet(for medication: Medication) {
-        medicationToLog = medication
-        showingLogSheet = true
-    }
-    private func deleteMedication(at offsets: IndexSet) {
-        offsets.forEach { index in
-            let medication = meds[index]
-            NotificationManager.shared.cancelNotifications(for: medication.id)
-        }
-        meds.remove(atOffsets: offsets)
-    }
-    func getMedicationById(_ id: String?) -> Medication? {
-        // Implement logic to find and return the Medication object
-        guard let idString = id, let uuid = UUID(uuidString: idString) else {
-            return nil
-        }
-        return meds.first {$0.id == uuid}
-    }
-    
 }
 
 
@@ -238,11 +221,12 @@ struct MedicationView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(meds: .constant(dummyMedications), saveAction: {})
-    }
-}
+/*struct HomeView_Previews: PreviewProvider {
+ static var previews: some View {
+ //HomeView(meds: .constant(dummyMedications), saveAction: {})
+ 
+ }
+ }*/
 
 
 
@@ -263,58 +247,7 @@ extension Date {
     }
 }
 
-// MARK: - LogMedicationSheet
 
-/// A sheet view for logging medication intake.
-struct LogMedicationSheet: View {
-    var medication: Medication
-    @Binding var isPresented: Bool
-    @State private var showReminderOptions = false
-    
-    var body: some View {
-        NavigationView {
-            VStack {
-                Text("Medication: \(medication.name)")
-                Text("Dosage: \(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
-                Text("Today's Date: \(Date(), formatter: LogMedicationSheet.dateFormatter)")
-                
-                Button("Mark as Taken") {
-                    markMedicationAsTaken()
-                    isPresented = false
-                }
-                
-                Button("Mark as Not Taken") {
-                    // Handle not taken action
-                    isPresented = false
-                }
-                
-                Button("Remind Me") {
-                    showReminderOptions = true
-                }
-                
-                Spacer()
-            }
-            .navigationTitle("Medication Details")
-            .navigationBarItems(trailing: Button("Done") {
-                isPresented = false
-            })
-        }
-        .sheet(isPresented: $showReminderOptions) {
-            ReminderOptionsView(medication: medication, isPresented: $showReminderOptions)
-        }
-    }
-    
-    private func markMedicationAsTaken() {
-        // Logic to mark medication as taken
-    }
-    /// DateFormatter for displaying the date in the sheet.
-    private static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .short
-        return formatter
-    }()
-}
 
 struct ReminderOptionsView: View {
     var medication: Medication

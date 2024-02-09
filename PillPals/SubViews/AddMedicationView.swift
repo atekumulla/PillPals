@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 struct AddMedicationView: View {
-    @Binding var medications: [Medication] // = dummyMedications
+    @ObservedObject var medStore: MedStore // Use MedStore directly
     //@State var medications: [Medication] = dummyMedications
     /// Once create or edit button are pressed, and their respective views are interactied with, this variable
     /// handles the removal of those views from the neviornment
@@ -41,7 +41,7 @@ struct AddMedicationView: View {
     @State private var timeToTake = Date() // Default to current time
     
     @State private var currentDate = Date()
-    var onAddMedication: (Medication) -> Void
+    
     
     @State private var color: Color = Color(
         red: Double.random(in: 0...1),
@@ -182,7 +182,6 @@ struct AddMedicationView: View {
             .navigationBarTitle("Add Medication", displayMode: .inline)
             .navigationBarItems(leading: Button("Create") {
                 createMedication()
-                presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }
@@ -208,16 +207,10 @@ struct AddMedicationView: View {
             imageName: "pills", // Default image name
             period: selectedMedicationPeriod
         )
-        //medications.append(newMedication)
-        DispatchQueue.main.async {
-            self.medications.append(newMedication)
-            assignMedicationPeriodBasedOnTime()
-            self.medications.sort { $0.timeToTake < $1.timeToTake }
-            self.onAddMedication(newMedication)
-            self.presentationMode.wrappedValue.dismiss()
-        }
-        // medications.append(newMedication)
-        onAddMedication(newMedication)
+        
+        medStore.addMedication(newMedication)
+        NotificationManager.shared.scheduleNotificationsForMedication(newMedication)
+        presentationMode.wrappedValue.dismiss()
     }
     private func selectedDaysString(_ days: [DayOfWeek]) -> String {
         days.map { $0.title }.joined(separator: ", ")
