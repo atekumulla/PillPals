@@ -23,6 +23,9 @@
 		88AA16682B507FF000AD427D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA16672B507FF000AD427D /* Data.swift */; };
 		88AA166A2B50819200AD427D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA16692B50819200AD427D /* DummyData.swift */; };
 		88AA16702B5218E200AD427D /* MedPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA166F2B5218E200AD427D /* MedPageView.swift */; };
+		88D796FD2B7455DD0079CDDF /* AddMedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D796FC2B7455DD0079CDDF /* AddMedicationView.swift */; };
+		88D796FF2B7456880079CDDF /* DateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D796FE2B7456870079CDDF /* DateSelectionView.swift */; };
+		88D797012B7458560079CDDF /* SelectedDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D797002B7458560079CDDF /* SelectedDaysView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,9 @@
 		88AA16672B507FF000AD427D /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		88AA16692B50819200AD427D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		88AA166F2B5218E200AD427D /* MedPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedPageView.swift; sourceTree = "<group>"; };
+		88D796FC2B7455DD0079CDDF /* AddMedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMedicationView.swift; sourceTree = "<group>"; };
+		88D796FE2B7456870079CDDF /* DateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectionView.swift; sourceTree = "<group>"; };
+		88D797002B7458560079CDDF /* SelectedDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDaysView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +131,9 @@
 				88AA166F2B5218E200AD427D /* MedPageView.swift */,
 				88AA16692B50819200AD427D /* DummyData.swift */,
 				888B03812B586C91009A1376 /* MedInfoView.swift */,
+				88D796FC2B7455DD0079CDDF /* AddMedicationView.swift */,
+				88D797002B7458560079CDDF /* SelectedDaysView.swift */,
+				88D796FE2B7456870079CDDF /* DateSelectionView.swift */,
 			);
 			path = PillPals;
 			sourceTree = "<group>";
@@ -288,13 +297,16 @@
 				888B037E2B538619009A1376 /* PillPalsView.swift in Sources */,
 				88AA166A2B50819200AD427D /* DummyData.swift in Sources */,
 				888B037C2B5385C9009A1376 /* CaregiverView.swift in Sources */,
+				88D797012B7458560079CDDF /* SelectedDaysView.swift in Sources */,
 				88AA16682B507FF000AD427D /* Data.swift in Sources */,
 				88AA16702B5218E200AD427D /* MedPageView.swift in Sources */,
 				884E1A492B4F7B84002D5AB1 /* HomeView.swift in Sources */,
 				888B03822B586C91009A1376 /* MedInfoView.swift in Sources */,
 				884E1A4B2B4F7BAD002D5AB1 /* ContentView.swift in Sources */,
+				88D796FF2B7456880079CDDF /* DateSelectionView.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
 				8816C52E2B0A917B00DEFAEE /* MedicationView.swift in Sources */,
+				88D796FD2B7455DD0079CDDF /* AddMedicationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

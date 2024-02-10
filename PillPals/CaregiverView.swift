@@ -15,7 +15,9 @@ struct CaregiverView: View {
                     RoundedRectangleButton(label: "Calendar")
                 }
 
-                NavigationLink(destination: AddMedicationView()) {
+                NavigationLink(destination: AddMedicationView(medications: .constant(dummyMedications), onAddMedication: { newMedication in
+                    // Implementation for adding medication
+                })) {
                     RoundedRectangleButton(label: "Add New Medication")
                 }
 
@@ -51,11 +53,11 @@ struct RoundedRectangleButton: View {
         }
 }
 
-struct AddMedicationView: View {
-    var body: some View {
-        Text("Add Medication View")
-    }
-}
+//struct AddMedicationView: View {
+//    var body: some View {
+//        Text("Add Medication View")
+//    }
+//}
 
 struct ExportMedicationInfoView: View {
     var body: some View {

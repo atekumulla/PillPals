@@ -18,7 +18,6 @@ struct HomeView: View {
                         MedicationView(medications: dummyMedications)
                     }
                     .padding(.bottom)
-
                 }
                 .navigationBarTitle("Hello, John!", displayMode: .large)
                 .navigationBarItems(
