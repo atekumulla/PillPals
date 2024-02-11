@@ -31,6 +31,7 @@ struct HomeView: View {
     @ObservedObject var medStore: MedStore
     @StateObject var notificationManager = NotificationManager.shared
     @State private var showingAddMedicationView = false
+    @State private var showingCaregiverView = false
     @Environment(\.scenePhase) private var scenePhase
     @State private var showDeleteConfirmation = false
     @State private var indexSetToDelete: IndexSet?
@@ -93,12 +94,17 @@ struct HomeView: View {
                 }
                 .padding()
             }
+            //.background(Color.gray.opacity(0.3))
             .navigationTitle("Hello " + homeViewDemoUser.name + "!")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     // Add this line for the Edit button
                     //EditButton()
-                    
+                    Button(action: {
+                        showingCaregiverView = true
+                    }) {
+                        Image(systemName: "person.badge.key.fill")
+                    }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -120,6 +126,9 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showingAddMedicationView) {
             AddMedicationView(medStore: medStore)
+        }
+        .sheet(isPresented: $showingCaregiverView) {
+            CaregiverView()
         }
         .sheet(isPresented: $showingLogSheet) {
             if let medication = medicationToLog {
@@ -221,7 +230,8 @@ struct MedicationView: View {
                 .padding([.bottom, .horizontal])
             }
             .background(RoundedRectangle(cornerRadius: 12)
-                .fill(medication.uiColor.opacity(0.5)))
+                .fill(medication.uiColor.opacity(0.5))
+                .shadow(color: .gray, radius: 5, x: 0, y: 5)) // Apply shadow here)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(medication.uiColor, lineWidth: 2)

@@ -47,7 +47,11 @@ struct PillPalsApp: App {
                     .tabItem {
                         Label("Home", systemImage: "house.fill")
                     }
-                
+                PillPalsView(emergencyContacts: dummyEmergencyContacts)
+                                .tabItem {
+                                    Image(systemName: "person")
+                                    Text("PillPals")
+                                }
 
                 UserProfileForm(meds: $store.meds) // Assuming UserProfileForm doesn't need data from store
                     .tabItem {
