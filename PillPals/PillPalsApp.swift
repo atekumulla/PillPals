@@ -55,7 +55,7 @@ struct PillPalsApp: App {
 
                 UserProfileForm(meds: $store.meds) // Assuming UserProfileForm doesn't need data from store
                     .tabItem {
-                        Label("Profile", systemImage: "person.circle")
+                        Label("Profile", systemImage: "gear")
                     }
             }
         }
