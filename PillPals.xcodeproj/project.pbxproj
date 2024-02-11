@@ -17,6 +17,7 @@
 		AC53048B2B15A06300E3BD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC53048A2B15A06300E3BD75 /* MapView.swift */; };
 		AC6BDE8B2B7948BA005C2BD5 /* PillPalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6BDE8A2B7948BA005C2BD5 /* PillPalsView.swift */; };
 		AC6BDE8D2B794995005C2BD5 /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6BDE8C2B794995005C2BD5 /* CaregiverView.swift */; };
+		AC6BDE902B79590D005C2BD5 /* MedicationModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC6BDE8E2B79590D005C2BD5 /* MedicationModel.xcdatamodeld */; };
 		AC784BE32B75E07A0037C9F9 /* MedicationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC784BE22B75E07A0037C9F9 /* MedicationListView.swift */; };
 		AC784BE52B75E2070037C9F9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC784BE42B75E2070037C9F9 /* DataController.swift */; };
 		ACA747622B2697D0000E1A98 /* PillPalsWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA747612B2697D0000E1A98 /* PillPalsWatchApp.swift */; };
@@ -90,6 +91,7 @@
 		AC53048A2B15A06300E3BD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AC6BDE8A2B7948BA005C2BD5 /* PillPalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsView.swift; sourceTree = "<group>"; };
 		AC6BDE8C2B794995005C2BD5 /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
+		AC6BDE8F2B79590D005C2BD5 /* MedicationModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MedicationModel.xcdatamodel; sourceTree = "<group>"; };
 		AC784BE22B75E07A0037C9F9 /* MedicationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationListView.swift; sourceTree = "<group>"; };
 		AC784BE42B75E2070037C9F9 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		ACA7475F2B2697D0000E1A98 /* PillPalsWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PillPalsWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +221,7 @@
 				ACAB78282B0B192C00C5F191 /* Data.swift */,
 				ACD0CB412B1819F300864625 /* MedCodableDataStore.swift */,
 				ACF588342B0EFDB400C5ACCC /* PersistenceController.swift */,
+				AC6BDE8E2B79590D005C2BD5 /* MedicationModel.xcdatamodeld */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				ACD0CB422B1819F300864625 /* MedCodableDataStore.swift in Sources */,
 				ACAB78272B0B192100C5F191 /* SelectedDaysView.swift in Sources */,
 				AC6BDE8D2B794995005C2BD5 /* CaregiverView.swift in Sources */,
+				AC6BDE902B79590D005C2BD5 /* MedicationModel.xcdatamodeld in Sources */,
 				ACAB781F2B0B18AF00C5F191 /* AddMedicationView.swift in Sources */,
 				ACF588352B0EFDB400C5ACCC /* PersistenceController.swift in Sources */,
 				ACD0CB442B19133A00864625 /* LogMedicationView.swift in Sources */,
@@ -860,6 +864,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AC6BDE8E2B79590D005C2BD5 /* MedicationModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AC6BDE8F2B79590D005C2BD5 /* MedicationModel.xcdatamodel */,
+			);
+			currentVersion = AC6BDE8F2B79590D005C2BD5 /* MedicationModel.xcdatamodel */;
+			path = MedicationModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8816C4F62B0A7EBD00DEFAEE /* Project object */;
 }
