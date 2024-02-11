@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct CaregiverView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -24,6 +26,13 @@ struct CaregiverView: View {
                 Spacer()
             }
             .navigationBarTitle("Caregiver", displayMode: .large)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Exit") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
         }
     }
 }

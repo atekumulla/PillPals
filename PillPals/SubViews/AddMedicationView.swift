@@ -55,8 +55,14 @@ struct AddMedicationView: View {
     ///  First, you select the start and endDate - these act as the dates that bound the multiview
     ///  As a result, once the start and end date have been slected, all other days are grayed out - inactive
     var bounds: Range<Date> {
-        return startDate..<endDate
+        // Ensure the start of the range is the earlier date and the end of the range is the later date
+        let start = min(startDate, endDate)
+        let end = max(startDate, endDate)
+        
+        // Extend the end date by one day to include it in the range
+        return start..<Calendar.current.date(byAdding: .day, value: 1, to: end)!
     }
+
     
     // IGNORE
     var range: Int {
@@ -149,12 +155,18 @@ struct AddMedicationView: View {
                     
                     
                     DatePicker("Start Date", selection: $startDate, displayedComponents: [.date])
-                        .onChange(of: startDate) { _ in
+                        .onChange(of: startDate) { newValue in
+                            if newValue > endDate {
+                                endDate = newValue
+                            }
                             updateSelectedDates()
                         }
                     
                     DatePicker("End Date", selection: $endDate, displayedComponents: [.date])
-                        .onChange(of: endDate) { _ in
+                        .onChange(of: endDate) { newValue in
+                            if newValue < startDate {
+                                startDate = newValue
+                            }
                             updateSelectedDates()
                         }
                     
@@ -241,7 +253,7 @@ struct AddMedicationView: View {
             // Move to the next day
             currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
             if currentDate > endDate {
-                        break
+                break
             }
         }
         selectedDatesComponents = Set(selectedDates.map { dateStatus in
