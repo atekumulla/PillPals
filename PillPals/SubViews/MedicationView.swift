@@ -71,6 +71,7 @@ struct MedicationDetailView: View {
                         Text(formatDate(medication.endDate))
                     }
                     
+                    
                     CalendarView(medication: medication)
                         .padding()
                     
