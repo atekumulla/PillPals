@@ -31,6 +31,7 @@ struct HomeView: View {
     @ObservedObject var medStore: MedStore
     @StateObject var notificationManager = NotificationManager.shared
     @State private var showingAddMedicationView = false
+    @State private var showingCaregiverView = false
     @Environment(\.scenePhase) private var scenePhase
     @State private var showDeleteConfirmation = false
     @State private var indexSetToDelete: IndexSet?
@@ -73,32 +74,69 @@ struct HomeView: View {
         }
     }
     
+    // Organizes medications by period and sorts them within each period
+    // Organizes medications by period and sorts them within each period by time
+    private var sortedMedicationsByPeriod: [MedicationPeriod: [Medication]] {
+        let today = Calendar.current.component(.weekday, from: Date())
+        
+        // Filter medications for today
+        let medicationsForToday = medStore.meds.filter { medication in
+            medication.daysOfWeekToTake.contains(where: { $0.calendarValue == today })
+        }
+        
+        // Group and sort medications by period
+        let grouped = Dictionary(grouping: medicationsForToday) { $0.period }
+        
+        // Sort each group first by time and then by name within each period
+        let sortedGroups = grouped.mapValues { medications in
+            medications.sorted {
+                if $0.timeToTake == $1.timeToTake {
+                    return $0.name < $1.name // Secondary sort by name if times are equal
+                }
+                return $0.timeToTake < $1.timeToTake // Primary sort by time
+            }
+        }
+        
+        return sortedGroups
+    }
+
+    
     
     var body: some View {
         // used to be NavigationStack
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    ForEach(medStore.meds) { medication in
-                        NavigationLink(destination: MedicationDetailView(medication: medication)) {
-                            MedicationView(medication: medication) {
-                                indexSetToDelete = medStore.meds.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
-                                showDeleteConfirmation = true
+                    ForEach(MedicationPeriod.allCases, id: \.self) { period in
+                        if let periodMedications = sortedMedicationsByPeriod[period] {
+                            ForEach(periodMedications) { medication in
+                                
+                                NavigationLink(destination: MedicationDetailView(medication: medication)) {
+                                    MedicationView(medication: medication) {
+                                        indexSetToDelete = medStore.meds.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
+                                        showDeleteConfirmation = true
+                                    }
+                                    
+                                }
+                                .transition(.fadeOut) // Apply custom transition here
                             }
                         }
-                        .transition(.fadeOut) // Apply custom transition here
-                        
                     }
                     .onDelete(perform: deleteMedication)
                 }
                 .padding()
             }
+            //.background(Color.gray.opacity(0.3))
             .navigationTitle("Hello " + homeViewDemoUser.name + "!")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     // Add this line for the Edit button
                     //EditButton()
-                    
+                    Button(action: {
+                        showingCaregiverView = true
+                    }) {
+                        Image(systemName: "person.badge.key.fill")
+                    }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -120,6 +158,9 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showingAddMedicationView) {
             AddMedicationView(medStore: medStore)
+        }
+        .sheet(isPresented: $showingCaregiverView) {
+            CaregiverView()
         }
         .sheet(isPresented: $showingLogSheet) {
             if let medication = medicationToLog {
@@ -221,7 +262,8 @@ struct MedicationView: View {
                 .padding([.bottom, .horizontal])
             }
             .background(RoundedRectangle(cornerRadius: 12)
-                .fill(medication.uiColor.opacity(0.5)))
+                .fill(medication.uiColor.opacity(0.5))
+                .shadow(color: .gray, radius: 5, x: 0, y: 5)) // Apply shadow here)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(medication.uiColor, lineWidth: 2)
@@ -288,5 +330,4 @@ extension AnyTransition {
         .asymmetric(insertion: .identity, removal: .opacity)
     }
 }
-
 
