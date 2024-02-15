@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  PillPals
+//  PillPalsWatch Watch App
 //
-//  Created by anush on 11/19/23.
+//  Created by Aadi Shiv Malhotra on 12/10/23.
 //
 
 import SwiftUI
