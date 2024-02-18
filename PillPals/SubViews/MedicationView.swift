@@ -20,13 +20,19 @@ struct CornerRadiusShape: Shape {
     }
 }
 struct MedicationDetailView: View {
+    
+    @State private var color: Color = Color(
+        red: 180.0/255.0,
+        green: 200.0/255.0,
+        blue:  220.0/255.0
+    )
     @State var medication: Medication
     @State private var isDatesListExpanded: Bool = false // To control the expandable list
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                DisplayMedicationView(medication: dummyMed)
+                DisplayMedicationView(medication: medication)
                 
                 Divider()
                 
@@ -78,7 +84,10 @@ struct MedicationDetailView: View {
             }
             .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("\(medication.name)")
+        .navigationBarTitleDisplayMode(.automatic)
+        .toolbarBackground(color, for: .navigationBar)
+
     }
     
     private func formatDate(_ date: Date) -> String {

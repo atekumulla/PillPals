@@ -26,11 +26,11 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
         let markAsTakenAction = UNNotificationAction(identifier: "MARK_AS_TAKEN", title: "Taken",options: [])
         let markAsSkippedAction = UNNotificationAction(identifier: "MARK_AS_SKIPPED", title: "Skipped", options: [])
         let markAsRemindLaterAction = UNNotificationAction(identifier: "MARK_AS_REMIND_LATER", title: "Remind me later", options: [])
-        let snoozeAction = UNNotificationAction(identifier: "SNOOZE_ACTION",title: "Snooze (15 mins)",options: [])
+        // let snoozeAction = UNNotificationAction(identifier: "SNOOZE_ACTION",title: "Remind me in 15 mins",options: [])
         
         // Define the notification type
         let takeMedicationCategory = UNNotificationCategory(identifier: "TAKE_MEDICATION",
-                                                                        actions: [markAsTakenAction, markAsSkippedAction, markAsRemindLaterAction, snoozeAction],
+                                                                        actions: [markAsTakenAction, markAsSkippedAction, markAsRemindLaterAction],
                                                                         intentIdentifiers: [],
                                                                         hiddenPreviewsBodyPlaceholder: "",
                                                             options: .customDismissAction)
@@ -98,9 +98,6 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
             case "MARK_AS_REMIND_LATER":
                 // MAY want to replace as too complicated
                 // scheduleRemindLaterNotification
-                break
-            case "SNOOZE_ACTION":
-                // scheduleFifteenMinuteLaterNotification()
                 break
             default:
                 break

@@ -221,17 +221,11 @@ struct MedicationView: View {
                     
                     Spacer()
                     
-                    if isMedicationTakenToday() {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(medication.color.color)
-                            .imageScale(.large)
-                            .bold()
-                    } else {
-                        Image(systemName: "circle")
-                            .foregroundColor(medication.color.color)
-                            .imageScale(.large)
-                            .bold()
-                    }
+                   Text("More Info")
+                        .foregroundStyle(.primary)
+                        .padding(8)
+                        .background(.regularMaterial).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                        .cornerRadius(8)
                 }
                 .padding([.top, .horizontal])
                 

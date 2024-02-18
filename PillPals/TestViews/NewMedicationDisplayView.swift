@@ -22,7 +22,7 @@ struct RoundedDetailCard: View {
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 10).fill(Color.black.opacity(0.05)))
-        .frame(height: 75) // Or any other height you prefer
+        .frame(height: 70) // Or any other height you prefer
     }
         
 }
@@ -93,10 +93,11 @@ struct CntView: View {
                     }
                     .frame(width: headerHeight * 0.5, height: headerHeight * 0.5)
                     
+                    
                     Text("\(dummyMed.name)")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.black)
                     /// Scale tesxt a bit
                         .scaleEffect(1 - (progress * 0.15))
                     /// moving text a bit
@@ -118,16 +119,17 @@ struct CntView: View {
     /// Sample row cards
     @ViewBuilder
     func SampleCardsView() -> some View {
-        VStack(spacing: 15) {
+        VStack() {
             // You can create a custom view for each medication detail.
             // Here's an example for priority, which you can replicate for other data points.
-            RoundedDetailCard(label: "Dosage", detail: "\(dummyMed.dosage.amount) ")
+            RoundedDetailCard(label: "Dosage", detail: "\(dummyMed.dosage.amount) \(dummyMed.dosage.unit)")
                 .padding(10)
             RoundedDetailCard(label: "Priority", detail: dummyMed.priority.rawValue.capitalized)
                 .padding(10)
             RoundedDetailCard(label: "Time To Take", detail: "\(dummyMed.timeToTake.formatted(date: .omitted, time: .shortened))")
                 .padding(10)
             RoundedDetailCard(label: "Time Period", detail: dummyMed.period.rawValue.capitalized)
+                .padding(10)
             RoundedDetailCard(label: "Start Date", detail: dummyMed.startDate.formatted(date: .abbreviated, time: .omitted))
                 .padding(10)
             RoundedDetailCard(label: "End Date", detail: dummyMed.endDate.formatted(date: .abbreviated, time: .omitted))
