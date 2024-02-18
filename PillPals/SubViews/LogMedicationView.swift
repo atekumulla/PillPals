@@ -13,6 +13,7 @@ import SwiftUI
 /// A sheet view for logging medication intake.
 struct LogMedicationSheet: View {
     var medication: Medication
+    @EnvironmentObject var medStore: MedStore
     @Binding var isPresented: Bool
     @State private var showReminderOptions = false
     
@@ -107,6 +108,14 @@ struct LogMedicationSheet: View {
         // Logic to mark medication as taken
     }
 
+    /**
+     private func markMedicationAsTaken() {
+             Task {
+                 await medStore.markMedicationAsTaken(medicationId: medication.id, on: Date(), forDoseIndex: 0)
+                 // Perform any other UI updates here if necessary
+             }
+         }
+     */
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long

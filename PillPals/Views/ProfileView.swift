@@ -21,6 +21,23 @@ let datesList = [startDate, endDate]
 let redColor = RGBColor(color: .red)
 let blueColor = RGBColor(color: .blue)
 
+
+var dummyMed: Medication = Medication(
+    name: "Aspirin",
+    type: .tablet,
+    dosage: Dosage(amount: 5, unit: .milligrams),
+    datesToTake: createDummyMedicationDates(startDate: startDate, endDate: endDate, daysOfWeek: dummyDaysOfWeek),
+    
+    daysOfWeekToTake: dummyDaysOfWeek,
+    startDate: startDate,
+    endDate: endDate,
+    timeToTake: dummyTimeToTake1,
+    color: rgbSampleColor,
+    priority: .normal,
+    imageName: "pills",
+    period: MedicationPeriod.morning
+)
+
 var dummyMedications: [Medication] = [
     Medication(
         name: "Aspirin",
@@ -57,7 +74,7 @@ var dummyMedications: [Medication] = [
 
 struct UserProfileForm: View {
     // ... existing properties
-    @Binding var meds: [Medication]
+    @ObservedObject var medStore: MedStore
     
     @State private var name: String = ""
     @State private var age: String = ""
@@ -65,6 +82,8 @@ struct UserProfileForm: View {
     @State private var showingDeleteAlert = false
     @State private var medicationToDelete: Medication?
     @State private var showingAddMedication = false
+    
+    @State private var navigateToNewMedicationDisplay = false
     
     var body: some View {
         
@@ -78,7 +97,7 @@ struct UserProfileForm: View {
                 }
                 
                 Section(header: Text("Medications")) {
-                    ForEach(meds) { medication in
+                    ForEach(medStore.meds) { medication in
                         NavigationLink(destination: MedicationDetailView(medication: medication)) {
                             HStack {
                                 Image(systemName: medication.imageName)
@@ -100,6 +119,16 @@ struct UserProfileForm: View {
                     }
                 }
                 
+                // Add a new section for the navigation button
+                Section {
+                    NavigationLink(destination: NewMedicationDisplayView()) {
+                        Text("newmedview")
+                            .navigationBarHidden(true)
+
+                    }
+                }
+                
+                
                 
             }
             .navigationBarTitle("User Profile")
@@ -116,6 +145,9 @@ struct UserProfileForm: View {
                     secondaryButton: .cancel()
                 )
             }
+            
+           
+            
             
         } // End of NavigationView
         /*.sheet(isPresented: $showingAddMedication) {

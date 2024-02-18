@@ -19,91 +19,96 @@ struct CornerRadiusShape: Shape {
         return Path(path.cgPath)
     }
 }
-
-/// Shows the details of the Medication as a view
 struct MedicationDetailView: View {
     @State var medication: Medication
     @State private var isDatesListExpanded: Bool = false // To control the expandable list
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            /// Displays a colorful rectangle with info abt medication - basic version of MedView on home pg
-            DisplayMedicationView(medication: medication)
-            Divider()
-            ScrollView {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                DisplayMedicationView(medication: dummyMed)
                 
-                VStack(alignment: .leading, spacing: 10) { // Leading alignment and spacing between elements
-                    HStack {
-                        Text("Type:")
-                            .bold()
-                        Text(medication.type.rawValue.capitalized)
-                    }
-                    
-                    
-                    HStack {
-                        Text("Priority:")
-                            .bold()
+                Divider()
+                
+                Group {
+                    LabelledValue(label: "Priority") {
                         Text(medication.priority.rawValue.capitalized)
                             .foregroundColor(medication.priority == .high ? .red : .primary)
                     }
                     
-                    HStack {
-                        Text("Time Period:")
-                            .bold()
+                    LabelledValue(label: "Time Period") {
                         Image(systemName: medication.period.rawValue)
                             .foregroundColor(.primary)
                     }
                     
-                    HStack {
-                        Text("Time to take:")
-                            .bold()
+                    LabelledValue(label: "Time to Take") {
                         Text(medication.timeToTake, style: .time)
                     }
                     
-                    HStack {
-                        Text("Start Date:")
-                            .fontWeight(.semibold)
+                    LabelledValue(label: "Start Date") {
                         Text(formatDate(medication.startDate))
                     }
                     
-                    HStack {
-                        Text("End Date:")
-                            .fontWeight(.semibold)
+                    LabelledValue(label: "End Date") {
                         Text(formatDate(medication.endDate))
                     }
                     
-                    
-                    CalendarView(medication: medication)
-                        .padding()
-                    
-                    DisclosureGroup("Dosing Schedule", isExpanded: $isDatesListExpanded) {
-                        VStack(alignment: .leading) {
-                            ForEach(medication.datesToTake, id: \.date) { dateStatus in
-                                HStack {
-                                    Text(formatDate(dateStatus.date))
-                                    Image(systemName: dateStatus.taken ? "checkmark.circle.fill" : "circle")
-                                }
+                }
+                .padding(.vertical, 1)
+                
+                CalendarView(medication: medication)
+                    .padding()
+                
+                DisclosureGroup("Dosing Schedule", isExpanded: $isDatesListExpanded) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        ForEach(medication.datesToTake, id: \.date) { dateStatus in
+                            HStack {
+                                Text(formatDate(dateStatus.date))
+                                Spacer()
+                                Image(systemName: "checkmark.circle.fill" )
+                                    .foregroundColor( .green)
+                                /*Image(systemName: dateStatus.taken ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(dateStatus.taken ? .green : .secondary)*/
                             }
                         }
-                        .padding()
                     }
-                    .accentColor(.primary)
+                    .padding()
                 }
-                .padding() // Padding for the VStack
+                .accentColor(.primary)
             }
-            
-            
-            Spacer()
+            .padding()
         }
-        .padding()
         .navigationBarTitleDisplayMode(.inline)
     }
+    
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        formatter.timeStyle = .short
+        formatter.timeStyle = .none
         return formatter.string(from: date)
     }
 }
+
+struct LabelledValue<ValueView: View>: View {
+    let label: String
+    let valueView: ValueView
+    
+    init(label: String, @ViewBuilder valueView: () -> ValueView) {
+        self.label = label
+        self.valueView = valueView()
+    }
+    
+    var body: some View {
+        HStack {
+            Text("\(label):")
+                .bold()
+            valueView
+        }
+    }
+}
+
+
+
 
 struct MedicationDetailView_Previews: PreviewProvider {
     static var previews: some View {

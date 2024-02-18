@@ -29,7 +29,7 @@ struct AddMedicationView: View {
         return Double(dosageAmountString) ?? 0
     }
     
-    @State private var selectedDosageUnit: Dosage.Unit = .count
+    @State private var selectedDosageUnit: Dosage.Unit = .milligrams
     @State private var selectedDatesComponents: Set<DateComponents> = []
     @State private var startDate = Date()
     @State private var endDate = Date()
@@ -43,11 +43,17 @@ struct AddMedicationView: View {
     @State private var currentDate = Date()
     
     
-    @State private var color: Color = Color(
+    /*@State private var color: Color = Color(
         red: Double.random(in: 0...1),
         green: Double.random(in: 0...1),
         blue: Double.random(in: 0...1)
+    )*/
+    @State private var color: Color = Color(
+        red: 180.0/255.0,
+        green: 200.0/255.0,
+        blue:  220.0/255.0
     )
+    
     
     
     /// The MultiDatePicker allows a Calendar view where one can see/select multiple dates

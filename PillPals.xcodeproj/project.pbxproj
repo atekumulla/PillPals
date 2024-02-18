@@ -35,6 +35,8 @@
 		ACAB78302B0DA9F400C5F191 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB782F2B0DA9F400C5F191 /* HomeView.swift */; };
 		ACD0CB422B1819F300864625 /* MedCodableDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0CB412B1819F300864625 /* MedCodableDataStore.swift */; };
 		ACD0CB442B19133A00864625 /* LogMedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0CB432B19133A00864625 /* LogMedicationView.swift */; };
+		ACDB33EE2B814F8500B95C17 /* NewMedicationDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB33ED2B814F8500B95C17 /* NewMedicationDisplayView.swift */; };
+		ACDB33F22B8156C800B95C17 /* ScrollDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB33F12B8156C800B95C17 /* ScrollDetector.swift */; };
 		ACF588352B0EFDB400C5ACCC /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF588342B0EFDB400C5ACCC /* PersistenceController.swift */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +110,8 @@
 		ACAB782F2B0DA9F400C5F191 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		ACD0CB412B1819F300864625 /* MedCodableDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedCodableDataStore.swift; sourceTree = "<group>"; };
 		ACD0CB432B19133A00864625 /* LogMedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMedicationView.swift; sourceTree = "<group>"; };
+		ACDB33ED2B814F8500B95C17 /* NewMedicationDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMedicationDisplayView.swift; sourceTree = "<group>"; };
+		ACDB33F12B8156C800B95C17 /* ScrollDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDetector.swift; sourceTree = "<group>"; };
 		ACF588342B0EFDB400C5ACCC /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +172,7 @@
 		8816C5002B0A7EBD00DEFAEE /* PillPals */ = {
 			isa = PBXGroup;
 			children = (
+				ACDB33EF2B8155AB00B95C17 /* TestViews */,
 				AC784BE12B75DA0B0037C9F9 /* Backend */,
 				AC784BE02B75D9E00037C9F9 /* Logic */,
 				AC92511C2B545CD000C96097 /* SubViews */,
@@ -228,7 +233,6 @@
 			children = (
 				ACAB781E2B0B18AF00C5F191 /* AddMedicationView.swift */,
 				ACAB782D2B0B256300C5F191 /* CalendarView.swift */,
-				ACAB782A2B0B19CD00C5F191 /* CarouselView.swift */,
 				ACAB78242B0B190F00C5F191 /* DateSelectionView.swift */,
 				ACD0CB432B19133A00864625 /* LogMedicationView.swift */,
 				AC53048A2B15A06300E3BD75 /* MapView.swift */,
@@ -267,6 +271,24 @@
 				AC0952E12B7D97A200AB202A /* PillPalsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		ACDB33EF2B8155AB00B95C17 /* TestViews */ = {
+			isa = PBXGroup;
+			children = (
+				ACAB782A2B0B19CD00C5F191 /* CarouselView.swift */,
+				ACDB33ED2B814F8500B95C17 /* NewMedicationDisplayView.swift */,
+				ACDB33F02B8155EC00B95C17 /* Helpers */,
+			);
+			path = TestViews;
+			sourceTree = "<group>";
+		};
+		ACDB33F02B8155EC00B95C17 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				ACDB33F12B8156C800B95C17 /* ScrollDetector.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,12 +454,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACAB782E2B0B256300C5F191 /* CalendarView.swift in Sources */,
+				ACDB33EE2B814F8500B95C17 /* NewMedicationDisplayView.swift in Sources */,
 				ACAB78252B0B190F00C5F191 /* DateSelectionView.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
 				AC5304892B1583EF00E3BD75 /* NotifcationManager.swift in Sources */,
 				ACAB78232B0B18F700C5F191 /* ProfileView.swift in Sources */,
 				AC53048B2B15A06300E3BD75 /* MapView.swift in Sources */,
 				ACAB78302B0DA9F400C5F191 /* HomeView.swift in Sources */,
+				ACDB33F22B8156C800B95C17 /* ScrollDetector.swift in Sources */,
 				AC784BE52B75E2070037C9F9 /* DataController.swift in Sources */,
 				AC784BE32B75E07A0037C9F9 /* MedicationListView.swift in Sources */,
 				AC0952E22B7D97A200AB202A /* PillPalsView.swift in Sources */,

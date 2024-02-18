@@ -53,7 +53,7 @@ struct PillPalsApp: App {
                                     Text("PillPals")
                                 }
 
-                UserProfileForm(meds: $store.meds) // Assuming UserProfileForm doesn't need data from store
+                UserProfileForm(medStore: store) // Assuming UserProfileForm doesn't need data from store 
                     .tabItem {
                         Label("Profile", systemImage: "gear")
                     }

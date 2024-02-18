@@ -225,10 +225,12 @@ struct MedicationView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(medication.color.color)
                             .imageScale(.large)
+                            .bold()
                     } else {
                         Image(systemName: "circle")
                             .foregroundColor(medication.color.color)
                             .imageScale(.large)
+                            .bold()
                     }
                 }
                 .padding([.top, .horizontal])
@@ -236,13 +238,14 @@ struct MedicationView: View {
                 //Divider()  // Adds a divider between the time/checkmark and the medication details
                 Rectangle()
                     .frame(height: 2)
-                    .foregroundStyle(medication.color.color)
+                    .foregroundStyle(medication.color.color.opacity(1.0))
                     .padding(.horizontal)
+                    
                 
                 HStack {
                     Image(systemName: medication.period.rawValue)
                         .aspectRatio(contentMode: .fit)
-                        .foregroundColor(medication.color.color)
+                        .foregroundColor(.black.opacity(0.7))
                         .imageScale(.large)
                     
                     VStack(alignment: .leading) {
@@ -262,18 +265,32 @@ struct MedicationView: View {
                 .padding([.bottom, .horizontal])
             }
             .background(RoundedRectangle(cornerRadius: 12)
-                .fill(medication.uiColor.opacity(0.5))
-                .shadow(color: .gray, radius: 5, x: 0, y: 5)) // Apply shadow here)
-            .overlay(
+                .fill(medication.color.color.opacity(0.7))
+                .shadow(color: medication.color.color, radius: 0, x: 0, y: 0)) // Apply shadow here)
+            /*.overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(medication.uiColor, lineWidth: 2)
-            )
+                    .stroke(medication.color.color, lineWidth: 2)
+            )*/
         }
         .padding(.vertical, 4)
     }
 }
 
+let sampleColor: Color = Color(
+    red: 180.0/255.0,
+    green: 200.0/255.0,
+    blue:  240.0/255.0
+)
+let rgbSampleColor = RGBColor(color: sampleColor)
 
+struct MedicationView_Previews: PreviewProvider {
+    var onDelete: () -> Void  // Closure for handling delete action
+    static var previews: some View {
+        MedicationView(medication: dummyMed, onDelete: {
+                    // Implement your delete action or leave it empty for preview purposes
+                    print("Delete action triggered")
+                })    }
+}
 /*struct HomeView_Previews: PreviewProvider {
  static var previews: some View {
  //HomeView(meds: .constant(dummyMedications), saveAction: {})
