@@ -28,7 +28,7 @@ struct PillPalsApp: App {
         WindowGroup {
             TabView {
                 // Assuming HomeView expects a Binding<[Medication]>
-                HomeView(medStore: store) {
+                HomeView() {
                     Task {
                             do {
                                 try await store.save(medications: store.meds)
@@ -37,6 +37,7 @@ struct PillPalsApp: App {
                             }
                         }
                 } // Ensure 'meds' is a property in MedStore
+                .environmentObject(store) // Injecting store into the environment
                     .task {
                         do {
                                 try await store.load()
@@ -53,7 +54,8 @@ struct PillPalsApp: App {
                                     Text("PillPals")
                                 }
 
-                UserProfileForm(medStore: store) // Assuming UserProfileForm doesn't need data from store 
+                UserProfileForm() // Assuming UserProfileForm doesn't need data from store
+                    .environmentObject(store) // Injecting store into the environment
                     .tabItem {
                         Label("Profile", systemImage: "gear")
                     }

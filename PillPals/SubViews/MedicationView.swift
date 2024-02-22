@@ -86,7 +86,7 @@ struct MedicationDetailView: View {
         }
         .navigationTitle("\(medication.name)")
         .navigationBarTitleDisplayMode(.automatic)
-        .toolbarBackground(color, for: .navigationBar)
+        .navigationBarTitleDisplayMode(.automatic)
 
     }
     

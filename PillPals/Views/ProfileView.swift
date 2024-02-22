@@ -74,7 +74,7 @@ var dummyMedications: [Medication] = [
 
 struct UserProfileForm: View {
     // ... existing properties
-    @ObservedObject var medStore: MedStore
+    @EnvironmentObject var medStore: MedStore
     
     @State private var name: String = ""
     @State private var age: String = ""

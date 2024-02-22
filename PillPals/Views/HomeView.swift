@@ -28,7 +28,7 @@ func timeString(from date: Date) -> String {
 
 struct HomeView: View {
     // Example medications
-    @ObservedObject var medStore: MedStore
+    @EnvironmentObject var medStore: MedStore
     @StateObject var notificationManager = NotificationManager.shared
     @State private var showingAddMedicationView = false
     @State private var showingCaregiverView = false
@@ -214,17 +214,19 @@ struct MedicationView: View {
             VStack {
                 HStack {
                     Text(medication.timeToTake, style: .time)
-                        .foregroundColor(.primary)
+                        .bold()
+                        .foregroundColor(.black)
                         .padding(8)
-                        .background(.regularMaterial).opacity(0.8)
+                        .background(.white).opacity(0.8)
                         .cornerRadius(8)
                     
                     Spacer()
                     
                    Text("More Info")
-                        .foregroundStyle(.primary)
+                        .bold()
+                        .foregroundStyle(.black)
                         .padding(8)
-                        .background(.regularMaterial).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                        .background(.white).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
                         .cornerRadius(8)
                 }
                 .padding([.top, .horizontal])
@@ -237,19 +239,21 @@ struct MedicationView: View {
                     
                 
                 HStack {
-                    Image(systemName: medication.period.rawValue)
+                    /*Image(systemName: medication.period.rawValue)
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(.black.opacity(0.7))
-                        .imageScale(.large)
+                        .imageScale(.large)*/
                     
                     VStack(alignment: .leading) {
                         Text(medication.name)
                             .font(.largeTitle)
-                            .foregroundColor(.primary)
+                            .foregroundColor(.black)
+                            .bold()
                         Text("\(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
                             .font(.title3)
-                            .foregroundColor(.primary)
+                            .foregroundColor(.black)
                     }
+                   
                     Spacer()
                     Button(action: onDelete) {
                         Image(systemName: "trash")
