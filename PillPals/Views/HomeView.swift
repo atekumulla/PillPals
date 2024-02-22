@@ -12,7 +12,7 @@ import UserNotifications
 import UserNotificationsUI
 import Combine
 
-let demoUser = UserInfo(name: "John", age: 55)
+let demoUser = UserInfo(name: "Aadi", age: 20)
 
 func timeString(from date: Date) -> String {
     let formatter = DateFormatter()
