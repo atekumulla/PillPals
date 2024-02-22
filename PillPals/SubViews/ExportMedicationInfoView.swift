@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExportMedicationInfoView: View {
     var body: some View {
-        Text("Export Medication Info View")
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 

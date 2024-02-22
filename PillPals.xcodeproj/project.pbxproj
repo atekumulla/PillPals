@@ -13,6 +13,7 @@
 		8816C5132B0A7EC000DEFAEE /* PillPalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C5122B0A7EC000DEFAEE /* PillPalsTests.swift */; };
 		8816C51D2B0A7EC000DEFAEE /* PillPalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */; };
 		8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */; };
+		882C68BB2B86DAD00031B78D /* ExportMedicationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882C68BA2B86DAD00031B78D /* ExportMedicationInfoView.swift */; };
 		AC0952E22B7D97A200AB202A /* PillPalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0952E12B7D97A200AB202A /* PillPalsView.swift */; };
 		AC0952E42B7D982800AB202A /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0952E32B7D982800AB202A /* CaregiverView.swift */; };
 		AC5304892B1583EF00E3BD75 /* NotifcationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5304882B1583EF00E3BD75 /* NotifcationManager.swift */; };
@@ -88,6 +89,7 @@
 		8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PillPalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITests.swift; sourceTree = "<group>"; };
 		8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		882C68BA2B86DAD00031B78D /* ExportMedicationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportMedicationInfoView.swift; sourceTree = "<group>"; };
 		AC0952E12B7D97A200AB202A /* PillPalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsView.swift; sourceTree = "<group>"; };
 		AC0952E32B7D982800AB202A /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
 		AC5304882B1583EF00E3BD75 /* NotifcationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifcationManager.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */,
 				AC784BE22B75E07A0037C9F9 /* MedicationListView.swift */,
 				AC0952E32B7D982800AB202A /* CaregiverView.swift */,
+				882C68BA2B86DAD00031B78D /* ExportMedicationInfoView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				ACDB33F22B8156C800B95C17 /* ScrollDetector.swift in Sources */,
 				AC784BE52B75E2070037C9F9 /* DataController.swift in Sources */,
 				AC784BE32B75E07A0037C9F9 /* MedicationListView.swift in Sources */,
+				882C68BB2B86DAD00031B78D /* ExportMedicationInfoView.swift in Sources */,
 				AC0952E22B7D97A200AB202A /* PillPalsView.swift in Sources */,
 				ACAB782B2B0B19CD00C5F191 /* CarouselView.swift in Sources */,
 				ACD0CB422B1819F300864625 /* MedCodableDataStore.swift in Sources */,
