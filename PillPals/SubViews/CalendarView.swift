@@ -55,18 +55,20 @@ struct CaregiverCalendarView: View {
     @State private var selectedDate: Date? = nil // Track the selected date
     
     var body: some View {
-        VStack { // Wrap the LazyVGrid inside a VStack
+        VStack {
+            // Calendar header
             Text("Calendar")
-                .font(.title)// Add a heading
-                . padding(.top, 20)
+                .font(.title)
+                .padding(.top, 20)
             
+            // Calendar view
             LazyVGrid(columns: columns) {
                 ForEach(0..<7) { index in
                     let date = dateForDay(index: index)
                     
                     VStack { // Use VStack to stack day of week and day of month vertically
                         Text("\(dayOfWeek(for: date))") // Display day of the week horizontally
-                            .font(.caption)
+                            .font(.callout)
                         Button(action: {
                             selectedDate = date // Set the selected date when clicked
                         }) {
@@ -81,7 +83,7 @@ struct CaregiverCalendarView: View {
                     }
                 }
             }
-        }
+        }.padding(.bottom, 600)
     }
     
     private func dateForDay(index: Int) -> Date {
@@ -102,5 +104,3 @@ struct CaregiverCalendarView: View {
         return formatter.string(from: date)
     }
 }
-
-
