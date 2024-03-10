@@ -24,8 +24,8 @@ struct CalendarView: View {
     
     private func dateForDay(index: Int) -> Date {
         let calendar = Calendar.current
-        let weekday = (calendar.component(.weekday, from: currentDate) + index - 1) % 7
-        return calendar.date(byAdding: .day, value: index - weekday, to: currentDate)!
+        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate))!
+        return calendar.date(byAdding: .day, value: index, to: startOfWeek)!
     }
     
     private func dayOfWeek(for date: Date) -> String {
@@ -42,4 +42,3 @@ struct CalendarView: View {
 }
 
 
-//boop
