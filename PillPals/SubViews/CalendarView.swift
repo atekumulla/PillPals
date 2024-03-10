@@ -5,18 +5,27 @@ struct CalendarView: View {
     var medication: Medication
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 7) // 7 days in a week
     @State private var currentDate = Date()
+    @State private var selectedDate: Date? = nil // Track the selected date
 
     var body: some View {
         LazyVGrid(columns: columns) {
             ForEach(0..<7) { index in
                 let date = dateForDay(index: index)
-                VStack {
-                    Text("\(dayOfWeek(for: date))") // Display day of the week
+                
+                VStack { // Use VStack to stack day of week and day of month vertically
+                    Text("\(dayOfWeek(for: date))") // Display day of the week horizontally
                         .font(.caption)
-                    Text("\(dayOfMonth(for: date))")
-                        .frame(width: 30, height: 30)
-                        .background(medication.datesToTake.contains(where: { $0.date == date }) ? Color.green : Color.clear)
-                        .cornerRadius(15)
+                    Button(action: {
+                        selectedDate = date // Set the selected date when clicked
+                    }) {
+                        Text("\(dayOfMonth(for: date))")
+                            .frame(width: 30, height: 30)
+                            .background(
+                                // Highlight light blue if the date is selected
+                                selectedDate == date ? Color.blue.opacity(0.3) : Color.clear
+                            )
+                            .cornerRadius(15)
+                    }
                 }
             }
         }
@@ -40,5 +49,4 @@ struct CalendarView: View {
         return formatter.string(from: date)
     }
 }
-
 
