@@ -33,12 +33,20 @@ struct ExportMedicationInfoView: View {
         ] // Example medication history with missed doses information
         
         let pdfExporter = PDFExporter()
+        
         if let pdfData = pdfExporter.exportMedicationHistoryToPDF(medicationHistory: medicationHistory) {
-            let activityViewController = UIActivityViewController(activityItems: [pdfData], applicationActivities: nil)
-            UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+            // Dismiss any presented view controllers first
+            if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+                rootViewController.dismiss(animated: false) {
+                    // Present the UIActivityViewController
+                    let activityViewController = UIActivityViewController(activityItems: [pdfData], applicationActivities: nil)
+                    rootViewController.present(activityViewController, animated: true, completion: nil)
+                }
+            }
             isPDFExported = true
         }
     }
+
 }
 
 struct ExportMedicationInfoView_Previews: PreviewProvider {
