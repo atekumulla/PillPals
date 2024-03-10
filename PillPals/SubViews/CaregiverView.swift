@@ -14,7 +14,7 @@ struct CaregiverView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: CalendarView(medication: dummyMedications[0])) {
+                NavigationLink(destination: CaregiverCalendarView(medication: dummyMedications[0])) {
                     RoundedRectangleButton(label: "Calendar")
                 }
 
