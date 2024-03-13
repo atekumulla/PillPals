@@ -38,6 +38,7 @@
 		ACDB33EE2B814F8500B95C17 /* NewMedicationDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB33ED2B814F8500B95C17 /* NewMedicationDisplayView.swift */; };
 		ACDB33F22B8156C800B95C17 /* ScrollDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB33F12B8156C800B95C17 /* ScrollDetector.swift */; };
 		ACF588352B0EFDB400C5ACCC /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF588342B0EFDB400C5ACCC /* PersistenceController.swift */; };
+		EED5F9AB2BA26E3C0076C42A /* CaregiverCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED5F9AA2BA26E3C0076C42A /* CaregiverCalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		ACDB33ED2B814F8500B95C17 /* NewMedicationDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMedicationDisplayView.swift; sourceTree = "<group>"; };
 		ACDB33F12B8156C800B95C17 /* ScrollDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDetector.swift; sourceTree = "<group>"; };
 		ACF588342B0EFDB400C5ACCC /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		EED5F9AA2BA26E3C0076C42A /* CaregiverCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverCalendarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 				ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */,
 				AC784BE22B75E07A0037C9F9 /* MedicationListView.swift */,
 				AC0952E32B7D982800AB202A /* CaregiverView.swift */,
+				EED5F9AA2BA26E3C0076C42A /* CaregiverCalendarView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				ACAB782E2B0B256300C5F191 /* CalendarView.swift in Sources */,
 				ACDB33EE2B814F8500B95C17 /* NewMedicationDisplayView.swift in Sources */,
 				ACAB78252B0B190F00C5F191 /* DateSelectionView.swift in Sources */,
+				EED5F9AB2BA26E3C0076C42A /* CaregiverCalendarView.swift in Sources */,
 				8816C5022B0A7EBD00DEFAEE /* PillPalsApp.swift in Sources */,
 				AC5304892B1583EF00E3BD75 /* NotifcationManager.swift in Sources */,
 				ACAB78232B0B18F700C5F191 /* ProfileView.swift in Sources */,
