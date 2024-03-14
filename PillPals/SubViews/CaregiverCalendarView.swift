@@ -13,6 +13,7 @@ struct CaregiverCalendarView: View {
     @State private var currentDate = Date()
     @State private var selectedDate: Date? = nil // Initialize with the current date
     @State private var buttonPressed: Bool = false
+    @State private var medicationHistory: [String: [MedicationEntry]] = [:] // Medication history for each day
     
     var body: some View {
         VStack {
@@ -45,13 +46,27 @@ struct CaregiverCalendarView: View {
                         }
                     }
                 }
+            }
+            // Medication Info section
+            VStack(alignment: .leading) {
                 Text("Medication Info: ")
                     .font(.headline)
-                    .padding(.top, 40)
-                    .frame(width: 500, height: 30)
-                    .position(x: 200)
+                    .padding(.top, 20)
+                if let medications = medicationHistory[selectedDateFormatted()] {
+                    ForEach(medications, id: \.self) { medicationEntry in
+                        Text("\(medicationEntry.medication.name) - \(medicationEntry.status.rawValue)")
+                            .font(.subheadline)
+                    }
+                }
             }
+            .padding(.top, 20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal)
         }.padding(.bottom, 600)
+        .onAppear {
+            // Initialize dummy medication history
+            initializeMedicationHistory()
+        }
     }
     
     private func dateForDay(index: Int) -> Date {
@@ -71,7 +86,86 @@ struct CaregiverCalendarView: View {
         formatter.dateFormat = "d" // Day of the month
         return formatter.string(from: date)
     }
-    private func DisplayInfoFuture(for date: Date) -> String {
-        return ""
+    
+    // Format selected date for accessing medication history
+    private func selectedDateFormatted() -> String {
+        guard let selectedDate = selectedDate else {
+            return ""
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: selectedDate)
+    }
+    
+    // Initialize dummy medication history
+    private func initializeMedicationHistory() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        // Dummy medication history for each day of the week
+        medicationHistory = [
+            formatter.string(from: currentDate): [
+                MedicationEntry(medication: Medicine(name: "Aspirin", dosage: "100mg", time: "Morning"), status: .takenOnTime),
+                MedicationEntry(medication: Medicine(name: "Ibuprofen", dosage: "200mg", time: "Evening"), status: .missed),
+            ],
+            formatter.string(from: Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!): [
+                MedicationEntry(medication: Medicine(name: "Tylenol", dosage: "50mg", time: "Morning"), status: .takenOnTime),
+                MedicationEntry(medication: Medicine(name: "Aspirin", dosage: "150mg", time: "Evening"), status: .takenLate),
+            ],
+            formatter.string(from: Calendar.current.date(byAdding: .day, value: 2, to: currentDate)!): [
+                MedicationEntry(medication: Medicine(name: "Ibuprofen", dosage: "100mg", time: "Morning"), status: .takenOnTime),
+            ],
+            formatter.string(from: Calendar.current.date(byAdding: .day, value: 3, to: currentDate)!): [
+                MedicationEntry(medication: Medicine(name: "Tylenol", dosage: "100mg", time: "Morning"), status: .takenOnTime),
+                MedicationEntry(medication: Medicine(name: "Aspirin", dosage: "150mg", time: "Evening"), status: .missed),
+            ],
+            formatter.string(from: Calendar.current.date(byAdding: .day, value: 4, to: currentDate)!): [
+                MedicationEntry(medication: Medicine(name: "Aspirin", dosage: "100mg", time: "Morning"), status: .missed),
+                MedicationEntry(medication: Medicine(name: "Ibuprofen", dosage: "200mg", time: "Evening"), status: .takenLate),
+            ],
+            formatter.string(from: Calendar.current.date(byAdding: .day, value: 5, to: currentDate)!): [
+                MedicationEntry(medication: Medicine(name: "Ibuprofen", dosage: "200mg", time: "Morning"), status: .takenLate),
+                MedicationEntry(medication: Medicine(name: "Aspirin", dosage: "100mg", time: "Evening"), status: .takenOnTime),
+            ],
+            formatter.string(from: Calendar.current.date(byAdding: .day, value: 6, to: currentDate)!): [
+                MedicationEntry(medication: Medicine(name: "Aspirin", dosage: "100mg", time: "Morning"), status: .takenOnTime),
+                MedicationEntry(medication: Medicine(name: "Tylenol", dosage: "50mg", time: "Evening"), status: .missed),
+            ]
+        ]
     }
 }
+
+struct Medicine: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+    let dosage: String
+    let time: String
+}
+
+// Enum to represent medication status
+enum MedicationStatus: String {
+    case takenOnTime = "Taken on time"
+    case takenLate = "Taken late"
+    case missed = "Missed"
+}
+
+// Struct to represent medication entry
+struct MedicationEntry: Hashable {
+    let medication: Medicine
+    let status: MedicationStatus
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(medication)
+        hasher.combine(status)
+    }
+    
+    static func == (lhs: MedicationEntry, rhs: MedicationEntry) -> Bool {
+        return lhs.medication == rhs.medication && lhs.status == rhs.status
+    }
+}
+
+
+//    private func DisplayInfoFuture(for date: Date) -> String {
+//        return ""
+//    }
+
