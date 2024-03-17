@@ -14,6 +14,11 @@ struct CaregiverCalendarView: View {
     @State private var selectedDate: Date? = nil // Initialize with the current date
     @State private var buttonPressed: Bool = false
     @State private var medicationHistory: [String: [MedicationEntry]] = [:] // Medication history for each day
+    let formatter: DateFormatter = {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "yyyy-MM-dd"
+           return formatter
+       }()
     
     var body: some View {
         VStack {
@@ -48,18 +53,39 @@ struct CaregiverCalendarView: View {
                 }
             }
             // Medication Info section
+            
+            let currentDate_week: String = formatter.string(from: currentDate) // Move this line here
             VStack(alignment: .leading) {
                 Text("Medication Info: ")
                     .font(.headline)
                     .padding(.top, 20)
-                if let medications = medicationHistory[selectedDateFormatted()] {
-                    ForEach(medications, id: \.self) { medicationEntry in
-                        Text("\(medicationEntry.medication.name) - \(medicationEntry.status.rawValue)")
-                            .font(.subheadline)
+                if(!buttonPressed && selectedDate == nil){
+                    //display info about the current date
+                    if let medications = medicationHistory[currentDate_week] {
+                        ForEach(medications, id: \.self) { medicationEntry in
+                            Text("\(medicationEntry.medication.name) - \(medicationEntry.medication.time)")
+                                .font(.subheadline)
+                        }
+                    }
+                } else if(buttonPressed && selectedDate != nil){
+                    //Past info
+                    if let medications = medicationHistory[selectedDateFormatted()], selectedDateFormatted() < currentDate_week {
+                        ForEach(medications, id: \.self) { medicationEntry in
+                            Text("\(medicationEntry.medication.name) - \(medicationEntry.status.rawValue)")
+                                .font(.subheadline)
+                        }
+                    }
+                    else {
+                        if let medications = medicationHistory[selectedDateFormatted()]{
+                            ForEach(medications, id: \.self){ medicationEntry in
+                                Text("\(medicationEntry.medication.name) - \(medicationEntry.medication.time)")
+                                
+                            }
+                        }
                     }
                 }
+                
             }
-            .padding(.top, 20)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
         }.padding(.bottom, 600)
@@ -165,7 +191,4 @@ struct MedicationEntry: Hashable {
 }
 
 
-//    private func DisplayInfoFuture(for date: Date) -> String {
-//        return ""
-//    }
 
