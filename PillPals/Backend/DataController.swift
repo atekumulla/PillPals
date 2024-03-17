@@ -10,8 +10,9 @@ import SwiftUI
 import CoreData
 
 
+// can use @stateobj so can stay alive for app lifetime
 class DataController: ObservableObject {
-    let container = NSPersistentContainer(name: "MedDB")
+    let container = NSPersistentContainer(name: "PillPalsData")
     
     init() {
         container.loadPersistentStores { description, error in

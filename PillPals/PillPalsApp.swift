@@ -8,7 +8,8 @@ import SwiftUI
 
 @main
 struct PillPalsApp: App {
-    @StateObject private var store = MedStore() // Ensure MedStore has the necessary properties
+    // @StateObject private var store = MedStore() // Ensure MedStore has the necessary properties
+    @StateObject private var dataController = DataController()
     //@StateObject private var notificationManager = NotificationManager.shared
     /*init() {
         // Request notification permissions
@@ -28,23 +29,8 @@ struct PillPalsApp: App {
         WindowGroup {
             TabView {
                 // Assuming HomeView expects a Binding<[Medication]>
-                HomeView() {
-                    Task {
-                            do {
-                                try await store.save(medications: store.meds)
-                            } catch {
-                                fatalError(error.localizedDescription)
-                            }
-                        }
-                } // Ensure 'meds' is a property in MedStore
-                .environmentObject(store) // Injecting store into the environment
-                    .task {
-                        do {
-                                try await store.load()
-                            } catch {
-                                fatalError(error.localizedDescription)
-                            }
-                    }
+                HomeView()
+                    .environment(\.managedObjectContext, dataController.container.viewContext)
                     .tabItem {
                         Label("Home", systemImage: "house.fill")
                     }
@@ -55,7 +41,8 @@ struct PillPalsApp: App {
                                 }
 
                 UserProfileForm() // Assuming UserProfileForm doesn't need data from store
-                    .environmentObject(store) // Injecting store into the environment
+                    .environment(\.managedObjectContext, dataController.container.viewContext)
+                    //.environmentObject(store) // Injecting store into the environment
                     .tabItem {
                         Label("Profile", systemImage: "gear")
                     }

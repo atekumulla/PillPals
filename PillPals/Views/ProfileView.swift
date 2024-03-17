@@ -78,7 +78,9 @@ struct UserProfileForm: View {
     
     @State private var name: String = ""
     @State private var age: String = ""
-    @State private var medications: [Medication] = [] // Array to hold medications
+    // @State private var medications: [Medication] = [] // Array to hold medications
+    @FetchRequest(sortDescriptors: []) var medications: FetchedResults<Medication>
+    
     @State private var showingDeleteAlert = false
     @State private var medicationToDelete: Medication?
     @State private var showingAddMedication = false
@@ -97,14 +99,15 @@ struct UserProfileForm: View {
                 }
                 
                 Section(header: Text("Medications")) {
-                    ForEach(medStore.meds) { medication in
+                    ForEach(medications) { medication in
                         NavigationLink(destination: MedicationDetailView(medication: medication)) {
                             HStack {
-                                Image(systemName: medication.imageName)
+                                Image(systemName: medication.imageName ?? "pills")
                                     .foregroundColor(.blue)
                                 VStack(alignment: .leading) {
-                                    Text(medication.name).font(.headline)
-                                    Text(medication.type.rawValue.capitalized)
+                                    Text(medication.name!).font(.headline)
+                                    Text(medication.type!)
+                                    //Text(medication.type.rawValue.capitalized)
                                 }
                             }
                         }

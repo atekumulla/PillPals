@@ -12,7 +12,7 @@ import UserNotifications
 import UserNotificationsUI
 import Combine
 
-let demoUser = UserInfo(name: "ASM", age: 55)
+//let demoUser = UserInfo(name: "ASM", age: 55)
 
 func timeString(from date: Date) -> String {
     let formatter = DateFormatter()
@@ -28,7 +28,19 @@ func timeString(from date: Date) -> String {
 
 struct HomeView: View {
     // Example medications
-    @EnvironmentObject var medStore: MedStore
+    // @EnvironmentObject var medStore: MedStore
+    @Environment(\.managedObjectContext) var moc
+    /*@FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Medication.name, ascending: true)],
+        animation: .default
+    ) var medications: FetchedResults<Medication>*/
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Medication.timeToTake, ascending: true)],
+        predicate: NSPredicate(format: "daysOfWeekToTake CONTAINS %@", DayOfWeek.allCases.first { $0.calendarValue == Calendar.current.component(.weekday, from: Date()) }! as! CVarArg),
+        animation: .default
+    ) var medications: FetchedResults<Medication>
+    
+
     @StateObject var notificationManager = NotificationManager.shared
     @State private var showingAddMedicationView = false
     @State private var showingCaregiverView = false
@@ -40,27 +52,42 @@ struct HomeView: View {
     @State private var medicationToLog: Medication?
     @State private var selectedMedicationId: String?
     @State private var showingLogMedicationView = false
-    @State private var homeViewDemoUser: UserInfo = demoUser
-    let saveAction: ()->Void
+    // @State private var homeViewDemoUser: UserInfo = demoUser
+
     
     
     func presentLogSheet(for medication: Medication) {
         medicationToLog = medication
         showingLogSheet = true
     }
-    private func deleteMedication(at offsets: IndexSet) {
+    
+    /*private func deleteMedication(at offsets: IndexSet) {
         offsets.forEach { index in
             let medication = medStore.meds[index]
-            NotificationManager.shared.cancelNotifications(for: medication.id)
+            NotificationManager.shared.cancelNotifications(for: medication.id!)
         }
         medStore.meds.remove(atOffsets: offsets)
+    }*/
+    private func deleteMedications(at offsets: IndexSet) {
+        withAnimation {
+            offsets.map { medications[$0] }.forEach(moc.delete)
+            
+            // Save the context
+            do {
+                try moc.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
+    
     func getMedicationById(_ id: String?) -> Medication? {
         // Implement logic to find and return the Medication object
         guard let idString = id, let uuid = UUID(uuidString: idString) else {
             return nil
         }
-        return medStore.meds.first {$0.id == uuid}
+        return medications.first {$0.id == uuid}
     }
     
     private func handleAppear() {
@@ -74,60 +101,30 @@ struct HomeView: View {
         }
     }
     
-    // Organizes medications by period and sorts them within each period
-    // Organizes medications by period and sorts them within each period by time
-    private var sortedMedicationsByPeriod: [MedicationPeriod: [Medication]] {
-        let today = Calendar.current.component(.weekday, from: Date())
-        
-        // Filter medications for today
-        let medicationsForToday = medStore.meds.filter { medication in
-            medication.daysOfWeekToTake.contains(where: { $0.calendarValue == today })
-        }
-        
-        // Group and sort medications by period
-        let grouped = Dictionary(grouping: medicationsForToday) { $0.period }
-        
-        // Sort each group first by time and then by name within each period
-        let sortedGroups = grouped.mapValues { medications in
-            medications.sorted {
-                if $0.timeToTake == $1.timeToTake {
-                    return $0.name < $1.name // Secondary sort by name if times are equal
-                }
-                return $0.timeToTake < $1.timeToTake // Primary sort by time
-            }
-        }
-        
-        return sortedGroups
-    }
-
-    
     
     var body: some View {
         // used to be NavigationStack
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    ForEach(MedicationPeriod.allCases, id: \.self) { period in
-                        if let periodMedications = sortedMedicationsByPeriod[period] {
-                            ForEach(periodMedications) { medication in
-                                
-                                NavigationLink(destination: MedicationDetailView(medication: medication)) {
-                                    MedicationView(medication: medication) {
-                                        indexSetToDelete = medStore.meds.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
-                                        showDeleteConfirmation = true
-                                    }
-                                    
-                                }
-                                .transition(.fadeOut) // Apply custom transition here
+                    ForEach(medications) { medication in
+                        NavigationLink(destination: MedicationDetailView(medication: medication)) {
+                            MedicationView(medication: medication) {
+                                indexSetToDelete = medications.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
+                                showDeleteConfirmation = true
                             }
+                            
                         }
+                        .transition(.fadeOut) // Apply custom transition here
+                        
+                        
                     }
-                    .onDelete(perform: deleteMedication)
+                    .onDelete(perform: deleteMedications)
                 }
                 .padding()
             }
             //.background(Color.gray.opacity(0.3))
-            .navigationTitle("Hello " + homeViewDemoUser.name + "!")
+            .navigationTitle("Hello !")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     // Add this line for the Edit button
@@ -157,7 +154,7 @@ struct HomeView: View {
             }
         }
         .sheet(isPresented: $showingAddMedicationView) {
-            AddMedicationView(medStore: medStore)
+            AddMedicationView()
         }
         .sheet(isPresented: $showingCaregiverView) {
             CaregiverView()
@@ -176,7 +173,8 @@ struct HomeView: View {
                 primaryButton: .destructive(Text("Delete")) {
                     if let indexSet = indexSetToDelete {
                         withAnimation {
-                            medStore.meds.remove(atOffsets: indexSet)
+                            // medStore.meds.remove(atOffsets: indexSet)
+                            deleteMedications(at: indexSet)
                         }
                         
                     }
@@ -185,9 +183,22 @@ struct HomeView: View {
             )
         }
         .onChange(of: scenePhase) { phase in
-            if phase == .inactive { saveAction() }
+            if phase == .inactive {
+                saveContext()
+            }
         }
         
+    }
+    // Define the saveContext function within HomeView
+    private func saveContext() {
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 }
 
@@ -202,18 +213,18 @@ struct MedicationView: View {
     
     // Example function to determine if the medication was taken on a specific day
     // This function would need to be implemented based on your app's data structure
-    func isMedicationTakenToday() -> Bool {
+    /*func isMedicationTakenToday() -> Bool {
         // Lookup logic to determine if medication was taken today
         // This is just a placeholder and needs to be replaced with actual logic
         // For example, you might check today's date against the medication.datesToTake array
         return medication.datesToTake.contains { $0.date == Date() && $0.taken }
-    }
+    }*/
     
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
                 HStack {
-                    Text(medication.timeToTake, style: .time)
+                    Text(medication.timeToTake!, style: .time)
                         .bold()
                         .foregroundColor(.black)
                         .padding(8)
@@ -234,7 +245,8 @@ struct MedicationView: View {
                 //Divider()  // Adds a divider between the time/checkmark and the medication details
                 Rectangle()
                     .frame(height: 2)
-                    .foregroundStyle(medication.color.color.opacity(1.0))
+                    .foregroundStyle(sampleColor)
+                    //foregroundStyle(medication.color.color.opacity(1.0))
                     .padding(.horizontal)
                     
                 
@@ -245,13 +257,16 @@ struct MedicationView: View {
                         .imageScale(.large)*/
                     
                     VStack(alignment: .leading) {
-                        Text(medication.name)
+                        Text(medication.name!)
                             .font(.largeTitle)
                             .foregroundColor(.black)
                             .bold()
-                        Text("\(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
+                        Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(describing: medication.dosage!.unit))")
                             .font(.title3)
                             .foregroundColor(.black)
+                        /*Text("\(String(format: "%.1f", medication.dosage!.amount)) \(medication.dosage.unit.rawValue)")
+                            .font(.title3)
+                            .foregroundColor(.black)*/
                     }
                    
                     Spacer()
@@ -263,8 +278,9 @@ struct MedicationView: View {
                 .padding([.bottom, .horizontal])
             }
             .background(RoundedRectangle(cornerRadius: 12)
-                .fill(medication.color.color.opacity(0.7))
-                .shadow(color: medication.color.color, radius: 0, x: 0, y: 0)) // Apply shadow here)
+                // .fill(medication.rgbColor)
+                .fill(sampleColor.opacity(0.7))
+                .shadow(color: sampleColor, radius: 0, x: 0, y: 0)) // Apply shadow here)
             /*.overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(medication.color.color, lineWidth: 2)
@@ -279,7 +295,7 @@ let sampleColor: Color = Color(
     green: 200.0/255.0,
     blue:  240.0/255.0
 )
-let rgbSampleColor = RGBColor(color: sampleColor)
+// let rgbSampleColor = RGBColor(color: sampleColor)
 
 struct MedicationView_Previews: PreviewProvider {
     var onDelete: () -> Void  // Closure for handling delete action
@@ -338,6 +354,11 @@ struct ReminderOptionsView: View {
     }
 }
 
+extension RGBColor {
+    var color: Color {
+        Color(.sRGB, red: red, green: green, blue: blue, opacity: alpha)
+    }
+}
 
 
 extension AnyTransition {
