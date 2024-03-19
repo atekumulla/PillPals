@@ -200,7 +200,7 @@ struct RGBColor: Codable {
 
 
 // ADDED BY ANUSHA
-struct EmergencyContact: Identifiable {
+struct EmergencyContact: Identifiable, Codable {
     var id = UUID()
     var name: String
     var phoneNumber: String

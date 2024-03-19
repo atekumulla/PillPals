@@ -48,7 +48,7 @@ struct PillPalsApp: App {
                     .tabItem {
                         Label("Home", systemImage: "house.fill")
                     }
-                PillPalsView(emergencyContacts: dummyEmergencyContacts)
+                PillPalsView()
                                 .tabItem {
                                     Image(systemName: "person")
                                     Text("PillPals")
