@@ -35,7 +35,7 @@ struct CalendarView: View {
             ForEach(CalendarHelper.datesInMonth(date: currentDate), id: \.self) { date in
                 Text("\(date, formatter: dateFormatter)")
                     .frame(width: 30, height: 30)
-                    .background(medication.datesToTake.contains(where: { $0.date == date }) ? Color.green : Color.clear)
+                    .background(medication.dateStatusArray.contains(where: { $0.date == date }) ? Color.green : Color.clear)
                     .cornerRadius(15)
             }
         }

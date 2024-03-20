@@ -10,6 +10,7 @@ import SwiftUI
 import UserNotifications
 import UserNotificationsUI
 
+/*
 let startDate = DateComponents(calendar: .current, year: 2023, month: 11, day: 9).date!
 let endDate = DateComponents(calendar: .current, year: 2023, month: 12, day: 23).date!
 let dummyDaysOfWeek: [DayOfWeek] = [.monday, .wednesday, .friday] // Example dummy data
@@ -69,17 +70,21 @@ var dummyMedications: [Medication] = [
         period: MedicationPeriod.night
     ),
     // ... more dummy medications
-]
+]*/
 
 
 struct UserProfileForm: View {
     // ... existing properties
-    @EnvironmentObject var medStore: MedStore
+    @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Medication.name, ascending: true)],
+        animation: .default
+    ) private var medications: FetchedResults<Medication>
     
     @State private var name: String = ""
     @State private var age: String = ""
     // @State private var medications: [Medication] = [] // Array to hold medications
-    @FetchRequest(sortDescriptors: []) var medications: FetchedResults<Medication>
+    //@FetchRequest(sortDescriptors: []) var medications: FetchedResults<Medication>
     
     @State private var showingDeleteAlert = false
     @State private var medicationToDelete: Medication?
@@ -123,13 +128,13 @@ struct UserProfileForm: View {
                 }
                 
                 // Add a new section for the navigation button
-                Section {
+                /*Section {
                     NavigationLink(destination: NewMedicationDisplayView()) {
                         Text("newmedview")
                             .navigationBarHidden(true)
-
+                        
                     }
-                }
+                }*/
                 
                 
                 
@@ -139,17 +144,17 @@ struct UserProfileForm: View {
             .alert(isPresented: $showingDeleteAlert) {
                 Alert(
                     title: Text("Delete Medication"),
-                    message: Text("Are you sure you wish to delete medication: \(medicationToDelete?.name ?? "")?"),
+                    message: Text("Are you sure you wish to delete this medication?"),
                     primaryButton: .destructive(Text("Delete")) {
-                        if let medication = medicationToDelete, let index = medications.firstIndex(where: { $0.id == medication.id }) {
-                            medications.remove(at: index)
+                        if let medication = medicationToDelete {
+                            deleteMedication(medication)
                         }
                     },
                     secondaryButton: .cancel()
                 )
             }
             
-           
+            
             
             
         } // End of NavigationView
@@ -167,13 +172,23 @@ struct UserProfileForm: View {
     }
     
     // ... existing methods
-    private func deleteMedication(at offsets: IndexSet) {
-        medications.remove(atOffsets: offsets)
+    private func deleteMedications(at offsets: IndexSet) {
+        offsets.forEach { index in
+            let medication = medications[index]
+            deleteMedication(medication)
+        }
     }
     
-    private func addMedication() {
-        // Implement this function to add a new medication
-        // For example, you could present a modal form to input medication details
+    private func deleteMedication(_ medication: Medication) {
+        moc.delete(medication)
+        
+        // Save the context
+        do {
+            try moc.save()
+        } catch {
+            // Handle the error appropriately
+            print("Error saving context after a medication deletion: \(error)")
+        }
     }
 }
 
@@ -186,7 +201,7 @@ struct UserProfileForm: View {
  }*/
 
 
-func createDummyMedicationDates(startDate: Date, endDate: Date, daysOfWeek: [DayOfWeek]) -> [MedicationDateStatus] {
+/*func createDummyMedicationDates(startDate: Date, endDate: Date, daysOfWeek: [DayOfWeek]) -> [MedicationDateStatus] {
     var dates = [MedicationDateStatus]()
     var currentDate = startDate
     
@@ -204,4 +219,4 @@ func createDummyMedicationDates(startDate: Date, endDate: Date, daysOfWeek: [Day
     }
     
     return dates
-}
+}*/

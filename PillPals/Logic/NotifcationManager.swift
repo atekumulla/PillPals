@@ -54,7 +54,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
         content.title = title
         content.body = body
         content.sound = UNNotificationSound.default
-        content.userInfo = ["medicationID": medication.id.uuidString]
+        content.userInfo = ["medicationID": medication.id!.uuidString]
         content.categoryIdentifier = "TAKE_MEDICATION"
         
         let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
@@ -140,14 +140,58 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
 
 extension NotificationManager {
     func scheduleNotificationsForMedication(_ medication: Medication) {
-        var date = medication.startDate
-        while date <= medication.endDate {
-            if medication.daysOfWeekToTake.contains(date.dayOfWeek) {
-                let notificationDate = Calendar.current.date(bySettingHour: medication.timeToTake.hour, minute: medication.timeToTake.minute, second: 0, of: date)!
-                scheduleNotification(medication: medication, at: notificationDate, title: "Time to take your \(medication.name)", body: "Dosage: \(medication.dosage.amount) \(medication.dosage.unit)")
+        guard let startDate = medication.startDate,
+              let endDate = medication.endDate,
+              let timeToTake = medication.timeToTake,
+              let name = medication.name,
+              let dosage = medication.dosage,
+              let daysOfWeekSet = medication.daysOfWeek as? Set<Int> else {
+            print("Missing medication details")
+            return
+        }
+        
+        var date = startDate
+        while date <= endDate {
+            let weekday = Calendar.current.component(.weekday, from: date)
+            if daysOfWeekSet.contains(weekday) {
+                if let notificationDate = Calendar.current.date(bySettingHour: Calendar.current.component(.hour, from: timeToTake),
+                                                                minute: Calendar.current.component(.minute, from: timeToTake),
+                                                                second: 0,
+                                                                of: date) {
+                    let title = "Time to take your \(name)"
+                    let body = "Dosage: \(dosage.amount) \(dosage.unit)"
+                    scheduleNotification(medication: medication, at: notificationDate, title: title, body: body)
+                }
             }
             date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
         }
     }
 }
+
+
+/*extension NotificationManager {
+    func scheduleNotificationsForMedication(_ medication: Medication) {
+        guard let startDate = medication.startDate,
+              let endDate = medication.endDate,
+              let timeToTake = medication.timeToTake,
+              let name = medication.name,
+              let dosage = medication.dosage else {
+            print("Missing medication details")
+            return
+        }
+        
+        var date = startDate
+        while date <= endDate {
+            if medication.dateStatusArray.contains(date.dayOfWeek) {
+                if let notificationDate = Calendar.current.date(bySettingHour: timeToTake.hour, minute: timeToTake.minute, second: 0, of: date) {
+                    let title = "Time to take your \(name)"
+                    let body = "Dosage: \(medication.dosage?.amount) \(medication.dosage?.unit)"
+                    scheduleNotification(medication: medication, at: notificationDate, title: title, body: body)
+                }
+            }
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        }
+    }
+}*/
+
 

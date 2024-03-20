@@ -109,7 +109,7 @@ enum DosageUnit: String, CaseIterable, Codable {
 }
 
 
-struct DaysOfWeek: OptionSet {
+/*struct DaysOfWeek: OptionSet {
     let rawValue: Int
 
     static let sunday = DaysOfWeek(rawValue: 1 << 0)
@@ -133,7 +133,7 @@ struct DaysOfWeek: OptionSet {
         }
         return daysOfWeek
     }
-}
+}*/
 
 struct DateIterator: Sequence, IteratorProtocol {
     var current: Date

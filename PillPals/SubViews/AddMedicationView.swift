@@ -13,14 +13,14 @@ import CoreData
 struct AddMedicationView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
-
+    
     @State private var name: String = ""
     @State private var selectedType: MedicationType = .pill
     @State private var selectedMedicationPeriod: MedicationPeriod = .morning
     @State private var priority: Priority = .normal
     @State private var dosageAmountString: String = ""
     private var dosageAmount: Double {
-            return Double(dosageAmountString) ?? 0
+        return Double(dosageAmountString) ?? 0
     }
     @State private var selectedDaysOfWeek: [Int] = []
     @State private var selectedDosageUnit: DosageUnit = .milligram
@@ -29,13 +29,13 @@ struct AddMedicationView: View {
     @State private var selectedWeekDays: [DayOfWeek] = []
     @State private var timeToTake = Date()
     @State private var color: Color = Color(red: 180.0/255.0, green: 200.0/255.0, blue: 220.0/255.0)
-
+    
     var bounds: Range<Date> {
         let start = min(startDate, endDate)
         let end = max(startDate, endDate)
         return start..<Calendar.current.date(byAdding: .day, value: 1, to: end)!
     }
-
+    
     var body: some View {
         NavigationView {
             List {
@@ -73,14 +73,14 @@ struct AddMedicationView: View {
                     }
                     DatePicker("Time to Take", selection: $timeToTake, displayedComponents: .hourAndMinute)
                 }
-
+                
                 Section(header: Text("Date")) {
                     DatePicker("Select Time", selection: $timeToTake, displayedComponents: .hourAndMinute)
                         .onChange(of: timeToTake) { _ in
                             assignMedicationPeriodBasedOnTime()
                             updateSelectedDates()
                         }
-
+                    
                     DatePicker("Start Date", selection: $startDate, displayedComponents: [.date])
                         .onChange(of: startDate) { newValue in
                             if newValue > endDate {
@@ -88,7 +88,7 @@ struct AddMedicationView: View {
                             }
                             updateSelectedDates()
                         }
-
+                    
                     DatePicker("End Date", selection: $endDate, displayedComponents: [.date])
                         .onChange(of: endDate) { newValue in
                             if newValue < startDate {
@@ -96,7 +96,7 @@ struct AddMedicationView: View {
                             }
                             updateSelectedDates()
                         }
-
+                    
                     Button("Choose Days") {
                         showingDaySelection = true
                     }
@@ -106,13 +106,13 @@ struct AddMedicationView: View {
                                 updateSelectedDates()
                             }
                     }
-
+                    
                     Section(header: Text("Selected Days")) {
                         if !selectedWeekDays.isEmpty {
                             SelectedDaysView(selectedDays: selectedWeekDays)
                         }
                     }
-                    MultiDatePicker("Select Dates", selection: $selectedDates, in: bounds)
+                    // MultiDatePicker("Select Dates", selection: $selectedDates, in: bounds)
                 }
             }
             .navigationBarTitle("Add Medication", displayMode: .inline)
@@ -123,22 +123,24 @@ struct AddMedicationView: View {
             })
         }
     }
-
+    
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
-
+    
     private func createMedication() {
         let newMedication = Medication(context: moc)
         newMedication.name = name
         newMedication.type = selectedType.rawValue
         newMedication.dosage = createDosage(amount: dosageAmount, unit: selectedDosageUnit)
-        newMedication.datesToTake = selectedDates
-        newMedication.daysOfWeekToTake = selectedWeekDays
+        newMedication.dateStatusArray = selectedDates
+        // Convert DayOfWeek values to their calendarValue integers and store
+        let dayNumbers: [Int] = selectedWeekDays.map { $0.calendarValue }
+        newMedication.daysOfWeek = NSSet(array: dayNumbers)
         newMedication.startDate = startDate
         newMedication.endDate = endDate
         newMedication.timeToTake = timeToTake
-        newMedication.color = RGBColor(color: color)
+        // newMedication.color = RGBColor(color: color)
         newMedication.priority = priority.rawValue
         newMedication.imageName = "pills"
         newMedication.period = selectedMedicationPeriod.rawValue
@@ -169,10 +171,14 @@ struct AddMedicationView: View {
 
         while currentDate <= endDate {
             let weekDay = calendar.component(.weekday, from: currentDate)
+            // Convert the DayOfWeek enum values to comparable weekday integers.
+            let selectedWeekDayNumbers = selectedWeekDays.map { $0.calendarValue }
 
-            if selectedWeekDays.contains(where: { $0.calendarValue == weekDay }) {
+            if selectedWeekDayNumbers.contains(weekDay) {
                 let combinedDateTime = combineDateWithTime(date: currentDate, time: timeToTake)
-                let dateStatus = MedicationDateStatus(date: combinedDateTime, taken: false)
+                let dateStatus = MedicationDateStatus(context: moc)
+                dateStatus.date = combinedDateTime
+                dateStatus.taken = false
                 selectedDates.append(dateStatus)
             }
 

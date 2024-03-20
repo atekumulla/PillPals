@@ -297,14 +297,14 @@ let sampleColor: Color = Color(
 )
 // let rgbSampleColor = RGBColor(color: sampleColor)
 
-struct MedicationView_Previews: PreviewProvider {
+/*struct MedicationView_Previews: PreviewProvider {
     var onDelete: () -> Void  // Closure for handling delete action
     static var previews: some View {
         MedicationView(medication: dummyMed, onDelete: {
                     // Implement your delete action or leave it empty for preview purposes
                     print("Delete action triggered")
                 })    }
-}
+}*/
 /*struct HomeView_Previews: PreviewProvider {
  static var previews: some View {
  //HomeView(meds: .constant(dummyMedications), saveAction: {})

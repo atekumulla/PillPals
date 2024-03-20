@@ -19,62 +19,59 @@ struct CornerRadiusShape: Shape {
         return Path(path.cgPath)
     }
 }
+
 struct MedicationDetailView: View {
-    
-    @State private var color: Color = Color(
-        red: 180.0/255.0,
-        green: 200.0/255.0,
-        blue:  220.0/255.0
-    )
-    @State var medication: Medication
-    @State private var isDatesListExpanded: Bool = false // To control the expandable list
-    
+    @State private var color: Color = Color(red: 180.0/255.0, green: 200.0/255.0, blue: 220.0/255.0)
+    var medication: Medication
+    @State private var isDatesListExpanded: Bool = false
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                DisplayMedicationView(medication: medication)
+                DisplayMedicationView(medication: medication, color: color)
                 
                 Divider()
                 
-                Group {
-                    LabelledValue(label: "Priority") {
-                        Text(medication.priority.rawValue.capitalized)
-                            .foregroundColor(medication.priority == .high ? .red : .primary)
-                    }
-                    
-                    LabelledValue(label: "Time Period") {
-                        Image(systemName: medication.period.rawValue)
+                    /*Group {
+                    HStack {
+                        Text("Time Period:")
+                            .bold()
+                        Image(systemName: medication.period ?? "clock.arrow.circlepath")
                             .foregroundColor(.primary)
                     }
                     
-                    LabelledValue(label: "Time to Take") {
+                    HStack {
+                        Text("Time to Take:")
+                            .bold()
                         Text(medication.timeToTake, style: .time)
                     }
                     
-                    LabelledValue(label: "Start Date") {
+                    HStack {
+                        Text("Start Date:")
+                            .bold()
                         Text(formatDate(medication.startDate))
                     }
                     
-                    LabelledValue(label: "End Date") {
+                    HStack {
+                        Text("End Date:")
+                            .bold()
                         Text(formatDate(medication.endDate))
                     }
-                    
                 }
-                .padding(.vertical, 1)
+                .padding(.vertical, 1)*/
                 
                 CalendarView(medication: medication)
                     .padding()
                 
                 DisclosureGroup("Dosing Schedule", isExpanded: $isDatesListExpanded) {
                     VStack(alignment: .leading, spacing: 5) {
-                        ForEach(medication.datesToTake, id: \.date) { dateStatus in
+                        // Assuming datesToTake properly initialized and iterable
+                        ForEach(medication.dateStatusArray, id: \.date) { dateStatus in
                             HStack {
                                 Text(formatDate(dateStatus.date))
                                 Spacer()
-                                Image(systemName: "checkmark.circle.fill" )
-                                    .foregroundColor( .green)
-                                /*Image(systemName: dateStatus.taken ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(dateStatus.taken ? .green : .secondary)*/
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.green)
                             }
                         }
                     }
@@ -84,13 +81,11 @@ struct MedicationDetailView: View {
             }
             .padding()
         }
-        .navigationTitle("\(medication.name)")
-        .navigationBarTitleDisplayMode(.automatic)
-        .navigationBarTitleDisplayMode(.automatic)
-
+        .navigationTitle("\(medication.name ?? "Medication")")
     }
     
-    private func formatDate(_ date: Date) -> String {
+    private func formatDate(_ date: Date?) -> String {
+        guard let date = date else { return "N/A" }
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
@@ -98,74 +93,37 @@ struct MedicationDetailView: View {
     }
 }
 
-struct LabelledValue<ValueView: View>: View {
-    let label: String
-    let valueView: ValueView
-    
-    init(label: String, @ViewBuilder valueView: () -> ValueView) {
-        self.label = label
-        self.valueView = valueView()
-    }
-    
-    var body: some View {
-        HStack {
-            Text("\(label):")
-                .bold()
-            valueView
-        }
-    }
-}
-
-
-
-
-struct MedicationDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        MedicationDetailView(medication: dummyMedications[1])
-    }
-}
-
 struct DisplayMedicationView: View {
     var medication: Medication
+    var color: Color
     
     var body: some View {
         VStack(alignment: .leading) {
-            
-            
             HStack {
-                Image(systemName: medication.period.rawValue)
-                //.resizable()
+                Image(systemName: "pills")
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(medication.color.color)
+                    .foregroundColor(color)
                     .imageScale(.large)
                 
                 VStack(alignment: .leading) {
-                    Text(medication.name)
-                        .font(.largeTitle
-                        )
+                    Text(medication.name ?? "Unknown")
+                        .font(.largeTitle)
                         .foregroundColor(.primary)
-                    Text("\(medication.dosage.amount, specifier: "%.1f") \(medication.dosage.unit.rawValue)")
+                    Text("\(medication.dosage?.amount ?? 0, specifier: "%.1f") \(medication.dosage?.unit ?? "mg")")
                         .font(.title3)
                         .foregroundColor(.primary)
                 }
                 Spacer()
                 Image(systemName: "hand.tap.fill")
-                //.foregroundStyle(.secondary)
                     .foregroundColor(.primary)
-                
-                
-                
-                
             }
             .padding()
             .background(RoundedRectangle(cornerRadius: 12)
-                .fill(medication.uiColor.opacity(0.5)))
+                            .fill(color.opacity(0.5)))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(medication.uiColor, lineWidth: 2)
+                    .stroke(color, lineWidth: 2)
             )
         }
-        //.padding(.vertical, 4)
-        
     }
 }
