@@ -19,7 +19,11 @@ struct CaregiverCalendarView: View {
            formatter.dateFormat = "yyyy-MM-dd"
            return formatter
        }()
-    
+    let formatterDouble: DateFormatter = {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "yyyyMMdd"
+           return formatter
+       }()
     var body: some View {
         VStack {
             // Calendar header
@@ -40,6 +44,8 @@ struct CaregiverCalendarView: View {
                         Button(action: {
                             selectedDate = date // Set the selected date when clicked
                             buttonPressed = true
+                            let selected_date_double: Double = DoubleDateFormatted()
+                            print(selected_date_double)
                         }) {
                             Text("\(dayOfMonth(for: date))")
                                 .frame(width: 30, height: 30)
@@ -54,7 +60,8 @@ struct CaregiverCalendarView: View {
             }
             // Medication Info section
             
-            let currentDate_week: String = formatter.string(from: currentDate) // Move this line here
+            let currentDate_double: Double =  Double(formatterDouble.string(from: currentDate)) ?? 0 // Move this line here
+            let currentDate_week: String = formatter.string(from: currentDate)
             VStack(alignment: .leading) {
                 Text("Medication Info: ")
                     .font(.headline)
@@ -67,30 +74,40 @@ struct CaregiverCalendarView: View {
                                 .font(.subheadline)
                         }
                     }
-                } else if(buttonPressed && selectedDate != nil){
-                    //Past info
-                    if let medications = medicationHistory[selectedDateFormatted()], selectedDateFormatted() < currentDate_week {
+                } else if(DoubleDateFormatted() < currentDate_double){
+                    if let medications = medicationHistory[currentDate_week] {
                         ForEach(medications, id: \.self) { medicationEntry in
                             Text("\(medicationEntry.medication.name) - \(medicationEntry.status.rawValue)")
                                 .font(.subheadline)
                         }
                     }
-                    else {
-                        if let medications = medicationHistory[selectedDateFormatted()]{
-                            ForEach(medications, id: \.self){ medicationEntry in
+                    } else if(DoubleDateFormatted() >= currentDate_double){
+                        if let medications = medicationHistory[currentDate_week] {
+                            ForEach(medications, id: \.self) { medicationEntry in
                                 Text("\(medicationEntry.medication.name) - \(medicationEntry.medication.time)")
-                                
+                                    .font(.subheadline)
                             }
-                        }
                     }
+                    //Past info
+                    
                 }
                 
+            }.onTapGesture {
+                let selected_date_double: Double = DoubleDateFormatted()
+                print(selected_date_double)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
         }.padding(.bottom, 600)
         .onAppear {
+            
             // Initialize dummy medication history
+            let currentDate_double: Double =  Double(formatterDouble.string(from: currentDate)) ?? 0 // Move this line here
+            print(currentDate_double)
+            let currentDate_week: String = formatter.string(from: currentDate)
+            print(currentDate_week)
+            let selected_date_double = DoubleDateFormatted()
+            print(selected_date_double)
             initializeMedicationHistory()
         }
     }
@@ -121,6 +138,14 @@ struct CaregiverCalendarView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: selectedDate)
+    }
+    private func DoubleDateFormatted() -> Double {
+        guard let selectedDate = selectedDate else {
+            return 0 // Return default value if selectedDate is nil
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        return Double(formatter.string(from: selectedDate)) ?? 0
     }
     
     // Initialize dummy medication history
