@@ -34,11 +34,10 @@ struct HomeView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Medication.name, ascending: true)],
         animation: .default
     ) var medications: FetchedResults<Medication>*/
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Medication.timeToTake, ascending: true)],
-        predicate: NSPredicate(format: "daysOfWeekToTake CONTAINS %@", DayOfWeek.allCases.first { $0.calendarValue == Calendar.current.component(.weekday, from: Date()) }! as! CVarArg),
-        animation: .default
-    ) var medications: FetchedResults<Medication>
+    // Assume `daysOfWeekToTake` is a comma-separated string, e.g., "1,2,3,4,5"
+    // The predicate uses wildcards to match the day number within the string correctly.
+    
+    @FetchRequest var medications: FetchedResults<Medication>
     
 
     @StateObject var notificationManager = NotificationManager.shared
@@ -54,7 +53,18 @@ struct HomeView: View {
     @State private var showingLogMedicationView = false
     // @State private var homeViewDemoUser: UserInfo = demoUser
 
-    
+    init() {
+            // Calculate today's index
+            let todayIndex = Calendar.current.component(.weekday, from: Date())
+            // Ensure searchString correctly matches the stored format
+            let searchString = "*\(todayIndex)*"
+
+            // Initialize the fetch request
+            _medications = FetchRequest<Medication>(
+                sortDescriptors: [NSSortDescriptor(keyPath: \Medication.timeToTake, ascending: true)],
+                predicate: NSPredicate(format: "daysOfWeek LIKE %@", searchString)
+            )
+        }
     
     func presentLogSheet(for medication: Medication) {
         medicationToLog = medication

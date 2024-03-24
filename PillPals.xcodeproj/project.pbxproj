@@ -15,6 +15,7 @@
 		8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */; };
 		AC0952E22B7D97A200AB202A /* PillPalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0952E12B7D97A200AB202A /* PillPalsView.swift */; };
 		AC0952E42B7D982800AB202A /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0952E32B7D982800AB202A /* CaregiverView.swift */; };
+		AC153E472BAE701A004BD9C7 /* Medication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC153E462BAE701A004BD9C7 /* Medication+CoreDataProperties.swift */; };
 		AC5304892B1583EF00E3BD75 /* NotifcationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5304882B1583EF00E3BD75 /* NotifcationManager.swift */; };
 		AC53048B2B15A06300E3BD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC53048A2B15A06300E3BD75 /* MapView.swift */; };
 		AC63C7D62BA277E200780A5E /* RGBColor+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC63C7CE2BA277E200780A5E /* RGBColor+CoreDataClass.swift */; };
@@ -40,7 +41,6 @@
 		ACAB782E2B0B256300C5F191 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB782D2B0B256300C5F191 /* CalendarView.swift */; };
 		ACAB78302B0DA9F400C5F191 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAB782F2B0DA9F400C5F191 /* HomeView.swift */; };
 		ACCEE14D2BA76063004918D5 /* Dosage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCEE14C2BA76063004918D5 /* Dosage+CoreDataProperties.swift */; };
-		ACCEE14F2BA7643E004918D5 /* Medication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCEE14E2BA7643E004918D5 /* Medication+CoreDataProperties.swift */; };
 		ACD0CB422B1819F300864625 /* MedCodableDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0CB412B1819F300864625 /* MedCodableDataStore.swift */; };
 		ACD0CB442B19133A00864625 /* LogMedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD0CB432B19133A00864625 /* LogMedicationView.swift */; };
 		ACDB33EE2B814F8500B95C17 /* NewMedicationDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB33ED2B814F8500B95C17 /* NewMedicationDisplayView.swift */; };
@@ -99,6 +99,7 @@
 		8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AC0952E12B7D97A200AB202A /* PillPalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsView.swift; sourceTree = "<group>"; };
 		AC0952E32B7D982800AB202A /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
+		AC153E462BAE701A004BD9C7 /* Medication+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AC5304882B1583EF00E3BD75 /* NotifcationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifcationManager.swift; sourceTree = "<group>"; };
 		AC53048A2B15A06300E3BD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AC63C7CE2BA277E200780A5E /* RGBColor+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RGBColor+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -124,7 +125,6 @@
 		ACAB782D2B0B256300C5F191 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		ACAB782F2B0DA9F400C5F191 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		ACCEE14C2BA76063004918D5 /* Dosage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Dosage+CoreDataProperties.swift"; path = "../Dosage+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		ACCEE14E2BA7643E004918D5 /* Medication+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		ACD0CB412B1819F300864625 /* MedCodableDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedCodableDataStore.swift; sourceTree = "<group>"; };
 		ACD0CB432B19133A00864625 /* LogMedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMedicationView.swift; sourceTree = "<group>"; };
 		ACDB33ED2B814F8500B95C17 /* NewMedicationDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMedicationDisplayView.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 				AC63C7D22BA277E200780A5E /* MedicationDateStatus+CoreDataClass.swift */,
 				AC63C7D32BA277E200780A5E /* MedicationDateStatus+CoreDataProperties.swift */,
 				AC63C7D42BA277E200780A5E /* Medication+CoreDataClass.swift */,
-				ACCEE14E2BA7643E004918D5 /* Medication+CoreDataProperties.swift */,
+				AC153E462BAE701A004BD9C7 /* Medication+CoreDataProperties.swift */,
 				ACDB33EF2B8155AB00B95C17 /* TestViews */,
 				AC784BE12B75DA0B0037C9F9 /* Backend */,
 				AC784BE02B75D9E00037C9F9 /* Logic */,
@@ -504,7 +504,7 @@
 				AC63C7DC2BA277E200780A5E /* Medication+CoreDataClass.swift in Sources */,
 				ACD0CB422B1819F300864625 /* MedCodableDataStore.swift in Sources */,
 				ACAB78272B0B192100C5F191 /* SelectedDaysView.swift in Sources */,
-				ACCEE14F2BA7643E004918D5 /* Medication+CoreDataProperties.swift in Sources */,
+				AC153E472BAE701A004BD9C7 /* Medication+CoreDataProperties.swift in Sources */,
 				AC0952E42B7D982800AB202A /* CaregiverView.swift in Sources */,
 				ACAB781F2B0B18AF00C5F191 /* AddMedicationView.swift in Sources */,
 				ACF588352B0EFDB400C5ACCC /* PersistenceController.swift in Sources */,

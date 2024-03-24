@@ -130,13 +130,15 @@ struct AddMedicationView: View {
     
     private func createMedication() {
         let newMedication = Medication(context: moc)
+        newMedication.id = UUID()
         newMedication.name = name
         newMedication.type = selectedType.rawValue
         newMedication.dosage = createDosage(amount: dosageAmount, unit: selectedDosageUnit)
         newMedication.dateStatusArray = selectedDates
         // Convert DayOfWeek values to their calendarValue integers and store
-        let dayNumbers: [Int] = selectedWeekDays.map { $0.calendarValue }
-        newMedication.daysOfWeek = NSSet(array: dayNumbers)
+        // let dayNumbers: [Int] = selectedWeekDays.map { $0.calendarValue }
+        let dayNumbersString = selectedWeekDays.map { String($0.calendarValue) }.joined(separator: ",")
+        newMedication.daysOfWeek = dayNumbersString
         newMedication.startDate = startDate
         newMedication.endDate = endDate
         newMedication.timeToTake = timeToTake

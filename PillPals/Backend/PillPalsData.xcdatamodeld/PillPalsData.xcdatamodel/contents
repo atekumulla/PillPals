@@ -6,7 +6,7 @@
         <relationship name="medication" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Medication" inverseName="dosage" inverseEntity="Medication"/>
     </entity>
     <entity name="Medication" representedClassName="Medication" syncable="YES">
-        <attribute name="daysOfWeek" optional="YES" attributeType="Transformable"/>
+        <attribute name="daysOfWeek" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imageName" optional="YES" attributeType="String"/>

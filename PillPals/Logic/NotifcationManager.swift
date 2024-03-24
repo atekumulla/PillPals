@@ -144,12 +144,14 @@ extension NotificationManager {
               let endDate = medication.endDate,
               let timeToTake = medication.timeToTake,
               let name = medication.name,
-              let dosage = medication.dosage,
-              let daysOfWeekSet = medication.daysOfWeek as? Set<Int> else {
+              let dosage = medication.dosage else {
             print("Missing medication details")
             return
         }
         
+        let daysOfWeekString = medication.daysOfWeek ?? ""
+        let daysOfWeekSet = Set(daysOfWeekString.split(separator: ",").compactMap { Int($0) })
+
         var date = startDate
         while date <= endDate {
             let weekday = Calendar.current.component(.weekday, from: date)
