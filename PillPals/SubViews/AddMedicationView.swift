@@ -71,7 +71,6 @@ struct AddMedicationView: View {
                             Text(priority.rawValue.capitalized).tag(priority)
                         }
                     }
-                    DatePicker("Time to Take", selection: $timeToTake, displayedComponents: .hourAndMinute)
                 }
                 
                 Section(header: Text("Date")) {
