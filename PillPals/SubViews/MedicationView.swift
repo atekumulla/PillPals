@@ -70,8 +70,8 @@ struct MedicationDetailView: View {
                             HStack {
                                 Text(formatDate(dateStatus.date))
                                 Spacer()
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
+                                Image(systemName: dateStatus.taken ? "checkmark.circle.fill" : "circle")
+                                                    .foregroundColor(dateStatus.taken ? .green : .gray)
                             }
                         }
                     }
