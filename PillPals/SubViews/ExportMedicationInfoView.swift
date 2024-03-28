@@ -1,19 +1,38 @@
+//
+//  ExportMedicationInfoView.swift
+//  PillPals
+//
+//  Created by anush on 3/24/24.
+//
+
 import SwiftUI
+import Foundation
+import AppIntents
+import UserNotifications
+import UserNotificationsUI
+import Combine
 
 struct ExportMedicationInfoView: View {
-    var body: some View {
-        Text("blah")
-    }
-}
-/*struct ExportMedicationInfoView: View {
     @Environment(\.managedObjectContext) var moc
+    @FetchRequest var medications: FetchedResults<Medication>
     @State private var isPDFExported = false
+    @State private var isExportingInProgress = false // New state variable to track export progress
+    let pdfExporter = PDFExporter()
     
-    @FetchRequest(
-            entity: Medication.entity(),
-            sortDescriptors: [NSSortDescriptor(keyPath: \Medication.name, ascending: true)]
-        ) private var medications: FetchedResults<Medication>
-    
+    init() {
+            // Calculate today's index
+            let todayIndex = Calendar.current.component(.weekday, from: Date())
+            // Ensure searchString correctly matches the stored format
+            let searchString = "*\(todayIndex)*"
+
+            // Initialize the fetch request
+            _medications = FetchRequest<Medication>(
+                sortDescriptors: [NSSortDescriptor(keyPath: \Medication.timeToTake, ascending: true)],
+                predicate: NSPredicate(format: "daysOfWeek LIKE %@", searchString)
+            )
+        print("medication size: \(medications.count)")
+        }
+
     var body: some View {
         VStack {
             Button(action: exportMedicationHistory) {
@@ -45,31 +64,49 @@ struct ExportMedicationInfoView: View {
             // Add more medications here
         ] // Example medication history with missed doses information
         
+        isExportingInProgress = true
+        
         let pdfExporter = PDFExporter()
         
-        if let pdfData = pdfExporter.exportMedicationHistoryToPDF(medicationHistory: medicationHistory) {
-            // Dismiss any presented view controllers first
-            if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
-                rootViewController.dismiss(animated: false) {
-                    // Present the UIActivityViewController
-                    let activityViewController = UIActivityViewController(activityItems: [pdfData], applicationActivities: nil)
-                    rootViewController.present(activityViewController, animated: true, completion: nil)
+        DispatchQueue.global().async {
+            if let pdfData = pdfExporter.exportMedicationHistoryToPDF(medicationHistory: medicationHistory, medications: medications) {
+                DispatchQueue.main.async {
+                    isExportingInProgress = false // Set export progress to false
+                    isPDFExported = true // Show alert
+                    // Present the UIActivityViewController with pdfData
+                    if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+                        rootViewController.dismiss(animated: false) {
+                            // Present the UIActivityViewController
+                            let activityViewController = UIActivityViewController(activityItems: [pdfData], applicationActivities: nil)
+                            rootViewController.present(activityViewController, animated: true, completion: nil)
+                        }
+                    }
                 }
             }
-            isPDFExported = true
         }
+        
+//        if let pdfData = pdfExporter.exportMedicationHistoryToPDF(medicationHistory: medicationHistory) {
+//            // Dismiss any presented view controllers first
+//            if let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+//                rootViewController.dismiss(animated: false) {
+//                    // Present the UIActivityViewController
+//                    let activityViewController = UIActivityViewController(activityItems: [pdfData], applicationActivities: nil)
+//                    rootViewController.present(activityViewController, animated: true, completion: nil)
+//                }
+//            }
+//            isPDFExported = true
+//        }
     }
 }
-
-struct ExportMedicationInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExportMedicationInfoView()
-    }
-}
+//
+//struct ExportMedicationInfoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExportMedicationInfoView()
+//    }
+//}
 
 class PDFExporter {
-    
-    func exportMedicationHistoryToPDF(medicationHistory: [(medication: String, missedDoses: Int, totalDoses: Int)]) -> Data? {
+    func exportMedicationHistoryToPDF(medicationHistory: [(medication: String, missedDoses: Int, totalDoses: Int)], medications: FetchedResults<Medication>) -> Data? {
         let pdfMetaData = [
             kCGPDFContextCreator: "PillPals",
             kCGPDFContextAuthor: "Admin"
@@ -82,7 +119,7 @@ class PDFExporter {
         let data = renderer.pdfData { context in
             // Page for listing medications
             context.beginPage()
-            drawMedicationsList(in: context)
+            drawMedicationsList(in: context, medications: medications)
             
             // Page for medication history
             context.beginPage()
@@ -91,7 +128,7 @@ class PDFExporter {
         return data
     }
     
-    private func drawMedicationsList(in context: UIGraphicsPDFRendererContext) {
+    private func drawMedicationsList(in context: UIGraphicsPDFRendererContext, medications: FetchedResults<Medication>) {
         // Start at the top of the page
         var currentY: CGFloat = 50
         
@@ -104,16 +141,21 @@ class PDFExporter {
         titleText.draw(in: titleRect, withAttributes: titleAttributes)
         currentY += titleSize.height + 20
         
-        // Add each medication
+        print("medications size: \(medications.count)")
         
-        for medication in dummyMedications {
-            let medicationText = "\(medication.name) - Type: \(medication.type.rawValue), Dosage: \(medication.dosage.amount) \(medication.dosage.unit.rawValue)"
-            let medicationFont = UIFont.systemFont(ofSize: 16)
-            let medicationAttributes: [NSAttributedString.Key: Any] = [.font: medicationFont]
-            let medicationSize = (medicationText as NSString).size(withAttributes: medicationAttributes)
-            let medicationRect = CGRect(x: 50, y: currentY, width: 512, height: medicationSize.height)
-            medicationText.draw(in: medicationRect, withAttributes: medicationAttributes)
-            currentY += medicationSize.height + 10
+        // Add each medication
+        for medication in medications {
+            if let dosage = medication.dosage {
+//                let medicationText = "\(String(describing: medication.name)) - Type: \(String(describing: medication.type)), Dosage: \(dosage.amount) \(String(describing: dosage.unit))"
+                let medicationText = "\(medication.name ?? "Unknown") - Type: \(medication.type ?? "Unknown"), Dosage: \(dosage.amount ?? 0) \(dosage.unit ?? "Unknown")"
+
+                let medicationFont = UIFont.systemFont(ofSize: 16)
+                let medicationAttributes: [NSAttributedString.Key: Any] = [.font: medicationFont]
+                let medicationSize = (medicationText as NSString).size(withAttributes: medicationAttributes)
+                let medicationRect = CGRect(x: 50, y: currentY, width: 512, height: medicationSize.height)
+                medicationText.draw(in: medicationRect, withAttributes: medicationAttributes)
+                currentY += medicationSize.height + 10
+            }
         }
     }
     
@@ -152,4 +194,8 @@ class PDFExporter {
         }
     }
 
-}*/
+}
+
+//#Preview {
+//    ExportMedicationInfoView()
+//}
