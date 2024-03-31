@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CaregiverView: View {
     @Environment(\.presentationMode) var presentationMode
+    @State private var showingAddMedicationView = false
     
     var body: some View {
         NavigationView {
@@ -22,6 +23,16 @@ struct CaregiverView: View {
                 NavigationLink(destination: ExportMedicationInfoView()) {
                     RoundedRectangleButton(label: "Export Medication Info")
                 }
+                
+//                NavigationLink(destination: AddMedicationView()()) {
+//                    RoundedRectangleButton(label: "Add New Medication")
+//                }
+                
+                Button(action: {
+                    showingAddMedicationView = true
+                }) {
+                    RoundedRectangleButton(label: "Add New Medication")
+                }
 
                 Spacer()
             }
@@ -33,6 +44,9 @@ struct CaregiverView: View {
                     }
                 }
             }
+        }
+        .sheet(isPresented: $showingAddMedicationView) {
+            AddMedicationView()
         }
     }
 }

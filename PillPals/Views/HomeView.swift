@@ -136,7 +136,7 @@ struct HomeView: View {
             //.background(Color.gray.opacity(0.3))
             .navigationTitle("Hello !")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     // Add this line for the Edit button
                     //EditButton()
                     Button(action: {
@@ -145,13 +145,13 @@ struct HomeView: View {
                         Image(systemName: "person.badge.key.fill")
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showingAddMedicationView = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                }
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button(action: {
+//                        showingAddMedicationView = true
+//                    }) {
+//                        Image(systemName: "plus")
+//                    }
+//                }
             }
         }
         .onAppear(perform: handleAppear)
