@@ -271,7 +271,7 @@ struct MedicationView: View {
                             .font(.largeTitle)
                             .foregroundColor(.black)
                             .bold()
-                        Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(describing: medication.dosage!.unit))")
+                        Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(describing: medication.dosage!.unit ?? "Unknown"))")
                             .font(.title3)
                             .foregroundColor(.black)
                         /*Text("\(String(format: "%.1f", medication.dosage!.amount)) \(medication.dosage.unit.rawValue)")
