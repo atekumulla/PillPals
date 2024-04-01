@@ -81,8 +81,8 @@ struct UserProfileForm: View {
         animation: .default
     ) private var medications: FetchedResults<Medication>
     
-    @State private var name: String = ""
-    @State private var age: String = ""
+    //@State private var name: String = ""
+    @State private var name: String = UserDefaults.standard.string(forKey: "userName") ?? ""
     // @State private var medications: [Medication] = [] // Array to hold medications
     //@FetchRequest(sortDescriptors: []) var medications: FetchedResults<Medication>
     
@@ -98,8 +98,9 @@ struct UserProfileForm: View {
             
             Form {
                 Section(header: Text("Personal Information")) {
-                    TextField("Name", text: $name)
-                    TextField("Age", text: $age)
+                    TextField("Name", text: $name, onCommit: {
+                                UserDefaults.standard.set(self.name, forKey: "userName")
+                            })
                     // Include other personal fields as necessary
                 }
                 

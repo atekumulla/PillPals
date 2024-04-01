@@ -115,10 +115,12 @@ struct AddMedicationView: View {
                 }
             }
             .navigationBarTitle("Add Medication", displayMode: .inline)
-            .navigationBarItems(leading: Button("Create") {
-                createMedication()
-            }, trailing: Button("Cancel") {
+            .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
+                // createMedication()
+            }, trailing: Button("Create") {
+                // presentationMode.wrappedValue.dismiss()
+                createMedication()
             })
         }
     }

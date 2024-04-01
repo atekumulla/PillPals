@@ -31,17 +31,17 @@ struct HomeView: View {
     // @EnvironmentObject var medStore: MedStore
     @Environment(\.managedObjectContext) var moc
     /*@FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Medication.name, ascending: true)],
-        animation: .default
-    ) var medications: FetchedResults<Medication>*/
+     sortDescriptors: [NSSortDescriptor(keyPath: \Medication.name, ascending: true)],
+     animation: .default
+     ) var medications: FetchedResults<Medication>*/
     // Assume `daysOfWeekToTake` is a comma-separated string, e.g., "1,2,3,4,5"
     // The predicate uses wildcards to match the day number within the string correctly.
     
     @FetchRequest var medications: FetchedResults<Medication>
     
-
+    
     @StateObject var notificationManager = NotificationManager.shared
-    @State private var showingAddMedicationView = false
+    // @State private var showingAddMedicationView = false
     @State private var showingCaregiverView = false
     @Environment(\.scenePhase) private var scenePhase
     @State private var showDeleteConfirmation = false
@@ -52,19 +52,21 @@ struct HomeView: View {
     @State private var selectedMedicationId: String?
     @State private var showingLogMedicationView = false
     // @State private var homeViewDemoUser: UserInfo = demoUser
+    @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
 
+    
     init() {
-            // Calculate today's index
-            let todayIndex = Calendar.current.component(.weekday, from: Date())
-            // Ensure searchString correctly matches the stored format
-            let searchString = "*\(todayIndex)*"
-
-            // Initialize the fetch request
-            _medications = FetchRequest<Medication>(
-                sortDescriptors: [NSSortDescriptor(keyPath: \Medication.timeToTake, ascending: true)],
-                predicate: NSPredicate(format: "daysOfWeek LIKE %@", searchString)
-            )
-        }
+        // Calculate today's index
+        let todayIndex = Calendar.current.component(.weekday, from: Date())
+        // Ensure searchString correctly matches the stored format
+        let searchString = "*\(todayIndex)*"
+        
+        // Initialize the fetch request
+        _medications = FetchRequest<Medication>(
+            sortDescriptors: [NSSortDescriptor(keyPath: \Medication.timeToTake, ascending: true)],
+            predicate: NSPredicate(format: "daysOfWeek LIKE %@", searchString)
+        )
+    }
     
     func presentLogSheet(for medication: Medication) {
         medicationToLog = medication
@@ -72,12 +74,12 @@ struct HomeView: View {
     }
     
     /*private func deleteMedication(at offsets: IndexSet) {
-        offsets.forEach { index in
-            let medication = medStore.meds[index]
-            NotificationManager.shared.cancelNotifications(for: medication.id!)
-        }
-        medStore.meds.remove(atOffsets: offsets)
-    }*/
+     offsets.forEach { index in
+     let medication = medStore.meds[index]
+     NotificationManager.shared.cancelNotifications(for: medication.id!)
+     }
+     medStore.meds.remove(atOffsets: offsets)
+     }*/
     private func deleteMedications(at offsets: IndexSet) {
         withAnimation {
             offsets.map { medications[$0] }.forEach(moc.delete)
@@ -117,24 +119,40 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    ForEach(medications) { medication in
-                        NavigationLink(destination: MedicationDetailView(medication: medication)) {
-                            MedicationView(medication: medication) {
-                                indexSetToDelete = medications.firstIndex(where: { $0.id == medication.id }).map { IndexSet(integer: $0) }
-                                showDeleteConfirmation = true
+                    ForEach(MedicationTimeCategory.allCases, id: \.self) { category in
+                        VStack {
+                            HStack {
+                                SectionHeader(category: category)
                             }
+                            .font(.title2)
+                            .padding(.vertical)
                             
+                            let filteredMedications = medications.filter { categorizeMedicationByTime($0) == category }
+                            
+                            if filteredMedications.isEmpty {
+                                /*Text("No medications to take")
+                                    .foregroundColor(.gray)
+                                    .italic()*/
+                                NoMedicationsView() // Custom view for "no medications"
+                                                .transition(.scale)
+                            } else {
+                                ForEach(filteredMedications) { medication in
+                                    NavigationLink(destination: MedicationDetailView(medication: medication)) {
+                                        MedicationView(medication: medication) {
+                                            // Your deletion logic here
+                                        }
+                                    }
+                                    .transition(.opacity)
+                                }
+                            }
                         }
-                        .transition(.fadeOut) // Apply custom transition here
-                        
-                        
+                        Divider()
                     }
-                    .onDelete(perform: deleteMedications)
                 }
                 .padding()
             }
             //.background(Color.gray.opacity(0.3))
-            .navigationTitle("Hello !")
+            .navigationTitle("Hello!")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     // Add this line for the Edit button
@@ -145,13 +163,13 @@ struct HomeView: View {
                         Image(systemName: "person.badge.key.fill")
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showingAddMedicationView = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                }
+                /*ToolbarItem(placement: .navigationBarTrailing) {
+                 Button(action: {
+                 showingAddMedicationView = true
+                 }) {
+                 Image(systemName: "plus")
+                 }
+                 }*/
             }
         }
         .onAppear(perform: handleAppear)
@@ -163,11 +181,12 @@ struct HomeView: View {
                 LogMedicationSheet(medication: medication, isPresented: $showingLogMedicationView)
             }
         }
-        .sheet(isPresented: $showingAddMedicationView) {
-            AddMedicationView()
-        }
+        /*.sheet(isPresented: $showingAddMedicationView) {
+         AddMedicationView()
+         }*/
         .sheet(isPresented: $showingCaregiverView) {
             CaregiverView()
+                .environment(\.managedObjectContext, self.moc) // Pass the managedObjectContext explicitly
         }
         .sheet(isPresented: $showingLogSheet) {
             if let medication = medicationToLog {
@@ -224,11 +243,11 @@ struct MedicationView: View {
     // Example function to determine if the medication was taken on a specific day
     // This function would need to be implemented based on your app's data structure
     /*func isMedicationTakenToday() -> Bool {
-        // Lookup logic to determine if medication was taken today
-        // This is just a placeholder and needs to be replaced with actual logic
-        // For example, you might check today's date against the medication.datesToTake array
-        return medication.datesToTake.contains { $0.date == Date() && $0.taken }
-    }*/
+     // Lookup logic to determine if medication was taken today
+     // This is just a placeholder and needs to be replaced with actual logic
+     // For example, you might check today's date against the medication.datesToTake array
+     return medication.datesToTake.contains { $0.date == Date() && $0.taken }
+     }*/
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -243,7 +262,7 @@ struct MedicationView: View {
                     
                     Spacer()
                     
-                   Text("More Info")
+                    Text("More Info")
                         .bold()
                         .foregroundStyle(.black)
                         .padding(8)
@@ -256,45 +275,45 @@ struct MedicationView: View {
                 Rectangle()
                     .frame(height: 2)
                     .foregroundStyle(sampleColor)
-                    //foregroundStyle(medication.color.color.opacity(1.0))
+                //foregroundStyle(medication.color.color.opacity(1.0))
                     .padding(.horizontal)
-                    
+                
                 
                 HStack {
                     /*Image(systemName: medication.period.rawValue)
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.black.opacity(0.7))
-                        .imageScale(.large)*/
+                     .aspectRatio(contentMode: .fit)
+                     .foregroundColor(.black.opacity(0.7))
+                     .imageScale(.large)*/
                     
                     VStack(alignment: .leading) {
                         Text(medication.name!)
                             .font(.largeTitle)
                             .foregroundColor(.black)
                             .bold()
-                        Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(describing: medication.dosage!.unit))")
+                        Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(medication.dosage!.unit!))")
                             .font(.title3)
                             .foregroundColor(.black)
                         /*Text("\(String(format: "%.1f", medication.dosage!.amount)) \(medication.dosage.unit.rawValue)")
-                            .font(.title3)
-                            .foregroundColor(.black)*/
+                         .font(.title3)
+                         .foregroundColor(.black)*/
                     }
-                   
+                    
                     Spacer()
-                    Button(action: onDelete) {
-                        Image(systemName: "trash")
-                            .foregroundColor(.red)
-                    }
+                    /*Button(action: onDelete) {
+                     Image(systemName: "trash")
+                     .foregroundColor(.red)
+                     }*/
                 }
                 .padding([.bottom, .horizontal])
             }
             .background(RoundedRectangle(cornerRadius: 12)
-                // .fill(medication.rgbColor)
+                        // .fill(medication.rgbColor)
                 .fill(sampleColor.opacity(0.7))
                 .shadow(color: sampleColor, radius: 0, x: 0, y: 0)) // Apply shadow here)
             /*.overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(medication.color.color, lineWidth: 2)
-            )*/
+             RoundedRectangle(cornerRadius: 12)
+             .stroke(medication.color.color, lineWidth: 2)
+             )*/
         }
         .padding(.vertical, 4)
     }
@@ -308,13 +327,13 @@ let sampleColor: Color = Color(
 // let rgbSampleColor = RGBColor(color: sampleColor)
 
 /*struct MedicationView_Previews: PreviewProvider {
-    var onDelete: () -> Void  // Closure for handling delete action
-    static var previews: some View {
-        MedicationView(medication: dummyMed, onDelete: {
-                    // Implement your delete action or leave it empty for preview purposes
-                    print("Delete action triggered")
-                })    }
-}*/
+ var onDelete: () -> Void  // Closure for handling delete action
+ static var previews: some View {
+ MedicationView(medication: dummyMed, onDelete: {
+ // Implement your delete action or leave it empty for preview purposes
+ print("Delete action triggered")
+ })    }
+ }*/
 /*struct HomeView_Previews: PreviewProvider {
  static var previews: some View {
  //HomeView(meds: .constant(dummyMedications), saveAction: {})
@@ -377,3 +396,104 @@ extension AnyTransition {
     }
 }
 
+
+enum MedicationTimeCategory: String, CaseIterable {
+    case morning = "Morning"
+    case afternoon = "Afternoon"
+    case evening = "Evening"
+    case night = "Night"
+}
+
+func categorizeMedicationByTime(_ medication: Medication) -> MedicationTimeCategory {
+    guard let timeToTake = medication.timeToTake else { return .morning } // Assuming you have a timeToTake
+    let hour = Calendar.current.component(.hour, from: timeToTake)
+    
+    switch hour {
+    case 6..<11: return .morning
+    case 11..<15: return .afternoon
+    case 15..<21: return .evening
+    default: return .night
+    }
+}
+
+func symbolForCategory(_ category: MedicationTimeCategory) -> String {
+    switch category {
+    case .morning: return "sunrise.fill"
+    case .afternoon: return "sun.max.fill"
+    case .evening: return "sunset.fill"
+    case .night: return "moon.stars.fill"
+    }
+}
+
+
+// Define a custom view for "No medications to take"
+struct NoMedicationsView: View {
+    var body: some View {
+        VStack {
+            Image(systemName: "face.smiling")
+                .font(.largeTitle)
+                .foregroundColor(.green)
+            Text("No medications to take")
+                .bold()
+                .foregroundColor(.secondary)
+                .font(.title3)
+        }
+        .padding()
+        .frame(maxWidth: .infinity) // Ensures the view takes full width
+        .background(Color.blue.opacity(0.1))
+        .cornerRadius(12)
+        .padding(.horizontal, 10) // Adjust the horizontal padding to match MedicationView's padding
+    }
+}
+
+struct SectionHeader: View {
+    let category: MedicationTimeCategory
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        HStack {
+            Image(systemName: symbolForCategory(category))
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30, height: 30)
+                .foregroundColor(category.color)
+            Text(category.rawValue)
+                .font(.title)
+                .bold()
+                .foregroundColor(colorScheme == .dark ? .white.opacity(0.8) : .black)
+            Spacer()
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 10)
+        .background(category.backgroundColor)
+        .cornerRadius(10)
+    }
+}
+
+extension MedicationTimeCategory {
+    var color: Color {
+        switch self {
+        case .morning:
+            return Color.yellow
+        case .afternoon:
+            return Color.orange
+        case .evening:
+            return Color.purple
+        case .night:
+            return Color.blue
+        }
+    }
+    
+    var backgroundColor: Color {
+        switch self {
+        case .morning:
+            return Color.yellow.opacity(0.4)
+        case .afternoon:
+            return Color.orange.opacity(0.4)
+        case .evening:
+            return Color.purple.opacity(0.4)
+        case .night:
+            return Color.blue.opacity(0.4)
+        }
+    }
+}

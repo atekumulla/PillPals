@@ -122,10 +122,10 @@ struct DayView: View {
     
     var body: some View {
         Text("\(date, formatter: dayFormatter)")
-            .frame(width: 40, height: 40, alignment: .center) // Adjusted for visibility and consistency
+            .frame(width: 45, height: 45, alignment: .center) // Adjusted for visibility and consistency
             .background(circleBackground) // Conditional background
-            .foregroundColor(.primary) // Ensures text is visible against all backgrounds
-            .font(.caption) // Keeps the text size consistent
+            .foregroundColor(shouldHighlightDate ? .white : .primary) // Ensures text is visible against all backgrounds
+            .font(.title2) // Keeps the text size consistent
     }
     
     private var dayFormatter: DateFormatter {
@@ -146,7 +146,7 @@ struct DayView: View {
                     .fill(Color.clear) // No fill for days not highlighted
             }
         }
-        .frame(width: 30, height: 30) // Ensure circle size is consistent
+        .frame(width: 40, height: 40) // Ensure circle size is consistent
     }
     
     // Determine if this date should be highlighted based on the medication schedule
@@ -158,6 +158,20 @@ struct DayView: View {
             calendar.isDate(status.date!, inSameDayAs: date)
         })
     }
+    
+    /*private var isMedicationDate: Bool {
+            let calendar = Calendar.current
+            // Assuming medication.dateStatusArray is a list of dates when medication needs to be taken.
+            let isTaken = medication.dateStatusArray.contains(where: { status in
+                calendar.isDate(status.date!, inSameDayAs: date) && status.taken
+            })
+            
+            let isScheduled = medication.dateStatusArray.contains(where: { status in
+                calendar.isDate(status.date!, inSameDayAs: date)
+            })
+
+            return isScheduled && isTaken
+        }*/
 }
 
 

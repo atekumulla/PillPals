@@ -13,6 +13,7 @@
 		8816C5132B0A7EC000DEFAEE /* PillPalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C5122B0A7EC000DEFAEE /* PillPalsTests.swift */; };
 		8816C51D2B0A7EC000DEFAEE /* PillPalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */; };
 		8816C51F2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */; };
+		8850A8EE2BB0A751009D7DEC /* ExportMedicationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8850A8ED2BB0A751009D7DEC /* ExportMedicationInfoView.swift */; };
 		AC0952E22B7D97A200AB202A /* PillPalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0952E12B7D97A200AB202A /* PillPalsView.swift */; };
 		AC0952E42B7D982800AB202A /* CaregiverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0952E32B7D982800AB202A /* CaregiverView.swift */; };
 		AC153E472BAE701A004BD9C7 /* Medication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC153E462BAE701A004BD9C7 /* Medication+CoreDataProperties.swift */; };
@@ -100,6 +101,7 @@
 		8816C5182B0A7EC000DEFAEE /* PillPalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PillPalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8816C51C2B0A7EC000DEFAEE /* PillPalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITests.swift; sourceTree = "<group>"; };
 		8816C51E2B0A7EC000DEFAEE /* PillPalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8850A8ED2BB0A751009D7DEC /* ExportMedicationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportMedicationInfoView.swift; sourceTree = "<group>"; };
 		AC0952E12B7D97A200AB202A /* PillPalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalsView.swift; sourceTree = "<group>"; };
 		AC0952E32B7D982800AB202A /* CaregiverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregiverView.swift; sourceTree = "<group>"; };
 		AC153E462BAE701A004BD9C7 /* Medication+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				ACAB78262B0B192100C5F191 /* SelectedDaysView.swift */,
 				AC784BE22B75E07A0037C9F9 /* MedicationListView.swift */,
 				AC0952E32B7D982800AB202A /* CaregiverView.swift */,
+				8850A8ED2BB0A751009D7DEC /* ExportMedicationInfoView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				AC63C7DA2BA277E200780A5E /* MedicationDateStatus+CoreDataClass.swift in Sources */,
 				AC63C7DB2BA277E200780A5E /* MedicationDateStatus+CoreDataProperties.swift in Sources */,
 				AC63C7DC2BA277E200780A5E /* Medication+CoreDataClass.swift in Sources */,
+				8850A8EE2BB0A751009D7DEC /* ExportMedicationInfoView.swift in Sources */,
 				ACD0CB422B1819F300864625 /* MedCodableDataStore.swift in Sources */,
 				ACAB78272B0B192100C5F191 /* SelectedDaysView.swift in Sources */,
 				AC153E472BAE701A004BD9C7 /* Medication+CoreDataProperties.swift in Sources */,
@@ -700,7 +704,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PillPals/Preview Content\"";
-				DEVELOPMENT_TEAM = 8VNWQXUY4G;
+				DEVELOPMENT_TEAM = L2B365UZAF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -730,7 +734,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PillPals/Preview Content\"";
-				DEVELOPMENT_TEAM = 8VNWQXUY4G;
+				DEVELOPMENT_TEAM = L2B365UZAF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -831,7 +835,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PillPalsWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 8VNWQXUY4G;
+				DEVELOPMENT_TEAM = L2B365UZAF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PillPalsWatch;
@@ -861,7 +865,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PillPalsWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 8VNWQXUY4G;
+				DEVELOPMENT_TEAM = L2B365UZAF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PillPalsWatch;

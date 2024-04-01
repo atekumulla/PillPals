@@ -17,46 +17,41 @@ struct MedicationDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 // Displaying the medication details that were previously in HeaderView
-                Text(medication.name ?? "Medication Name")
-                    .font(.headline)
-                    .foregroundColor(.primary)
+                /*HStack {
+                 Image(systemName: "pills")
+                 .foregroundColor(.secondary)
+                 .font(.largeTitle)
+                 
+                 Text(medication.name ?? "Medication Name")
+                 .font(.largeTitle)
+                 .foregroundColor(.primary)
+                 .bold()
+                 }*/
                 
-                HStack {
-                    Image(systemName: "pills")
-                        .foregroundColor(.secondary)
-                        .font(.subheadline)
-                    
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Time To Take \(medication.timeToTake?.formatted(date: .omitted, time: .shortened) ?? "")")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        Text("Start Date \(formatDate(medication.startDate))")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        Text("End Date \(formatDate(medication.endDate))")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                }
-                .padding(.bottom, 20)
+                
                 
                 // Dosage and other medication details
                 MedicationDetailsView(medication: medication)
                 
                 Divider()
                 
-                DatesToTakeCalendarView(medication: medication)
-                    .padding()
-                
                 DisclosureGroup("Dosing Schedule", isExpanded: $isDatesListExpanded) {
                     DosingScheduleView(medication: medication)
                 }
-                .accentColor(.primary)
+                
+                Divider()
+                
+                DatesToTakeCalendarView(medication: medication)
+                    .padding()
+                
+                
+                //.accentColor(.primary)
             }
             .padding()
         }
+        .navigationTitle(medication.name!)
+        .navigationBarTitleDisplayMode(.large)
+        
     }
     
     
@@ -183,30 +178,42 @@ struct MedicationDetailsView: View {
     var medication: Medication
     
     var body: some View {
-        HStack {
-            Text("Dosage")
+        VStack(spacing: 15) { // Increased spacing between elements
+            /*Text(medication.name!)
                 .bold()
-            Spacer()
-            Text("\(medication.dosage?.amount ?? 0, specifier: "%.1f") \(medication.dosage?.unit ?? "Unit")")
+                .foregroundColor(.primary)
+                .padding(.bottom, 5) // Add padding below the name for more separation*/
+            
+            //Divider()
+            
+            detailRow(title: "Time to Take:", value: medication.timeToTake?.formatted(date: .omitted, time: .shortened) ?? "N/A")
+            
+            Divider()
+            
+            detailRow(title: "Dosage:", value: "\(medication.dosage?.amount ?? 0) \(medication.dosage?.unit ?? "Unit")")
+            
+            Divider()
+            
+            detailRow(title: "Start Date:", value: formatDate(medication.startDate))
+            
+            Divider()
+            
+            detailRow(title: "End Date:", value: formatDate(medication.endDate))
         }
+        .padding() // Adjust overall padding as needed
+        .background(Color.blue.opacity(0.4))
+        .cornerRadius(10)
+        .padding(.horizontal, 5) // Optionally add some horizontal padding to the entire card
     }
-}
-
-struct DosingScheduleView: View {
-    var medication: Medication
     
-    var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            ForEach(medication.dateStatusArray, id: \.date) { dateStatus in
-                HStack {
-                    Text(formatDate(dateStatus.date))
-                    Spacer()
-                    Image(systemName: dateStatus.taken ? "checkmark.circle.fill" : "circle")
-                        .foregroundColor(dateStatus.taken ? .green : .gray)
-                }
-            }
+    private func detailRow(title: String, value: String) -> some View {
+        HStack {
+            Text(title)
+                .bold()
+                .foregroundColor(.primary)
+            Spacer()
+            Text(value)
         }
-        .padding()
     }
     
     private func formatDate(_ date: Date?) -> String {
@@ -217,6 +224,50 @@ struct DosingScheduleView: View {
         return formatter.string(from: date)
     }
 }
+
+
+struct DosingScheduleView: View {
+    var medication: Medication
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        let sortedDateStatusArray = medication.dateStatusArray.sorted {
+            $0.date! < $1.date!
+        }
+        
+        return VStack(alignment: .leading, spacing: 8) {
+            ForEach(sortedDateStatusArray, id: \.date) { dateStatus in
+                HStack {
+                    Circle()
+                        .frame(width: 10, height: 10)
+                        .foregroundColor(dateStatus.taken ? .green : .red)
+                    Text(formatDate(dateStatus.date!))
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                    Spacer()
+                    Text(dateStatus.taken ? "Taken" : "Missed")
+                        .foregroundColor(dateStatus.taken ? .green : .red)
+                        .bold()
+                    Image(systemName: dateStatus.taken ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundColor(dateStatus.taken ? .green : .red)
+                }
+                .padding(.vertical, 4)
+            }
+        }
+        .padding()
+        .background(Color.blue.opacity(0.40))
+        .cornerRadius(10)
+        .padding(.horizontal, 5)
+    }
+    
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
+    }
+}
+
+
 
 struct BackButton: View {
     @Environment(\.presentationMode) var presentationMode
@@ -233,3 +284,35 @@ struct BackButton: View {
         }
     }
 }
+/*
+ struct EnhancedDosingScheduleView: View {
+ var medication: Medication
+ @State private var isExpanded = false
+ 
+ var body: some View {
+ DisclosureGroup(
+ isExpanded: $isExpanded,
+ content: {
+ DosingScheduleView(medication: medication)
+ },
+ label: {
+ HStack {
+ Text("Dosing Schedule")
+ .font(.headline)
+ .foregroundColor(.white)
+ Spacer()
+ Image(systemName: "chevron.right.circle")
+ .imageScale(.large)
+ .rotationEffect(.degrees(isExpanded ? 90 : 0))
+ .foregroundColor(.white)
+ }
+ .padding()
+ .background(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
+ .cornerRadius(10)
+ .shadow(radius: 3)
+ })
+ .accentColor(.white)
+ .padding([.horizontal, .top])
+ }
+ }
+ */
