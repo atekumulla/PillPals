@@ -11,8 +11,12 @@ import SwiftUI
 struct CaregiverView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showingAddMedicationView = false
+<<<<<<< HEAD
     @Environment(\.managedObjectContext) var moc
 
+=======
+    
+>>>>>>> 38c181ca62634a87272af1e1e34bbcf4f67c45b1
     var body: some View {
         NavigationView {
             VStack {
@@ -26,6 +30,18 @@ struct CaregiverView: View {
                     RoundedRectangleButton(label: "Export Medication Info")
                 }
                 
+<<<<<<< HEAD
+=======
+//                NavigationLink(destination: AddMedicationView()()) {
+//                    RoundedRectangleButton(label: "Add New Medication")
+//                }
+                
+                Button(action: {
+                    showingAddMedicationView = true
+                }) {
+                    RoundedRectangleButton(label: "Add New Medication")
+                }
+>>>>>>> 38c181ca62634a87272af1e1e34bbcf4f67c45b1
 
                 
                 //                NavigationLink(destination: AddMedicationView()()) {

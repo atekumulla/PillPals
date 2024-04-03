@@ -154,7 +154,7 @@ struct HomeView: View {
             //.background(Color.gray.opacity(0.3))
             .navigationTitle("Hello!")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     // Add this line for the Edit button
                     //EditButton()
                     Button(action: {
@@ -163,6 +163,7 @@ struct HomeView: View {
                         Image(systemName: "person.badge.key.fill")
                     }
                 }
+<<<<<<< HEAD
                 /*ToolbarItem(placement: .navigationBarTrailing) {
                  Button(action: {
                  showingAddMedicationView = true
@@ -170,6 +171,15 @@ struct HomeView: View {
                  Image(systemName: "plus")
                  }
                  }*/
+=======
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button(action: {
+//                        showingAddMedicationView = true
+//                    }) {
+//                        Image(systemName: "plus")
+//                    }
+//                }
+>>>>>>> 38c181ca62634a87272af1e1e34bbcf4f67c45b1
             }
         }
         .onAppear(perform: handleAppear)
@@ -290,7 +300,11 @@ struct MedicationView: View {
                             .font(.largeTitle)
                             .foregroundColor(.black)
                             .bold()
+<<<<<<< HEAD
                         Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(medication.dosage!.unit!))")
+=======
+                        Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(describing: medication.dosage!.unit ?? "Unknown"))")
+>>>>>>> 38c181ca62634a87272af1e1e34bbcf4f67c45b1
                             .font(.title3)
                             .foregroundColor(.black)
                         /*Text("\(String(format: "%.1f", medication.dosage!.amount)) \(medication.dosage.unit.rawValue)")
