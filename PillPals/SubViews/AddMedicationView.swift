@@ -30,10 +30,31 @@ struct AddMedicationView: View {
     @State private var timeToTake = Date()
     @State private var color: Color = Color(red: 180.0/255.0, green: 200.0/255.0, blue: 220.0/255.0)
     
+    @State private var showValidationAlert = false
+
+    
+    @State private var nameIsEmpty = false
+    @State private var dosageAmountIsEmpty = false
+    @State private var selectedDaysIsEmpty = false
+    
     var bounds: Range<Date> {
         let start = min(startDate, endDate)
         let end = max(startDate, endDate)
         return start..<Calendar.current.date(byAdding: .day, value: 1, to: end)!
+    }
+    
+    private func getValidationMessage() -> String {
+        var message = ""
+        if nameIsEmpty {
+            message += "Please enter a medication name.\n"
+        }
+        if dosageAmountIsEmpty {
+            message += "Please enter a dosage amount.\n"
+        }
+        if selectedDaysIsEmpty {
+            message += "Please select at least one day of the week."
+        }
+        return message
     }
     
     var body: some View {
@@ -122,7 +143,14 @@ struct AddMedicationView: View {
                 // presentationMode.wrappedValue.dismiss()
                 createMedication()
             })
+            .alert(isPresented: $showValidationAlert) {
+                Alert(title: Text("Required Fields Missing"),
+                      message: Text(getValidationMessage()),
+                      dismissButton: .default(Text("OK")))
+            }
+
         }
+        
     }
     
     private func hideKeyboard() {
@@ -130,6 +158,18 @@ struct AddMedicationView: View {
     }
     
     private func createMedication() {
+        
+        nameIsEmpty = name.isEmpty
+        dosageAmountIsEmpty = dosageAmountString.isEmpty
+        selectedDaysIsEmpty = selectedWeekDays.isEmpty
+
+        if (nameIsEmpty || dosageAmountIsEmpty || selectedDaysIsEmpty) {
+                // Set the flag to show the validation alert.
+                showValidationAlert = true
+                return
+        }
+    
+        
         let newMedication = Medication(context: moc)
         newMedication.id = UUID()
         newMedication.name = name

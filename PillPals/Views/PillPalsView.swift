@@ -54,6 +54,7 @@ struct PillPalsView: View {
                     .listStyle(PlainListStyle())
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarTitle("PillPals", displayMode: .large)
             .navigationBarItems(trailing:
                 Button(action: {
@@ -75,6 +76,7 @@ struct PillPalsView: View {
                 AddEmergencyContactView(viewModel: viewModel, isPresented: $showingAddContactSheet)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

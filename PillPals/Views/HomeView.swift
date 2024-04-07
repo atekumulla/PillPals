@@ -41,8 +41,9 @@ struct HomeView: View {
     
     
     @StateObject var notificationManager = NotificationManager.shared
-    // @State private var showingAddMedicationView = false
-    @State private var showingCaregiverView = false
+    @State private var showingAddMedicationView = false
+    // @State private var showingCaregiverView = false
+    @State private var navigateToCaregiverView = false
     @Environment(\.scenePhase) private var scenePhase
     @State private var showDeleteConfirmation = false
     @State private var indexSetToDelete: IndexSet?
@@ -154,24 +155,22 @@ struct HomeView: View {
             //.background(Color.gray.opacity(0.3))
             .navigationTitle("Hello!")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
                     // Add this line for the Edit button
                     //EditButton()
                     Button(action: {
-                        showingCaregiverView = true
+                        navigateToCaregiverView = true
                     }) {
                         Image(systemName: "person.badge.key.fill")
                     }
                 }
-<<<<<<< HEAD
-                /*ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                  Button(action: {
                  showingAddMedicationView = true
                  }) {
                  Image(systemName: "plus")
                  }
-                 }*/
-=======
+                 }
 //                ToolbarItem(placement: .navigationBarTrailing) {
 //                    Button(action: {
 //                        showingAddMedicationView = true
@@ -179,8 +178,13 @@ struct HomeView: View {
 //                        Image(systemName: "plus")
 //                    }
 //                }
->>>>>>> 38c181ca62634a87272af1e1e34bbcf4f67c45b1
             }
+            .background(
+                NavigationLink(destination: CaregiverView().environment(\.managedObjectContext, self.moc),
+                               isActive: $navigateToCaregiverView) {
+                    EmptyView()
+                }
+            )
         }
         .onAppear(perform: handleAppear)
         .onChange(of: notificationManager.selectedMedicationId, perform: handleSelectedMedicationIdChange)
@@ -191,13 +195,9 @@ struct HomeView: View {
                 LogMedicationSheet(medication: medication, isPresented: $showingLogMedicationView)
             }
         }
-        /*.sheet(isPresented: $showingAddMedicationView) {
-         AddMedicationView()
-         }*/
-        .sheet(isPresented: $showingCaregiverView) {
-            CaregiverView()
-                .environment(\.managedObjectContext, self.moc) // Pass the managedObjectContext explicitly
-        }
+        .sheet(isPresented: $showingAddMedicationView) {
+            AddMedicationView()
+         }
         .sheet(isPresented: $showingLogSheet) {
             if let medication = medicationToLog {
                 
@@ -300,11 +300,7 @@ struct MedicationView: View {
                             .font(.largeTitle)
                             .foregroundColor(.black)
                             .bold()
-<<<<<<< HEAD
-                        Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(medication.dosage!.unit!))")
-=======
                         Text("\(String(format: "%.1f", medication.dosage!.amount)) \(String(describing: medication.dosage!.unit ?? "Unknown"))")
->>>>>>> 38c181ca62634a87272af1e1e34bbcf4f67c45b1
                             .font(.title3)
                             .foregroundColor(.black)
                         /*Text("\(String(format: "%.1f", medication.dosage!.amount)) \(medication.dosage.unit.rawValue)")

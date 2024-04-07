@@ -54,6 +54,7 @@ struct ExportMedicationInfoView: View {
             Spacer()
         }
         .padding()
+        .environment(\.managedObjectContext, moc)
     }
     
     func exportMedicationHistory() {

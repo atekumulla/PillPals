@@ -7,67 +7,33 @@
 
 import Foundation
 import SwiftUI
-
 struct CaregiverView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showingAddMedicationView = false
-<<<<<<< HEAD
     @Environment(\.managedObjectContext) var moc
 
-=======
-    
->>>>>>> 38c181ca62634a87272af1e1e34bbcf4f67c45b1
     var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink(destination: CaregiverCalendarView()) {
-                    RoundedRectangleButton(label: "Calendar")
-                }
-                .environment(\.managedObjectContext, self.moc)
-                
-                
-                NavigationLink(destination: ExportMedicationInfoView()) {
-                    RoundedRectangleButton(label: "Export Medication Info")
-                }
-                
-<<<<<<< HEAD
-=======
-//                NavigationLink(destination: AddMedicationView()()) {
-//                    RoundedRectangleButton(label: "Add New Medication")
-//                }
-                
-                Button(action: {
-                    showingAddMedicationView = true
-                }) {
-                    RoundedRectangleButton(label: "Add New Medication")
-                }
->>>>>>> 38c181ca62634a87272af1e1e34bbcf4f67c45b1
-
-                
-                //                NavigationLink(destination: AddMedicationView()()) {
-                //                    RoundedRectangleButton(label: "Add New Medication")
-                //                }
-                
-                Button(action: {
-                    showingAddMedicationView = true
-                }) {
-                    RoundedRectangleButton(label: "Add New Medication")
-                }
-                
-                Spacer()
+        ScrollView {
+            NavigationLink(destination: CaregiverCalendarView().environment(\.managedObjectContext, self.moc)) {
+                RoundedRectangleButton(label: "Calendar")
             }
-            .navigationBarTitle("Caregiver", displayMode: .large)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Exit") {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
+            
+            NavigationLink(destination: ExportMedicationInfoView().environment(\.managedObjectContext, self.moc)) {
+                RoundedRectangleButton(label: "Export Medication Info")
             }
+            
+            Button(action: {
+                showingAddMedicationView = true
+            }) {
+                RoundedRectangleButton(label: "Add New Medication")
+            }
+            .sheet(isPresented: $showingAddMedicationView) {
+                AddMedicationView().environment(\.managedObjectContext, self.moc)
+            }
+            
+            Spacer()
         }
-        .sheet(isPresented: $showingAddMedicationView) {
-            AddMedicationView()
-        }
+        .navigationBarTitle("Caregiver")
     }
 }
 
@@ -77,7 +43,7 @@ struct RoundedRectangleButton: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .frame(height: 80)
-            .foregroundColor(Color.gray.opacity(0.2)) // Adjust color as needed
+            .foregroundColor(Color.gray.opacity(0.2))
             .overlay(
                 HStack {
                     Spacer()
@@ -91,6 +57,7 @@ struct RoundedRectangleButton: View {
             .padding()
     }
 }
+
 
 //struct AddMedicationView: View {
 //    var body: some View {

@@ -140,6 +140,7 @@ struct UserProfileForm: View {
                 
                 
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarTitle("User Profile")
             .navigationBarItems(trailing: EditButton())
             .alert(isPresented: $showingDeleteAlert) {
@@ -158,7 +159,9 @@ struct UserProfileForm: View {
             
             
             
-        } // End of NavigationView
+        } 
+        .navigationViewStyle(StackNavigationViewStyle())
+        // End of NavigationView
         /*.sheet(isPresented: $showingAddMedication) {
          //AddMedicationView(medications: $medications)
          AddMedicationView(medications: $medications) { newMedication in
